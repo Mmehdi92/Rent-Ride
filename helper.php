@@ -48,4 +48,21 @@ function loadPartial($name)
         echo "Partials {$name} not found";
     };
 }
+
+/**Inspect a value
+ * @param mixed $value
+ * @return void
+ */
+function inspect($value){
+    echo '<pre>';
+    var_dump($value);
+    echo '</pre>';
+}
+
+
+
+function inspectAndDie($value){
+    inspect($value);
+    die();
+}   
 ?>
