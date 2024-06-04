@@ -1,6 +1,6 @@
 <?= loadPartial('head'); ?>
 <?= loadPartial('navbar'); ?>
-<?= loadPartial('/dashboard/verhuurder/addBoot'); ?>
+<?= loadPartial('/dashboard/verhuurder/addOnderneming'); ?>
 
 
 <?= loadPartial('footer'); ?>

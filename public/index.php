@@ -7,6 +7,7 @@ $routes = [
     '/onze-voertuigen/create-auto' => 'controllers/onze-voertuigen/create/create-auto.php',
     '/onze-voertuigen/create-boot' => 'controllers/onze-voertuigen/create/create-boot.php',
     '/onze-voertuigen/create-fiets' => 'controllers/onze-voertuigen/create/create-fiets.php',
+    '/onderneming/create' => 'controllers/onderneming/create-onderneming.php',
     '/about' => 'controllers/about.php',
     '/contact' => 'controllers/contact.php',
     '404' => 'controllers/error/404.php'
