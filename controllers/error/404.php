@@ -1,3 +1,5 @@
 <?php 
 
-loadView('error');
+loadView('error/404');
+
+?>
