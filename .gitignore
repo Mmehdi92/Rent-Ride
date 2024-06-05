@@ -1,0 +1,48 @@
+# Ignore node_modules folder
+/node_modules
+
+# Ignore package-lock.json file
+/package-lock.json
+
+# Ignore vendor folder (for Composer dependencies, if using PHP Composer)
+/vendor
+
+# Ignore environment configuration files
+.env
+.env.local
+.env.*.local
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore compiled CSS and JavaScript files (if they are generated)
+public/css/
+public/js/
+
+# Ignore cache files
+cache/
+tmp/
+
+# Ignore npm debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore Tailwind CSS build artifacts
+node_modules
+postcss.config.js
+tailwind.config.js
+
+config/

@@ -1,16 +1,13 @@
 <?= loadPartial('head'); ?>
 <?= loadPartial('navbar'); ?>
 
-
 <section class="p-2">
-
     <div class="flex items-center justify-center">
         <form action="search.php" method="GET" class="flex flex-row gap-2 mx-auto ">
-
             <input type="text" name="keyword" placeholder="Search..." class="p-2 border rounded-md focus:outline-blue-700 focus:bg-yellow-400 focus:font-semibold">
             <button type="submit" class="p-1 text-sm duration-300 bg-gray-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Search</button>
         </form>
-        
+
         <!-- Tijdelijk shortcut naar bepaalde create pagina's -->
         <div class="gap-4 bg-gray-200 border">
             <a href="/onze-voertuigen/create-auto" class="hover:underline"> create auto</a>
@@ -19,14 +16,12 @@
         </div>
     </div>
 
-    <!-- Filtersectie -->
     <div class="container flex flex-col mx-auto mt-8 lg:flex-row">
-
-
-        <!-- Filteropties -->
+        <!-- Filtersectie -->
         <div class="w-full mr-4 lg:w-1/4">
             <h2 class="mb-4 text-lg font-semibold">Filter Options</h2>
             <!-- Filteropties links -->
+            <!-- Filteropties -->
             <div class="mb-6">
                 <h3 class="font-semibold">Car</h3>
                 <ul>
@@ -75,35 +70,61 @@
 
         <!-- Zoekresultaten -->
         <div class="w-full lg:w-3/4">
-            <!-- Prijsfilter -->
-
-
-            <!-- Zoekresultaten -->
             <div class="container mx-auto">
                 <h1 class="text-2xl font-semibold tracking-widest underline underline-offset-1">Search Results</h1>
-                <!-- Voorbeeld van zoekresultaten -->
-                <div class="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
-                    <!-- Voorbeeld van een zoekresultaat voor auto -->
-                    <div class="flex items-center w-full p-4 bg-gray-100 border rounded-lg lg:w-1/3">
-                        <!-- Voeg hier informatie toe over het zoekresultaat -->
-                        <p>Car: Sedan, Color: Black, Model: ABC123</p>
-                    </div>
-                    <!-- Voorbeeld van een zoekresultaat voor fiets -->
-                    <div class="flex items-center w-full p-4 bg-gray-100 border rounded-lg lg:w-1/3">
-                        <!-- Voeg hier informatie toe over het zoekresultaat -->
-                        <p>Bike: Mountain Bike, Color: Red, Model: XYZ456</p>
-                    </div>
-                    <!-- Voorbeeld van een zoekresultaat voor boot -->
-                    <div class="flex items-center w-full p-4 bg-gray-100 border rounded-lg lg:w-1/3">
-                        <!-- Voeg hier informatie toe over het zoekresultaat -->
-                        <p>Boat: Yacht, Length: 10 meters, Type: Sailboat</p>
-                    </div>
-                    <!-- Herhaal deze structuur voor elk zoekresultaat -->
+                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <!-- Zoekresultaten voor fiets -->
+                    <?php foreach ($listingFiets as $fiets) : ?>
+                        <div class="overflow-hidden bg-white rounded-lg shadow-md">
+                            <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?bicycle" alt="Fiets afbeelding">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800"><?= $fiets['Type'] ?></h3>
+                                <p class="text-gray-600">Model: <?= $fiets['Model'] ?></p>
+                                <p class="text-gray-600">Kleur: <?= $fiets['Kleur'] ?></p>
+                                <p class="mt-2 font-bold text-gray-900">$<?= $fiets['PrijsPerDag'] ?> per dag</p>
+                                <div class="flex justify-end mt-4">
+                                    <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <!-- Zoekresultaten voor auto -->
+                    <?php foreach ($listingAuto as $auto) : ?>
+                        <div class="overflow-hidden bg-white rounded-lg shadow-md">
+                            <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?car" alt="Auto afbeelding">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800"><?= $auto['Model'] ?></h3>
+                                <p class="text-gray-600">Model: <?= $auto['Model'] ?></p>
+                                <p class="text-gray-600">Kleur: <?= $auto['Kleur'] ?></p>
+                                <p class="mt-2 font-bold text-gray-900">$<?= $auto['PrijsPerDag'] ?> per dag</p>
+                                <div class="flex justify-end mt-4">
+                                    <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <!-- Zoekresultaten voor boot -->
+                    <?php foreach ($listingBoot as $boot) : ?>
+                        <div class="overflow-hidden bg-white rounded-lg shadow-md">
+                            <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?boat" alt="Boot afbeelding">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800"><?= $boot['Model'] ?></h3>
+                                <p class="text-gray-600">Model: <?= $boot['Model'] ?></p>
+                                <p class="text-gray-600">Lengte: <?= $boot['Lengte'] ?> meters</p>
+                                <p class="mt-2 font-bold text-gray-900">$<?= $boot['PrijsPerDag'] ?> per dag</p>
+                                <div class="flex justify-end mt-4">
+                                    <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
+
         </div>
     </div>
-
 </section>
 
 <?= loadPartial('footer'); ?>
