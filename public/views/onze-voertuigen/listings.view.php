@@ -77,15 +77,16 @@
             <div class="container mx-auto">
                 <h1 class="text-2xl font-semibold tracking-widest underline underline-offset-1">Search Results</h1>
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    <!-- Zoekresultaten voor fiets -->
+                   
+                <!-- Zoekresultaten voor fiets -->
                     <?php foreach ($listingFiets as $fiets) : ?>
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
                             <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?bicycle" alt="Fiets afbeelding">
                             <div class="p-4">
-                                <h3 class="text-lg font-semibold text-gray-800"><?= $fiets['Type'] ?></h3>
-                                <p class="text-gray-600">Model: <?= $fiets['Model'] ?></p>
-                                <p class="text-gray-600">Kleur: <?= $fiets['Kleur'] ?></p>
-                                <p class="mt-2 font-bold text-gray-900">$<?= $fiets['PrijsPerDag'] ?> per dag</p>
+                                <h3 class="text-lg font-semibold text-gray-800"><?= $fiets->getProperty('model') ?></h3>
+                                <p class="text-gray-600"><strong>Model:</strong> <?= $fiets->getProperty('model') ?></p>
+                                <p class="text-gray-600"><strong>Kleur:</strong> <?= $fiets->getProperty('kleur') ?></p>
+                                <p class="mt-2 font-bold text-gray-900">$<?= $fiets->getProperty('prijsPerdag') ?> per dag</p>
                                 <div class="flex justify-end mt-4">
                                     <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
                                 </div>
@@ -100,10 +101,10 @@
                             <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?car" alt="Auto afbeelding">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold text-gray-800"><?= $auto->getProperty('model') ?></h3>
-                                <p class="text-gray-600">Model: <?= $auto->getProperty('model') ?></p>
-                                <p class="text-gray-600">bouwjaar : <?= $auto->getProperty('bouwjaar') ?></p>
-                                <p class="text-gray-600">Kleur: <?= $auto->getProperty('kleur') ?></p>
-                                <p class="text-gray-600">zitplaatsen: <?= $auto->getProperty('zitplaatsen') ?></p>
+                                <p class="text-gray-600"><strong>Model:</strong> <?= $auto->getProperty('model') ?></p>
+                                <p class="text-gray-600"><strong>Bouwjaar:</strong> <?= $auto->getProperty('bouwjaar') ?></p>
+                                <p class="text-gray-600"><strong>Kleur:</strong> <?= $auto->getProperty('kleur') ?></p>
+                                <p class="text-gray-600"><strong>Zitplaatsen:</strong> <?= $auto->getProperty('zitplaatsen') ?></p>
                            
                                 <p class="mt-2 font-bold text-gray-900">$<?= $auto->getProperty('prijsPerdag') ?> per dag</p>
                                 <div class="flex justify-end mt-4">
@@ -118,10 +119,11 @@
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
                             <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?boat" alt="Boot afbeelding">
                             <div class="p-4">
-                                <h3 class="text-lg font-semibold text-gray-800"><?= $boot['Model'] ?></h3>
-                                <p class="text-gray-600">Model: <?= $boot['Model'] ?></p>
-                                <p class="text-gray-600">Lengte: <?= $boot['Lengte'] ?> meters</p>
-                                <p class="mt-2 font-bold text-gray-900">$<?= $boot['PrijsPerDag'] ?> per dag</p>
+                                <h3 class="text-lg font-semibold text-gray-800"><?= $boot->getProperty('model') ?></h3>
+                                <p class="text-gray-600"><strong>Model:</strong> <?= $boot->getProperty('model') ?></p>
+                                <p class="text-gray-600"><strong>Lengte:</strong> <?= $boot->getProperty('lengte') ?> meters</p>
+                                <p class="text-gray-600"><strong>Breedte:</strong> <?= $boot->getProperty('breedte') ?> meters</p>
+                                <p class="mt-2 font-bold text-gray-900">$<?= $boot->getProperty('prijsPerdag') ?> per dag</p>
                                 <div class="flex justify-end mt-4">
                                     <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
                                 </div>

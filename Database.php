@@ -1,4 +1,5 @@
 <?php
+require basePath('config/db.php');
 class Database
 {
     public $conn;

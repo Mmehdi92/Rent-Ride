@@ -7,11 +7,12 @@
 // $listingAuto = $db->query('SELECT * FROM auto INNER JOIN voertuig on voertuig.VoertuigId = auto.Kenteken LIMIT 5;')->fetchAll();
 // $listingBoot = $db->query('SELECT * FROM boot INNER JOIN voertuig on voertuig.VoertuigId = boot.BootId LIMIT 5;')->fetchAll();
 
-require basePath('models/Car.php');
+require_once basePath('models/Car.php');
+require_once basePath('models/Boat.php');
+require_once basePath('models/Bycicle.php');
 $listingAuto = Car::getMany();
-
-$listingFiets = [];
-$listingBoot = [];
+$listingBoot = Boat::getMany();
+$listingFiets = Bycicle::getMany();
 
 
 loadView('onze-voertuigen/listings' , [

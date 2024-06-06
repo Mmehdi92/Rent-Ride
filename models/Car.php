@@ -50,10 +50,11 @@ class Car extends Vehicle
         $config = require basePath('config/db.php');
         $db = new Database($config);
         $listingAuto = $db->query(' SELECT * FROM auto INNER JOIN voertuig ON voertuig.voertuigId = auto.autoId limit 5;')->fetchAll();
-        inspect($listingAuto);
+ 
         $carsArray = [];
+
         foreach ($listingAuto as $car) {
-            inspect($car);
+           
             $carsArray[] = new Car(
                 $car->VoertuigId,  // voertuigId
                 $car->OndernemingId,
@@ -71,7 +72,9 @@ class Car extends Vehicle
                 $car->Aandrijving
             );
         }
+ 
         return $carsArray;
+      
     }
 
 
@@ -81,3 +84,8 @@ class Car extends Vehicle
         return $this->$property;
     }
 }
+
+
+
+
+
