@@ -99,10 +99,13 @@
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
                             <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?car" alt="Auto afbeelding">
                             <div class="p-4">
-                                <h3 class="text-lg font-semibold text-gray-800"><?= $auto->genericGetProperty('model') ?></h3>
-                                <p class="text-gray-600">Model: <?= $auto->genericGetProperty('model') ?></p>
-                                <p class="text-gray-600">Kleur: <?= $auto->genericGetProperty('kleur') ?></p>
-                                <p class="mt-2 font-bold text-gray-900">$<?= $auto->genericGetProperty('prijsPerDag') ?> per dag</p>
+                                <h3 class="text-lg font-semibold text-gray-800"><?= $auto->getProperty('model') ?></h3>
+                                <p class="text-gray-600">Model: <?= $auto->getProperty('model') ?></p>
+                                <p class="text-gray-600">bouwjaar : <?= $auto->getProperty('bouwjaar') ?></p>
+                                <p class="text-gray-600">Kleur: <?= $auto->getProperty('kleur') ?></p>
+                                <p class="text-gray-600">zitplaatsen: <?= $auto->getProperty('zitplaatsen') ?></p>
+                           
+                                <p class="mt-2 font-bold text-gray-900">$<?= $auto->getProperty('prijsPerdag') ?> per dag</p>
                                 <div class="flex justify-end mt-4">
                                     <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
                                 </div>
