@@ -26,8 +26,10 @@ abstract class Vehicle{
         $this->actief = $actief;
 
     }
+    
 
 }
+
 
 
 ?>

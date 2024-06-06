@@ -1,6 +1,3 @@
-
-
-
 <?= loadPartial('head'); ?>
 <?= loadPartial('navbar'); ?>
 
@@ -77,14 +74,14 @@
             <div class="container mx-auto">
                 <h1 class="text-2xl font-semibold tracking-widest underline underline-offset-1">Search Results</h1>
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                   
-                <!-- Zoekresultaten voor fiets -->
+
+                    <!-- Zoekresultaten voor fiets -->
                     <?php foreach ($listingFiets as $fiets) : ?>
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
                             <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?bicycle" alt="Fiets afbeelding">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold text-gray-800"><?= $fiets->getProperty('model') ?></h3>
-                                <p class="text-gray-600"><strong>Model:</strong> <?= $fiets->getProperty('model') ?></p>
+                                <p class="text-gray-600"><strong>Model:</strong> <?= $fiets->getProperty('typeFiets') ?></p>
                                 <p class="text-gray-600"><strong>Kleur:</strong> <?= $fiets->getProperty('kleur') ?></p>
                                 <p class="mt-2 font-bold text-gray-900">$<?= $fiets->getProperty('prijsPerdag') ?> per dag</p>
                                 <div class="flex justify-end mt-4">
@@ -96,7 +93,7 @@
 
                     <!-- Zoekresultaten voor auto -->
                     <?php foreach ($listingAuto as $auto) : ?>
-                     
+
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
                             <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?car" alt="Auto afbeelding">
                             <div class="p-4">
@@ -105,7 +102,7 @@
                                 <p class="text-gray-600"><strong>Bouwjaar:</strong> <?= $auto->getProperty('bouwjaar') ?></p>
                                 <p class="text-gray-600"><strong>Kleur:</strong> <?= $auto->getProperty('kleur') ?></p>
                                 <p class="text-gray-600"><strong>Zitplaatsen:</strong> <?= $auto->getProperty('zitplaatsen') ?></p>
-                           
+
                                 <p class="mt-2 font-bold text-gray-900">$<?= $auto->getProperty('prijsPerdag') ?> per dag</p>
                                 <div class="flex justify-end mt-4">
                                     <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
