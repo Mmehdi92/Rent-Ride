@@ -1,18 +1,16 @@
 <?php
-// require_once basePath('models/Car.php');
-// $config = require basePath('config/db.php');
-
-// $db = new Database($config);
-// $listingFiets = $db->query('SELECT * FROM fiets INNER JOIN voertuig on voertuig.VoertuigId = fiets.FietsId LIMIT 5 ;')->fetchAll();
-// $listingAuto = $db->query('SELECT * FROM auto INNER JOIN voertuig on voertuig.VoertuigId = auto.Kenteken LIMIT 5;')->fetchAll();
-// $listingBoot = $db->query('SELECT * FROM boot INNER JOIN voertuig on voertuig.VoertuigId = boot.BootId LIMIT 5;')->fetchAll();
-
 require_once basePath('models/Car.php');
 require_once basePath('models/Boat.php');
 require_once basePath('models/Bycicle.php');
-$listingAuto = Car::getMany();
-$listingBoot = Boat::getMany();
-$listingFiets = Bycicle::getMany();
+
+$config = require basePath('config/db.php');
+$db = new Database($config);
+
+
+//Dependency Injection  use 1 instance of Database class for all models
+$listingAuto = Car::getMany($db);
+$listingBoot = Boat::getMany($db);
+$listingFiets = Bycicle::getMany($db);
 
 
 loadView('onze-voertuigen/listings' , [

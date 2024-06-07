@@ -50,32 +50,70 @@ class Boat extends Vehicle
 
 
 
-    public static function getMany()
+    public static function getMany($db)
     {
-        $config = require basePath('config/db.php');
-        $db = new Database($config);
-        $listingBoot = $db->query('SELECT * FROM boot INNER JOIN voertuig on voertuig.VoertuigId = boot.BootId LIMIT 5;')->fetchAll();
+        try {
+            $listingBoot = $db->query('SELECT * FROM boot INNER JOIN voertuig ON voertuig.VoertuigId = boot.BootId LIMIT 5;')->fetchAll();
 
-        $boatsArray = [];
+            $boatsArray = [];
 
-        foreach ($listingBoot as $boat) {
-            $boatsArray[] = new Boat(
-                $boat->VoertuigId,
-                $boat->OndernemingId,
-                $boat->Kleur,
-                $boat->Model,
-                $boat->Bouwjaar,
-                $boat->Zitplaatsen,
-                $boat->PrijsPerDag,
-                $boat->Actief,
-                $boat->BootId,
-                $boat->Lengte,
-                $boat->Breedte,
-                $boat->TypeAandrijving,
-                $boat->Vaarbewijs
-            );
+            foreach ($listingBoot as $boat) {
+                $boatsArray[] = new Boat(
+                    $boat->VoertuigId,
+                    $boat->OndernemingId,
+                    $boat->Kleur,
+                    $boat->Model,
+                    $boat->Bouwjaar,
+                    $boat->Zitplaatsen,
+                    $boat->PrijsPerDag,
+                    $boat->Actief,
+                    $boat->BootId,
+                    $boat->Lengte,
+                    $boat->Breedte,
+                    $boat->TypeAandrijving,
+                    $boat->Vaarbewijs
+                );
+            }
+
+            return $boatsArray;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+            return [];
         }
+    }
 
-        return $boatsArray;
+    public static function getOne($db, $id)
+    {
+        try {
+            $boat = $db->query('SELECT * FROM boot 
+                                INNER JOIN voertuig 
+                                ON voertuig.VoertuigId = boot.BootId 
+                                WHERE voertuig.VoertuigId = :id', ['id' => $id])->fetch();
+
+            if ($boat) {
+                return new Boat(
+                    $boat->VoertuigId,
+                    $boat->OndernemingId,
+                    $boat->Kleur,
+                    $boat->Model,
+                    $boat->Bouwjaar,
+                    $boat->Zitplaatsen,
+                    $boat->PrijsPerDag,
+                    $boat->Actief,
+                    $boat->BootId,
+                    $boat->Lengte,
+                    $boat->Breedte,
+                    $boat->TypeAandrijving,
+                    $boat->Vaarbewijs
+                );
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+        }
     }
 }

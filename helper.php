@@ -65,4 +65,9 @@ function inspectAndDie($value){
     inspect($value);
     die();
 }   
+
+
+function formatPrice($price){
+    return '€' . number_format(floatval($price), 2, ',', '.');
+}
 ?>

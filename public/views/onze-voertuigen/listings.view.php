@@ -83,9 +83,9 @@
                                 <h3 class="text-lg font-semibold text-gray-800"><?= $fiets->getProperty('model') ?></h3>
                                 <p class="text-gray-600"><strong>Model:</strong> <?= $fiets->getProperty('typeFiets') ?></p>
                                 <p class="text-gray-600"><strong>Kleur:</strong> <?= $fiets->getProperty('kleur') ?></p>
-                                <p class="mt-2 font-bold text-gray-900">$<?= $fiets->getProperty('prijsPerdag') ?> per dag</p>
+                                <p class="mt-2 font-bold text-gray-900"><?= formatPrice($fiets->getProperty('prijsPerdag')) ?> per dag</p>
                                 <div class="flex justify-end mt-4">
-                                    <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
+                                    <a  href="/onze-voertuigen/details/show-bycicle?id=<?=$fiets->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
                                 </div>
                             </div>
                         </div>
@@ -103,9 +103,11 @@
                                 <p class="text-gray-600"><strong>Kleur:</strong> <?= $auto->getProperty('kleur') ?></p>
                                 <p class="text-gray-600"><strong>Zitplaatsen:</strong> <?= $auto->getProperty('zitplaatsen') ?></p>
 
-                                <p class="mt-2 font-bold text-gray-900">$<?= $auto->getProperty('prijsPerdag') ?> per dag</p>
+                                <p class="mt-2 font-bold text-gray-900"><?= formatPrice($auto->getProperty('prijsPerdag')) ?> per dag</p>
                                 <div class="flex justify-end mt-4">
-                                    <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
+                                    
+                                    <!-- Maak controller aan voor show-car-detials route ******** is gedaan *****  -->
+                                    <a href="/onze-voertuigen/details/show-car?id=<?=$auto->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
                                 </div>
                             </div>
                         </div>
@@ -120,9 +122,9 @@
                                 <p class="text-gray-600"><strong>Model:</strong> <?= $boot->getProperty('model') ?></p>
                                 <p class="text-gray-600"><strong>Lengte:</strong> <?= $boot->getProperty('lengte') ?> meters</p>
                                 <p class="text-gray-600"><strong>Breedte:</strong> <?= $boot->getProperty('breedte') ?> meters</p>
-                                <p class="mt-2 font-bold text-gray-900">$<?= $boot->getProperty('prijsPerdag') ?> per dag</p>
+                                <p class="mt-2 font-bold text-gray-900"><?= formatPrice($boot->getProperty('prijsPerdag')) ?> per dag</p>
                                 <div class="flex justify-end mt-4">
-                                    <button class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</button>
+                                    <a href="/onze-voertuigen/details/show-boat?id=<?=$boot->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
                                 </div>
                             </div>
                         </div>

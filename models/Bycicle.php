@@ -39,39 +39,73 @@ class Bycicle extends Vehicle
         $this->typeFiets = $typeFiets;
         $this->remType = $remType;
     }
-
-    public static function getMany()
+    public static function getMany(Database $db)
     {
+        try {
+            $listingFiets = $db->query('SELECT * FROM fiets INNER JOIN voertuig ON voertuig.VoertuigId = fiets.FietsId LIMIT 5;')->fetchAll();
 
-        $config = require basePath('config/db.php');
-        $db = new Database($config);
+            $fietsArray = [];
 
-        $listingFiets = $db->query('SELECT * FROM fiets INNER JOIN voertuig on voertuig.VoertuigId = fiets.FietsId LIMIT 5 ;')->fetchAll();
+            foreach ($listingFiets as $fiets) {
+                $fietsArray[] = new Bycicle(
+                    $fiets->VoertuigId,
+                    $fiets->OndernemingId,
+                    $fiets->Kleur,
+                    $fiets->Model,
+                    $fiets->Bouwjaar,
+                    $fiets->Zitplaatsen,
+                    $fiets->PrijsPerDag,
+                    $fiets->Actief,
+                    $fiets->FietsId,
+                    $fiets->Versnelling,
+                    $fiets->Elektrische,
+                    $fiets->Type,
+                    $fiets->RemType
+                );
+            }
 
-        $fietsArray = [];
-
-        foreach ($listingFiets as $fiets) {
-            $fietsArray[] = new Bycicle(
-                $fiets->VoertuigId,
-                $fiets->OndernemingId,
-                $fiets->Kleur,
-                $fiets->Model,
-                $fiets->Bouwjaar,
-                $fiets->Zitplaatsen,
-                $fiets->PrijsPerDag,
-                $fiets->Actief,
-                $fiets->FietsId,
-                $fiets->Versnelling,
-                $fiets->Elektrische,
-                $fiets->Type,
-                $fiets->RemType
-
-            );
+            return $fietsArray;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+            return [];
         }
-        return $fietsArray;
     }
 
-    
+    public static function getOne(Database $db, int $id)
+    {
+        try {
+            $fiets = $db->query('SELECT * FROM fiets 
+                                INNER JOIN voertuig 
+                                ON voertuig.VoertuigId = fiets.FietsId 
+                                WHERE voertuig.VoertuigId = :id', ['id' => $id])->fetch();
+
+            if ($fiets) {
+                return new Bycicle(
+                    $fiets->VoertuigId,
+                    $fiets->OndernemingId,
+                    $fiets->Kleur,
+                    $fiets->Model,
+                    $fiets->Bouwjaar,
+                    $fiets->Zitplaatsen,
+                    $fiets->PrijsPerDag,
+                    $fiets->Actief,
+                    $fiets->FietsId,
+                    $fiets->Versnelling,
+                    $fiets->Elektrische,
+                    $fiets->Type,
+                    $fiets->RemType
+                );
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
+
+
     public function getProperty($property)
     {
         return $this->$property;

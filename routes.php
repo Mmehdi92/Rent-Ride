@@ -21,4 +21,8 @@ $router->get('/onderneming/create', 'controllers/onderneming/create-onderneming.
 $router->get('/about', 'controllers/about.php');
 $router->get('/contact', 'controllers/contact.php');
 
+$router->get('/onze-voertuigen/details/show-car', 'controllers/onze-voertuigen/show-voertuig/show-details-car.php');
+$router->get('/onze-voertuigen/details/show-bycicle', 'controllers/onze-voertuigen/show-voertuig/show-details-bycicle.php');
+$router->get('/onze-voertuigen/details/show-boat', 'controllers/onze-voertuigen/show-voertuig/show-details-boat.php');
+
 ?>

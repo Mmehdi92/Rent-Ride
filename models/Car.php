@@ -45,38 +45,76 @@ class Car extends Vehicle
     }
 
 
-    public static function getMany()
+    public static function getMany($db)
     {
-        $config = require basePath('config/db.php');
-        $db = new Database($config);
-        $listingAuto = $db->query(' SELECT * FROM auto INNER JOIN voertuig ON voertuig.voertuigId = auto.autoId limit 5;')->fetchAll();
- 
-        $carsArray = [];
+        try {
+            $listingAuto = $db->query('SELECT * FROM auto INNER JOIN voertuig ON voertuig.voertuigId = auto.autoId LIMIT 5;')->fetchAll();
 
-        foreach ($listingAuto as $car) {
-           
-            $carsArray[] = new Car(
-                $car->VoertuigId,  // voertuigId
-                $car->OndernemingId,
-                $car->Kleur,
-                $car->Model,
-                $car->Bouwjaar,
-                $car->Zitplaatsen,
-                $car->PrijsPerDag,
-                $car->Actief,
-                $car->AutoId,
-                $car->Kenteken,
-                $car->KofferbakRuimte,
-                $car->Dakrails,
-                $car->Trekhaak,
-                $car->Aandrijving
-            );
+            $carsArray = [];
+
+            foreach ($listingAuto as $car) {
+                $carsArray[] = new Car(
+                    $car->VoertuigId,
+                    $car->OndernemingId,
+                    $car->Kleur,
+                    $car->Model,
+                    $car->Bouwjaar,
+                    $car->Zitplaatsen,
+                    $car->PrijsPerDag,
+                    $car->Actief,
+                    $car->AutoId,
+                    $car->Kenteken,
+                    $car->KofferbakRuimte,
+                    $car->Dakrails,
+                    $car->Trekhaak,
+                    $car->Aandrijving
+                );
+            }
+
+            return $carsArray;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+            return [];
         }
- 
-        return $carsArray;
-      
     }
 
+    public static function getOne($db, $id)
+    {
+
+        try {
+            $car = $db->query('SELECT * FROM auto 
+                                INNER JOIN voertuig
+                                ON
+                                voertuig.voertuigId = auto.autoId
+                                WHERE voertuig.voertuigId = :id;', ['id' => $id])->fetch();
+
+            if ($car) {
+                return new Car(
+                    $car->VoertuigId,
+                    $car->OndernemingId,
+                    $car->Kleur,
+                    $car->Model,
+                    $car->Bouwjaar,
+                    $car->Zitplaatsen,
+                    $car->PrijsPerDag,
+                    $car->Actief,
+                    $car->AutoId,
+                    $car->Kenteken,
+                    $car->KofferbakRuimte,
+                    $car->Dakrails,
+                    $car->Trekhaak,
+                    $car->Aandrijving
+                );
+            } else {
+                return null; 
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+            
+        }
+    }
 
 
     public function getProperty($property)
@@ -84,8 +122,3 @@ class Car extends Vehicle
         return $this->$property;
     }
 }
-
-
-
-
-

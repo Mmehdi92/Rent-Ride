@@ -19,7 +19,7 @@ class Database
 
         try {
             $this->conn = new PDO($dsn, $config['username'], $config['password'], $options);
-            echo "Database connection successful";
+          
         } catch (PDOException $e) {
             throw new Exception("Database connection failed: " . $e->getMessage());
         }
@@ -33,10 +33,15 @@ class Database
      * @throws PDOException
      */
 
-    public function query($query)
+    public function query($query, $params = [])
     {
         try {
             $stmt = $this->conn->prepare($query);
+
+            foreach($params  as $param => $value){
+                $stmt->bindValue(':' . $param, $value);
+            }
+
             $stmt->execute();
             return $stmt;
         } catch (PDOException $e) {
