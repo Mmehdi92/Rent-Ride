@@ -1,5 +1,6 @@
 <?php
 require_once 'Vehicle.php';
+require_once basePath('Database.php');
 class Car extends Vehicle
 {
 
@@ -45,9 +46,10 @@ class Car extends Vehicle
     }
 
 
-    public static function getMany($db)
+    public static function getMany()
     {
         try {
+            $db = Database::getInstance();
             $listingAuto = $db->query('SELECT * FROM auto INNER JOIN voertuig ON voertuig.voertuigId = auto.autoId LIMIT 5;')->fetchAll();
 
             $carsArray = [];
@@ -79,10 +81,11 @@ class Car extends Vehicle
         }
     }
 
-    public static function getOne($db, $id)
+    public static function getOne( $id)
     {
 
         try {
+            $db = Database::getInstance();
             $car = $db->query('SELECT * FROM auto 
                                 INNER JOIN voertuig
                                 ON

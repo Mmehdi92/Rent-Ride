@@ -1,15 +1,14 @@
 <?php
-require basePath('config/db.php');
+require_once basePath('config/db.php'); 
 class Database
 {
-    public $conn;
+    private $conn;
+    private static $instance = null;
 
     /**
-     * Constructor for the Database class
-     * @param  array $config
-     * 
+     * Private constructor for the Database class
      */
-    public function __construct($config)
+    private function __construct($config)
     {
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};";
         $options = [
@@ -19,33 +18,45 @@ class Database
 
         try {
             $this->conn = new PDO($dsn, $config['username'], $config['password'], $options);
-          
         } catch (PDOException $e) {
             throw new Exception("Database connection failed: " . $e->getMessage());
         }
     }
 
+    /**
+     * Get the instance of the Database
+     * @return Database
+     */
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            $config = require basePath('config/db.php');
+            self::$instance = new Database($config);
+        }
+
+        return self::$instance;
+    }
 
     /**
-     * Get all records from a table
+     * Execute a query
      * @param string $query
+     * @param array $params
      * @return PDOStatement
-     * @throws PDOException
+     * @throws Exception
      */
-
     public function query($query, $params = [])
     {
         try {
             $stmt = $this->conn->prepare($query);
 
-            foreach($params  as $param => $value){
+            foreach ($params as $param => $value) {
                 $stmt->bindValue(':' . $param, $value);
             }
 
             $stmt->execute();
             return $stmt;
         } catch (PDOException $e) {
-        throw new Exception("Query failed: " . $e->getMessage());
+            throw new Exception("Query failed: " . $e->getMessage());
         }
     }
 }
