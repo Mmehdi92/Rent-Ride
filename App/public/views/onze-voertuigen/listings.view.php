@@ -85,7 +85,7 @@
                                 <p class="text-gray-600"><strong>Kleur:</strong> <?= $fiets->getProperty('kleur') ?></p>
                                 <p class="mt-2 font-bold text-gray-900"><?= formatPrice($fiets->getProperty('prijsPerdag')) ?> per dag</p>
                                 <div class="flex justify-end mt-4">
-                                    <a  href="/onze-voertuigen/details/show-bycicle?id=<?=$fiets->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
+                                    <a  href="/onze-voertuigen/details/show-bycicle/<?=$fiets->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                 <div class="flex justify-end mt-4">
                                     
                                     <!-- Maak controller aan voor show-car-detials route ******** is gedaan *****  -->
-                                    <a href="/onze-voertuigen/details/show-car?id=<?=$auto->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
+                                    <a href="/onze-voertuigen/details/show-car/<?=$auto->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                 <p class="text-gray-600"><strong>Breedte:</strong> <?= $boot->getProperty('breedte') ?> meters</p>
                                 <p class="mt-2 font-bold text-gray-900"><?= formatPrice($boot->getProperty('prijsPerdag')) ?> per dag</p>
                                 <div class="flex justify-end mt-4">
-                                    <a href="/onze-voertuigen/details/show-boat?id=<?=$boot->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
+                                    <a href="/onze-voertuigen/details/show-boat/<?=$boot->getProperty('voertuigId')?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>
                                 </div>
                             </div>
                         </div>

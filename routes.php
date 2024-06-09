@@ -3,9 +3,10 @@
 
 $router->get('/', 'HomeController@index');
 $router->get('/onze-voertuigen', 'OnzeVoertuigenController@index');
-$router->get('/onze-voertuigen/details/show-car', 'OnzeVoertuigenController@showCarDetails');
-$router->get('/onze-voertuigen/details/show-boat', 'OnzeVoertuigenController@showBoatDetails');
-$router->get('/onze-voertuigen/details/show-bycicle', 'OnzeVoertuigenController@showBycicleDetails');
+$router->get('/onze-voertuigen/details/show-car/{id}', 'OnzeVoertuigenController@showCarDetails');
+$router->get('/onze-voertuigen/details/show-boat/{id}', 'OnzeVoertuigenController@showBoatDetails');
+// $router->get('/onze-voertuigen/details/show-bycicle', 'OnzeVoertuigenController@showBycicleDetails');
+$router->get('/onze-voertuigen/details/show-bycicle/{id}', 'OnzeVoertuigenController@showBycicleDetails');
 
 
 

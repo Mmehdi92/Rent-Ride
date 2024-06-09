@@ -20,8 +20,8 @@ class Router
     {
         //Destrucutring
         list($controller, $controllerMethod) = explode('@', $action);
-      
-         $this->routes[] = [
+
+        $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
             'controller' => $controller,
@@ -89,7 +89,7 @@ class Router
      * @return void
      */
 
- 
+
 
     /**
      * Route  the request
@@ -98,22 +98,53 @@ class Router
      * @return void
      */
 
-    public function route($uri, $method)
+    public function route($uri)
     {
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
         foreach ($this->routes as $route) {
-            if ($route['uri'] ===  $uri && $route['method'] === $method) {
-                
-                // Extract controller and controller method 
-                $controller = 'Controllers\\' . $route['controller'];
-                $controllerMethod = $route['controllerMethod'];
 
-                // Instastaite Controller and call method
+            // split the uri into parts
+            $uriParts = explode('/', trim($uri, '/'));
 
-                $controllerInstance = new $controller();
-                $controllerInstance->$controllerMethod();
-                return;
+            // split the route uri into parts
+            $routeParts = explode('/', trim($route['uri'], '/'));
+
+
+            $match = true;
+
+            // check if the number of parts is the same
+
+            if (count($uriParts) === count($routeParts) && strtoupper($route['method']) === $requestMethod) {
+                $params = [];
+                $match = true;
+                for ($i = 0; $i < count($uriParts); $i++) {
+
+                    // if the uris do not match and there is no param
+                    if ($routeParts[$i] !== $uriParts[$i] && !preg_match('/\{(.+?)\}/', $routeParts[$i])) {
+                        $match = false;
+                        break;
+                    }
+                    // Check for the param and add to $params array
+                    if (preg_match('/\{(.+?)\}/', $routeParts[$i], $matches)) {
+                        $params[$matches[1]] = $uriParts[$i];
+                        
+                    }
+                }
+                if ($match) {
+                    $controller = 'Controllers\\' . $route['controller'];
+                    $controllerMethod = $route['controllerMethod'];
+
+                    // Instastaite Controller and call method
+
+                    $controllerInstance = new $controller();
+                    $controllerInstance->$controllerMethod($params);
+                    return;
+                }
             }
         }
         ErrorController::notFound();
     }
+
+
+
 }
