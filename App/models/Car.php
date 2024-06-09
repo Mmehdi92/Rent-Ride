@@ -1,6 +1,8 @@
 <?php
-require_once 'Vehicle.php';
-require_once basePath('Framework/Database.php');
+namespace Models;
+use Exception;
+use Models\Vehicle;
+use Framework\Database;
 class Car extends Vehicle
 {
 

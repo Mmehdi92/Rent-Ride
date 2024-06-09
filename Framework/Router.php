@@ -1,4 +1,9 @@
 <?php
+
+namespace Framework;
+
+use Controllers\ErrorController;
+
 class Router
 {
     protected $routes = [];
@@ -7,16 +12,21 @@ class Router
      * Register Route
      * @param string $method
      * @param string $uri
-     * @param string $controller
+     * @param string $action
      * @return void
      */
 
-    public function registerRoute($method, $uri, $controller)
+    public function registerRoute($method, $uri, $action)
     {
-        $this->routes[] = [
+        //Destrucutring
+        list($controller, $controllerMethod) = explode('@', $action);
+      
+         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
             'controller' => $controller,
+            'controllerMethod' => $controllerMethod
+
         ];
     }
 
@@ -79,12 +89,7 @@ class Router
      * @return void
      */
 
-     public function error($httpCode = 404)
-     {
-         http_response_code($httpCode);
-         loadView("error/{$httpCode}");
-         exit;
-     }
+ 
 
     /**
      * Route  the request
@@ -97,10 +102,18 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] ===  $uri && $route['method'] === $method) {
-                require basePath('App/' . $route['controller']);
+                
+                // Extract controller and controller method 
+                $controller = 'Controllers\\' . $route['controller'];
+                $controllerMethod = $route['controllerMethod'];
+
+                // Instastaite Controller and call method
+
+                $controllerInstance = new $controller();
+                $controllerInstance->$controllerMethod();
                 return;
             }
         }
-        $this->error();
+        ErrorController::notFound();
     }
 }

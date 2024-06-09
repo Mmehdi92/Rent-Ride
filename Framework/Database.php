@@ -1,4 +1,8 @@
 <?php
+namespace Framework;
+use PDOException;
+use Exception;
+use PDO;
 require_once basePath('config/db.php'); 
 class Database
 {

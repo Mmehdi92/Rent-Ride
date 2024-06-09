@@ -78,7 +78,7 @@
                     <!-- Zoekresultaten voor fiets -->
                     <?php foreach ($listingFiets as $fiets) : ?>
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
-                            <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?bicycle" alt="Fiets afbeelding">
+                            <img class="object-cover object-center w-full h-40" src="./../../../Image/BycicleImagePlaceholder.jpg" alt="Fiets afbeelding">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold text-gray-800"><?= $fiets->getProperty('model') ?></h3>
                                 <p class="text-gray-600"><strong>Model:</strong> <?= $fiets->getProperty('typeFiets') ?></p>
@@ -95,7 +95,7 @@
                     <?php foreach ($listingAuto as $auto) : ?>
 
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
-                            <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?car" alt="Auto afbeelding">
+                            <img class="object-cover object-center w-full h-40" src="../../Image/CarImagePlaceholder.avif" alt="Auto afbeelding">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold text-gray-800"><?= $auto->getProperty('model') ?></h3>
                                 <p class="text-gray-600"><strong>Model:</strong> <?= $auto->getProperty('model') ?></p>
@@ -116,7 +116,7 @@
                     <!-- Zoekresultaten voor boot -->
                     <?php foreach ($listingBoot as $boot) : ?>
                         <div class="overflow-hidden bg-white rounded-lg shadow-md">
-                            <img class="object-cover object-center w-full h-40" src="https://source.unsplash.com/random/widthxheight/?boat" alt="Boot afbeelding">
+                            <img class="object-cover object-center w-full h-40" src=".././../Image/BoatWaterPlaceholder.jpg" alt="Boot afbeelding">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold text-gray-800"><?= $boot->getProperty('model') ?></h3>
                                 <p class="text-gray-600"><strong>Model:</strong> <?= $boot->getProperty('model') ?></p>

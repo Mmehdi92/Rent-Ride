@@ -7,7 +7,7 @@
         <div class="max-w-4xl p-6 mx-auto bg-white border rounded-lg shadow-lg">
             <h1 class="mb-8 text-3xl font-semibold text-center text-gray-800">Boat Reservation</h1>
             <div class="flex flex-col items-center md:items-start">
-                <img src="https://source.unsplash.com/random/400x300/?boat" alt="Boat Image" class="w-full h-auto mb-4 rounded-lg">
+                <img src="./../../../Image/BoatWaterPlaceholder.jpg" alt="Boat Image" class="w-2/3 h-auto mb-4 rounded-lg">
             </div>
             <div class="mt-8 space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
                 <div class="text-gray-700">

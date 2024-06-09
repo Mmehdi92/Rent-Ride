@@ -1,28 +1,26 @@
 <?php 
-// return [
-//     '/' => 'controllers/home.php',
-//     '/onze-voertuigen' => 'controllers/onze-voertuigen/index.php',
-//     '/onze-voertuigen/create-auto' => 'controllers/onze-voertuigen/create/create-auto.php',
-//     '/onze-voertuigen/create-boot' => 'controllers/onze-voertuigen/create/create-boot.php',
-//     '/onze-voertuigen/create-fiets' => 'controllers/onze-voertuigen/create/create-fiets.php',
-//     '/onderneming/create' => 'controllers/onderneming/create-onderneming.php',
-//     '/about' => 'controllers/about.php',
-//     '/contact' => 'controllers/contact.php',
-//     '404' => 'controllers/error/404.php'
-// ];
 
 
-$router->get('/', 'controllers/home.php');
-$router->get('/onze-voertuigen', 'controllers/onze-voertuigen/index.php');
-$router->get('/onze-voertuigen/create-auto', 'controllers/onze-voertuigen/create/create-auto.php');
-$router->get('/onze-voertuigen/create-boot', 'controllers/onze-voertuigen/create/create-boot.php');
-$router->get('/onze-voertuigen/create-fiets', 'controllers/onze-voertuigen/create/create-fiets.php');
-$router->get('/onderneming/create', 'controllers/onderneming/create-onderneming.php');
-$router->get('/about', 'controllers/about.php');
-$router->get('/contact', 'controllers/contact.php');
+$router->get('/', 'HomeController@index');
+$router->get('/onze-voertuigen', 'OnzeVoertuigenController@index');
+$router->get('/onze-voertuigen/details/show-car', 'OnzeVoertuigenController@showCarDetails');
+$router->get('/onze-voertuigen/details/show-boat', 'OnzeVoertuigenController@showBoatDetails');
+$router->get('/onze-voertuigen/details/show-bycicle', 'OnzeVoertuigenController@showBycicleDetails');
 
-$router->get('/onze-voertuigen/details/show-car', 'controllers/onze-voertuigen/show-voertuig/show-details-car.php');
-$router->get('/onze-voertuigen/details/show-bycicle', 'controllers/onze-voertuigen/show-voertuig/show-details-bycicle.php');
-$router->get('/onze-voertuigen/details/show-boat', 'controllers/onze-voertuigen/show-voertuig/show-details-boat.php');
+
+
+
+$router->get('/onze-voertuigen/create-auto', 'CreateVehicleController@showCreateCar');
+$router->get('/onze-voertuigen/create-boot', 'CreateVehicleController@showCreateBycicle');
+$router->get('/onze-voertuigen/create-fiets', 'CreateVehicleController@showCreateBoat');
+
+// $router->get('/onze-voertuigen/create-boot', 'controllers/onze-voertuigen/create/create-boot.php');
+// $router->get('/onze-voertuigen/create-fiets', 'controllers/onze-voertuigen/create/create-fiets.php');
+// $router->get('/onderneming/create', 'controllers/onderneming/create-onderneming.php');
+// $router->get('/about', 'controllers/about.php');
+// $router->get('/contact', 'controllers/contact.php');
+
+
+
 
 ?>
