@@ -6,6 +6,7 @@ use Models\Car;
 use Models\Boat;
 use Models\Bycicle;
 use Framework\Valadation;
+
 class OnzeVoertuigenController
 {
 
@@ -34,7 +35,7 @@ class OnzeVoertuigenController
         $id = $params['id'];
         $car = Car::getOne($id);
 
-
+       
         if (!$car) {
             header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
             exit;

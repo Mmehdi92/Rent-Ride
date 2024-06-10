@@ -101,6 +101,15 @@ class Router
     public function route($uri)
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
+
+    // Check for _method input
+    if ($requestMethod === 'POST' && isset($_POST['_method'])) {
+      // Override the request method with the value of _method
+      $requestMethod = strtoupper($_POST['_method']);
+    }
+
+        inspect($requestMethod);
+
         foreach ($this->routes as $route) {
 
             // split the uri into parts
@@ -128,7 +137,6 @@ class Router
                     // Check for the param and add to $params array
                     if (preg_match('/\{(.+?)\}/', $routeParts[$i], $matches)) {
                         $params[$matches[1]] = $uriParts[$i];
-                        
                     }
                 }
                 if ($match) {
@@ -145,7 +153,4 @@ class Router
         }
         ErrorController::notFound();
     }
-
-
-
 }

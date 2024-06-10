@@ -5,6 +5,7 @@ namespace Models;
 use Exception;
 use Models\Vehicle;
 use Framework\Database;
+use PDOException;
 
 class Car extends Vehicle
 {
@@ -123,12 +124,59 @@ class Car extends Vehicle
         }
     }
 
+
+    public static function getManyByUserId($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $cars = $db->query('SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
+                                auto.AutoId, auto.Kenteken, auto.KofferbakRuimte, auto.Dakrails, auto.Trekhaak, auto.Aandrijving
+                                FROM gebruiker
+                                JOIN verhuurder ON gebruiker.Iban = verhuurder.VerhuurderId
+                                JOIN onderneming ON verhuurder.VerhuurderId = onderneming.VerhuurderId
+                                JOIN voertuig ON onderneming.KVKNummer = voertuig.OndernemingId
+                                JOIN auto ON voertuig.VoertuigId = auto.AutoId
+                                WHERE gebruiker.Iban = :id', ['id' => $id])->fetchAll();
+
+            $carList = [];
+            foreach ($cars as $car) {
+                $carList[] = new Car(
+                    $car->VoertuigId,
+                    $car->OndernemingId,
+                    $car->Kleur,
+                    $car->Model,
+                    $car->Bouwjaar,
+                    $car->Zitplaatsen,
+                    $car->PrijsPerDag,
+                    $car->Actief,
+                    $car->AutoId,
+                    $car->Kenteken,
+                    $car->KofferbakRuimte,
+                    $car->Dakrails,
+                    $car->Trekhaak,
+                    $car->Aandrijving
+                );
+            }
+
+            return $carList;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
+
+
     public function addCar()
     {
 
         try {
+            // instance of the database
             $db = Database::getInstance();
+
+            // start transaction
             $db->query('START TRANSACTION');
+
+            // insert the vehicle
             $voertuigInsert = $db->query(
                 'INSERT INTO VOERTUIG (OndernemingId, Kleur, Model, Bouwjaar, Zitplaatsen, PrijsPerDag)
                                 VALUES (:OndernemingId ,:Kleur, :Model, :Bouwjaar, :Zitplaatsen , :PrijsPerDag )',
@@ -142,9 +190,10 @@ class Car extends Vehicle
                 ]
             );
 
+            // get the last inserted id
             $autoId = $db->lastInsertId();
 
-
+            // insert the car
             $autoInsert =  $db->query(
                 'INSERT INTO AUTO (AutoId, Kenteken, KofferbakRuimte, Dakrails, Trekhaak, Aandrijving)
                                 VALUES (:AutoId, :Kenteken, :KofferbakRuimte, :Dakrails, :Trekhaak, :Aandrijving)',
@@ -158,19 +207,26 @@ class Car extends Vehicle
                 ]
             );
 
-
+            // commit the transaction
             if ($voertuigInsert && $autoInsert) {
                 $db->query('COMMIT');
             }
-            
-            return true;
 
-        } catch (Exception $e) {
+            return $autoInsert;
+        } catch (PDOException $e) {
 
+            // return false if there is an error and log it
             $db->query('ROLLBACK');
             error_log($e->getMessage());
             return false;
         }
+    }
+
+    public function deleteOne($id)
+    {
+        $db = Database::getInstance();
+        $result = $db->query('DELETE FROM auto WHERE AutoId = :id', ['id' => $id]);
+        return $result;
     }
 
     public function getProperty($property)

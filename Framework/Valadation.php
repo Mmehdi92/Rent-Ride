@@ -34,24 +34,5 @@ class Valadation
     }
 
 
-    public static function numeric($value, $min = null, $max = null)
-    {
-        $value = trim($value);
-        if (!is_numeric($value)) {
-            return false;
-        }
-        if ($min !== null && $value < $min || $value > $max) {
-            return false;
-        }
-        return true;
-    }
-
-    public static function integerLength($value, $length)
-    {
-        $value = trim($value);
-        if (is_int($value) || ctype_digit($value)) {
-            return strlen((string)$value) === $length;
-        }
-        return false;
-    }
+    
 }

@@ -22,10 +22,8 @@
                     <?php if (isset($errors) && !empty($errors)) : ?>
                         <?php foreach ($errors as $error) : ?>
                             <div class="flex items-center max-w-sm p-4 mx-auto mb-4 text-white bg-red-600 rounded-lg shadow-md">
-
                                 <?= $error ?>
                             </div>
-
                         <?php endforeach; ?>
                     <?php endif; ?>
 
@@ -88,8 +86,8 @@
                                 <select id="aandrijving" name="aandrijving" class="w-full p-2 border" value="<?= $newCaraData['aandrijving'] ?? '' ?>">
                                     <option value="Voorwielaandrijving">Voorwielaandrijving</option>
                                     <option value="Achterwielaandrijving">Achterwielaandrijving</option>
-                                    <option value="4X4">Vierwielaandrijving</option>
-                                    <option value="ELEKTRISCHE">ELEKTRISCHE</option>
+                                    <option value="4X4">4X4</option>
+                                    <option value="elektrisch">Elektrische</option>
                                 </select>
                             </div>
                             <div>
