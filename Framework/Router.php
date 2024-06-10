@@ -108,6 +108,7 @@ class Router
 
             // split the route uri into parts
             $routeParts = explode('/', trim($route['uri'], '/'));
+            // inspectAndDie($routeParts);
 
 
             $match = true;
@@ -134,7 +135,7 @@ class Router
                     $controller = 'Controllers\\' . $route['controller'];
                     $controllerMethod = $route['controllerMethod'];
 
-                    // Instastaite Controller and call method
+                    // Instanstaite Controller and call method
 
                     $controllerInstance = new $controller();
                     $controllerInstance->$controllerMethod($params);

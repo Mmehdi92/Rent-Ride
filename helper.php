@@ -39,10 +39,11 @@ function loadView($name, $data = [])
  * @param void
  */
 
-function loadPartial($name)
+function loadPartial($name, $data = [])
 {
     $partialPath = basePath("App/public/views/partials/{$name}.php");
     if (file_exists($partialPath)) {
+        extract($data);
         require $partialPath;
     } else {
         echo "Partials {$name} not found";
@@ -53,7 +54,8 @@ function loadPartial($name)
  * @param mixed $value
  * @return void
  */
-function inspect($value){
+function inspect($value)
+{
     echo '<pre>';
     var_dump($value);
     echo '</pre>';
@@ -61,13 +63,27 @@ function inspect($value){
 
 
 
-function inspectAndDie($value){
+function inspectAndDie($value)
+{
     inspect($value);
     die();
-}   
+}
 
 
-function formatPrice($price){
+function formatPrice($price)
+{
     return '€' . number_format(floatval($price), 2, ',', '.');
 }
-?>
+
+
+function sanatizeData($dirty)
+{
+    return filter_var(trim(($dirty)), FILTER_SANITIZE_SPECIAL_CHARS);
+}
+
+
+function redirect($url)
+{
+    header("Location: {$url}");
+    exit;
+};

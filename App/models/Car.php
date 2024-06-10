@@ -1,8 +1,11 @@
 <?php
+
 namespace Models;
+
 use Exception;
 use Models\Vehicle;
 use Framework\Database;
+
 class Car extends Vehicle
 {
 
@@ -120,6 +123,55 @@ class Car extends Vehicle
         }
     }
 
+    public function addCar()
+    {
+
+        try {
+            $db = Database::getInstance();
+            $db->query('START TRANSACTION');
+            $voertuigInsert = $db->query(
+                'INSERT INTO VOERTUIG (OndernemingId, Kleur, Model, Bouwjaar, Zitplaatsen, PrijsPerDag)
+                                VALUES (:OndernemingId ,:Kleur, :Model, :Bouwjaar, :Zitplaatsen , :PrijsPerDag )',
+                [
+                    'OndernemingId' => $this->ondernemingId,
+                    'Kleur' => $this->kleur,
+                    'Model' => $this->model,
+                    'Bouwjaar' => $this->bouwjaar,
+                    'Zitplaatsen' => $this->zitplaatsen,
+                    'PrijsPerDag' => $this->prijsPerdag
+                ]
+            );
+
+            $autoId = $db->lastInsertId();
+
+
+            $autoInsert =  $db->query(
+                'INSERT INTO AUTO (AutoId, Kenteken, KofferbakRuimte, Dakrails, Trekhaak, Aandrijving)
+                                VALUES (:AutoId, :Kenteken, :KofferbakRuimte, :Dakrails, :Trekhaak, :Aandrijving)',
+                [
+                    'AutoId' => $autoId,
+                    'Kenteken' => $this->kenteken,
+                    'KofferbakRuimte' => $this->kofferbakRuimte,
+                    'Dakrails' => $this->dakrails,
+                    'Trekhaak' => $this->trekhaak,
+                    'Aandrijving' => $this->aandrijving
+                ]
+            );
+
+
+            if ($voertuigInsert && $autoInsert) {
+                $db->query('COMMIT');
+            }
+            
+            return true;
+
+        } catch (Exception $e) {
+
+            $db->query('ROLLBACK');
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 
     public function getProperty($property)
     {
