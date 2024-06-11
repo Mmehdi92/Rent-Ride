@@ -2,7 +2,7 @@
 
 namespace Models;
 
-use DateTime, Exception;
+
 
 abstract class Gebruiker
 {
@@ -17,7 +17,7 @@ abstract class Gebruiker
     protected string $geboorteDatum;
     protected bool $actief;
 
-    function __construct(string $Iban, string $voorNaam, string $achterNaam, string $postCode, string $huisNummer, string $email, string $wachtwoord, int $telefoonNummer, DateTime $geboorteDatum, bool $actief)
+    function __construct(string $Iban, string $voorNaam, string $achterNaam, string $postCode, string $huisNummer, string $email, string $wachtwoord, int $telefoonNummer, string $geboorteDatum, bool $actief)
     {
         $this->Iban = $Iban;
         $this->voorNaam = $voorNaam;

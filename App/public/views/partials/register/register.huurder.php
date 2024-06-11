@@ -16,7 +16,10 @@
             <input type="email" name="email" id="email" class="p-2 border rounded-md focus:outline-blue-700 focus:bg-yellow-400 focus:font-semibold">
         </div>
 
-
+        <div class="flex flex-col space-y-2 form-group">
+                <label for="geboortedatum" class="text-lg font-semibold">Geboortedatum</label>
+                <input type="date" name="geboortedatum" id="geboortedatum" class="p-2 border rounded-md focus:outline-blue-700 focus:bg-yellow-400 focus:font-semibold" required>
+            </div>
         <div class="flex flex-col space-y-2">
             <label for="plaats" class="text-xl font-semibold">Plaats</label>
             <input type="text" name="plaats" id="plaats" class="p-2 border rounded-md focus:outline-blue-700 focus:bg-yellow-400 focus:font-semibold">

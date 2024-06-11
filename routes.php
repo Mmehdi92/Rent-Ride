@@ -20,6 +20,7 @@ $router->put('/edit-auto/{id}', 'CarController@updateCar');
 
 $router->post('/onze-voertuigen/create-auto', 'CarController@createCar');
 $router->post('/auth/register/verhuurder', 'VerhuurderController@registerVerhuurder');
+
 $router->delete('/listing-car/{id}', 'CarController@deleteCar');
 
 $router->get('/auth/register/verhuurder', 'VerhuurderController@showRegisterForm');

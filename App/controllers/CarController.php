@@ -184,7 +184,6 @@ class CarController
         }
 
         if (!empty($errors)) {
-            inspectAndDie('failed');
             loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car]);
             exit;
         } else {

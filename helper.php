@@ -87,3 +87,7 @@ function redirect($url)
     header("Location: {$url}");
     exit;
 };
+
+function formateDate($value){
+    return date('d-m-Y', strtotime($value));
+}
