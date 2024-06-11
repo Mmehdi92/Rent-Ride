@@ -141,7 +141,7 @@ class VerhuurderController
             $postcode,
             $huisnummer,
             $email,
-            $wachtwoord,
+            password_hash($wachtwoord, PASSWORD_DEFAULT),
             $telefoon,
             $geboortedatum,
             true,
