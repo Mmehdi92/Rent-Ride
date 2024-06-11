@@ -9,7 +9,7 @@ class BycicleController
     }
     public function showCreateBycicle()
     {
-        loadView('/create/create-fiets');
+        loadView('dashboard/verhuurder/create/create-fiets');
     }
     public function createBycicle(){
         inspectAndDie($_POST);

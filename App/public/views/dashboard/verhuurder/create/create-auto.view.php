@@ -2,8 +2,9 @@
 <?= loadPartial('navbar'); ?>
 <?= loadPartial('/dashboard/verhuurder/addAuto', [
     'errors' => $errors ?? [],
-    'newCaraData' => $newCaraData ?? []
-    ]); ?> 
+    'newCaraData' => $newCaraData ?? [],
+    'car' => $car ??  null
+]); ?>
 
 
 <?= loadPartial('footer'); ?>

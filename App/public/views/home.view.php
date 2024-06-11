@@ -129,12 +129,12 @@
         <div class="flex items-center justify-center mb-8">
             <div class="flex flex-col items-center">
                 <img src="/Image/HappyCarVerhuurder.jpg" alt="Verhuurder" class="mr-4 rounded-lg ">
-                <a href="/aanmelden-verhuurder" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-700">Aanmelden als Verhuurder</a>
+                <a href="/auth/register/verhuurder" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-700">Aanmelden als Verhuurder</a>
             </div>
             <div class="mx-4 border-l border-gray-400"></div> <!-- Divider -->
             <div class="flex flex-col items-center">
                 <img src="/Image/HappyCarHuurder.jpg" alt="Huurder" class="ml-4 rounded-lg ">
-                <a href="/aanmelden-huurder" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-700">Aanmelden als Huurder</a>
+                <a href="/auth/register/huurder" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-700">Aanmelden als Huurder</a>
             </div>
         </div>
     </div>

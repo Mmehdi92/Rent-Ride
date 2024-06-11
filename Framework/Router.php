@@ -108,7 +108,7 @@ class Router
       $requestMethod = strtoupper($_POST['_method']);
     }
 
-        inspect($requestMethod);
+        // inspect($requestMethod);
 
         foreach ($this->routes as $route) {
 

@@ -79,8 +79,6 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-3 gap-4 mt-4">
-                        <button type="button" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Wijzig</button>
-                        <button type="button" class="p-1 text-sm duration-300 bg-red-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Verwijder</button>
                         <button type="submit" class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Bewaar</button>
                     </div>
                 </form>

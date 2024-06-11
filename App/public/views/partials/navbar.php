@@ -11,8 +11,8 @@
             </nav>
             <!-- NU nog even niet doen  -->
             <div class="flex items-center ml-auto space-x-4">
-                <a href="/login" class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Inloggen</a>
-                <a href="/auth" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Registreren</a>
+                <a href="/auth/login" class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Inloggen</a>
+                <a href="/auth/register/huurder" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Registreren</a>
             </div>
         </div>
     </header>

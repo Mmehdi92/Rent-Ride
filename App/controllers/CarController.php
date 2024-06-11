@@ -21,8 +21,6 @@ class CarController
         loadView('/dashboard/verhuurder/listing/listing-car', ['carList' => $carList]);
     }
 
-
-
     public function createCar()
     {
 
@@ -60,7 +58,7 @@ class CarController
 
         //render errors if any
         if (!empty($errors)) {
-            loadView('/create/create-auto', ['errors' => $errors, 'newCaraData' => $newCarData]);
+            loadView('dashboard/verhuurder/create/create-auto', ['errors' => $errors, 'newCaraData' => $newCarData]);
         } else {
             // Create a new car object
             $newCar = new Car(
@@ -87,7 +85,7 @@ class CarController
             if ($result !== false) {
                 redirect('/onze-voertuigen');
             } else {
-                loadView('/create/create-auto', ['errors' => ['Er is iets misgegaan'], 'newCaraData' => $newCarData]);
+                loadView('dashboard/verhuurder/create/create-auto', ['errors' => 'Er is iets misgegaan', 'newCaraData' => $newCarData]);
             }
         }
     }
@@ -96,10 +94,11 @@ class CarController
     {
 
         if (!isset($params['id'])) {
-            header('Location: /onze-voertuigen');
+            redirect('/listing-car');
             exit;
         }
         $id = $params['id'];
+
         $car = CAR::getOne($id);
 
         if (!$car) {
@@ -108,10 +107,95 @@ class CarController
         }
         $result = $car->deleteOne($id);
 
+
         if ($result) {
+            // Set flash message
+            $_SESSION['succes_message'] = '🚘 Auto  succesvol verwijderd ✅    ';
             redirect('/listing-car');
         } else {
             ErrorController::notFound('Car not Deleted');
+        }
+    }
+
+    public function showEditCar($params)
+    {
+        if (!isset($params['id'])) {
+            header('Location: /onze-voertuigen');
+            exit;
+        }
+        $id = $params['id'];
+        $car = Car::getOne($id);
+
+
+        if (!$car) {
+            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+            exit;
+        }
+        loadView('/dashboard/verhuurder/edit/edit-auto', ['car' => $car]);
+    }
+
+    public function updateCar($params)
+    {
+        if (!isset($params['id'])) {
+            header('Location: /onze-voertuigen');
+            exit;
+        }
+        $id = $params['id'];
+        $car = Car::getOne($id);
+
+        if (!$car) {
+            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+            exit;
+        }
+
+        // allowd fields array
+        $allowFields = ['optionsOnderneming', 'kleur', 'kenteken', 'model', 'kofferbakruimte', 'bouwjaar', 'dakrails', 'zitplaatsen', 'prijsPerDag', 'trekhaak', 'aandrijving', 'actief'];
+
+        $updateValues = [];
+
+        $updateValues =  array_intersect_key($_POST, array_flip($allowFields));
+        $updateValues['optionsOnderneming'] =  87654321;
+        $updateValues['voertuigId'] = $car->getProperty('voertuigId');
+
+        $updateValues = array_map('sanatizeData', $updateValues);
+
+        $requiredFields = [
+            'optionsOnderneming',
+            'voertuigId',
+            'kleur',
+            'kenteken',
+            'model',
+            'kofferbakruimte',
+            'bouwjaar',
+            'dakrails',
+            'zitplaatsen',
+            'prijsPerDag',
+            'trekhaak',
+            'aandrijving',
+            'actief'
+        ];
+
+        $errors = [];
+
+        foreach ($requiredFields as $field) {
+            if (empty($updateValues[$field]) || !Valadation::string($updateValues[$field])) {
+                $errors[$field] = ucfirst($field) . ' is verplicht';
+            }
+        }
+
+        if (!empty($errors)) {
+            inspectAndDie('failed');
+            loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car]);
+            exit;
+        } else {
+            $result = $car->updateCar($updateValues);
+        }
+
+        if ($result) {
+            $_SESSION['succes_message'] = '🚘 Auto  succesvol geupdate ✅    ';
+            redirect('/listing-car');
+        } else {
+            ErrorController::notFound('Car not Updated');
         }
     }
 }

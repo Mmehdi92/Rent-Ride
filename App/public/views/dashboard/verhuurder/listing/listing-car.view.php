@@ -2,4 +2,4 @@
 <?= loadPartial('navbar'); ?>
 <?= loadPartial('/dashboard/verhuurder/carRows',['carList' => $carList]); ?>
 
-<?= loadPartial('footer'); ?>
+<?= loadPartial('footer'); 

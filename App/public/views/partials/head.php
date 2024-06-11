@@ -10,5 +10,5 @@
     <link rel="stylesheet" href="../../styles/output.css">
 </head>
 
-<body class="text-gray-900 bg-white ">
+<body class="text-gray-900 bg-gray-100 ">
     

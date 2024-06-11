@@ -5,6 +5,7 @@ namespace Models;
 use Exception;
 use Models\Vehicle;
 use Framework\Database;
+use PDO;
 use PDOException;
 
 class Car extends Vehicle
@@ -227,6 +228,53 @@ class Car extends Vehicle
         $db = Database::getInstance();
         $result = $db->query('DELETE FROM auto WHERE AutoId = :id', ['id' => $id]);
         return $result;
+    }
+
+
+    public function updateCar($updateValues)
+    {
+        try {
+            $db = Database::getInstance();
+
+            $db->query('START TRANSACTION');
+
+            $voertuigUpdate = $db->query(
+                'UPDATE voertuig SET Kleur = :Kleur, Model = :Model, Bouwjaar = :Bouwjaar, Zitplaatsen = :Zitplaatsen, PrijsPerDag = :PrijsPerDag, OndernemingId = :OndernemingId WHERE VoertuigId = :VoertuigId',
+                [
+                    'Kleur' => $updateValues['kleur'],
+                    'Model' => $updateValues['model'],
+                    'Bouwjaar' => $updateValues['bouwjaar'],
+                    'Zitplaatsen' => $updateValues['zitplaatsen'],
+                    'VoertuigId' => $updateValues['voertuigId'],
+                    'PrijsPerDag' => $updateValues['prijsPerDag'],
+                    'OndernemingId' => $updateValues['optionsOnderneming'],
+
+                ]
+            );
+
+
+            $autoUpdate = $db->query(
+                'UPDATE auto SET Kenteken = :Kenteken, KofferbakRuimte = :KofferbakRuimte, Dakrails = :Dakrails, Trekhaak = :Trekhaak, Aandrijving = :Aandrijving WHERE AutoId = :AutoId',
+                [
+                    'Kenteken' => $updateValues['kenteken'],
+                    'KofferbakRuimte' => $updateValues['kofferbakRuimte'],
+                    'Dakrails' => $updateValues['dakrails'],
+                    'Trekhaak' => $updateValues['trekhaak'],
+                    'Aandrijving' => $updateValues['aandrijving'],
+                    'AutoId' => $updateValues['autoId']
+                ]
+            );
+
+            if ($voertuigUpdate && $autoUpdate) {
+                $db->query('COMMIT');
+            }
+
+            return $autoUpdate;
+        } catch (PDOException $e) {
+            $db->query('ROLLBACK');
+            error_log($e->getMessage());
+            return false;
+        }
     }
 
     public function getProperty($property)
