@@ -2,21 +2,28 @@
 
 namespace Controllers;
 
-use DateTime;
+
 use Framework\Valadation;
 use Models\Verhuurder;
 use Models\Adres;
 use Models\Onderneming;
 
+use Framework\Session;
+
 class VerhuurderController
 {
     public function showRegisterForm()
     {
+        if (Session::get('verhuurder')) {
+            redirect('/');
+            exit;
+        }
+
         loadView(
             '/register/verhuurder.register',
             [
                 'errors' => [],
-                
+
             ]
         );
     }
@@ -168,6 +175,7 @@ class VerhuurderController
                     '/register/verhuurder.register',
                     [
                         'errors' => $errors,
+
                     ]
                 );
             }
@@ -179,6 +187,17 @@ class VerhuurderController
         $newVerhuurder->addVerhuurder();
 
         $newOnderneming->addOnderneming();
+
+        Session::set('verhuurder', [
+            'id' => $newVerhuurder->getProperty('Iban'),
+            'voornaam' => $newVerhuurder->getProperty('voorNaam'),
+            'achternaam' => $newVerhuurder->getProperty('achterNaam'),
+            'email' => $newVerhuurder->getProperty('email'),
+            'geboortedatum' => $newVerhuurder->getProperty('geboorteDatum'),
+            
+        ]);
+
+
 
         redirect('/');
     }

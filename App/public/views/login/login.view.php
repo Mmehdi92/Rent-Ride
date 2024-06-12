@@ -1,6 +1,6 @@
 <?=loadPartial('head')?>
 <?=loadPartial('navbar')?>
 
-<?=loadPartial('login/login')?>
+<?=loadPartial('login/login',['errors' => $errors ?? []])?>
 
 <?=loadPartial('footer')?>

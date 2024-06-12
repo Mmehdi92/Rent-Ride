@@ -3,7 +3,8 @@
 <?= loadPartial('/dashboard/verhuurder/addAuto', [
     'errors' => $errors ?? [],
     'newCaraData' => $newCaraData ?? [],
-    'car' => $car ??  null
+    'car' => $car ??  null,
+    'ondermingsList' => $ondermingsList ?? [] 
 ]); ?>
 
 

@@ -20,8 +20,11 @@ $router->put('/edit-auto/{id}', 'CarController@updateCar');
 
 $router->post('/onze-voertuigen/create-auto', 'CarController@createCar');
 $router->post('/auth/register/verhuurder', 'VerhuurderController@registerVerhuurder');
+$router->post('/auth/logout', 'AuthController@logout');
 
-$router->delete('/listing-car/{id}', 'CarController@deleteCar');
+$router->post('/auth/login/verhuurder', 'AuthController@authenticateVerhuurder');
+
+$router->delete('/listing-car/{id}', 'CarController@deleteCar' );
 
 $router->get('/auth/register/verhuurder', 'VerhuurderController@showRegisterForm');
 $router->get('/auth/register/huurder', 'HuurderController@showRegisterForm');

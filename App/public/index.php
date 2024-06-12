@@ -1,8 +1,12 @@
 <?php
-session_start();
 require '../../vendor/autoload.php';
-require '../../helper.php';
 use Framework\Router;
+use Framework\Session;
+
+Session::start();
+require '../../helper.php';
+
+
 
 $router = new Router();
 $routes = require basePath('routes.php');

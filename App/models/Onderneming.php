@@ -27,17 +27,32 @@ class Onderneming
     {
         return $this->$property;
     }
-    public function getAllOndernemingByKVK($kvk)
+
+    public  function getAllOndernemingByKVK($kvk)
     {
 
         try {
             $db = Database::getInstance();
-            $user = $db->query('SELECT * FROM onderneming where KVKNummer = :KVKNummer', ['KVKNummer' => $kvk])->fetchAll();
+            $onderneming = $db->query('SELECT * FROM onderneming where KVKNummer = :KVKNummer', ['KVKNummer' => $kvk])->fetchAll();
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
 
-        return $user;
+        return $onderneming;
+    }
+
+
+    public static function getAllOndernemingByVerhuurdersId($verhuurdersId)
+    {
+
+        try {
+            $db = Database::getInstance();
+            $ondernemingen = $db->query('SELECT * FROM onderneming where VerhuurderId = :verhuurdersId', ['verhuurdersId' => $verhuurdersId])->fetchAll();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return $ondernemingen;
     }
 
     public function addOnderneming()
@@ -60,5 +75,4 @@ class Onderneming
             echo $e->getMessage();
         }
     }
-    
 }

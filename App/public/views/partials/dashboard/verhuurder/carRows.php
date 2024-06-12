@@ -43,7 +43,7 @@
 
                                 <!-- End Delete Form -->
                                 <!-- Delete Form Start -->
-                                <form method="POST" action="/listing-/car<?= $car->getProperty('voertuigId') ?>">
+                                <form method="POST" action="/listing-car/<?= $car->getProperty('voertuigId') ?>">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Delete</button>
                                 </form>

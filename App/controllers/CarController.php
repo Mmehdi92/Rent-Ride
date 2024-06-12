@@ -2,21 +2,39 @@
 
 namespace Controllers;
 
+
+use Framework\Session;
 use Framework\Valadation;
 use Models\Car;
+use Models\Onderneming;
 
 class CarController
 {
 
+
+
     public function showCreateCar()
     {
-        loadView('/dashboard/verhuurder/create/create-auto');
+        if (!$verhuurder = Session::get('verhuurder')) {
+            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+        }
+
+
+        $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
+
+        loadView('/dashboard/verhuurder/create/create-auto', ['ondermingsList' => $ondermingsList]);
     }
 
     public function showCarListing()
     {
-        $userId = 'NL58ABNA0512396433';
-        $carList = Car::getManyByUserId($userId);
+
+        if (!$verhuurder = Session::get('verhuurder')) {
+            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+        }
+
+
+
+        $carList = Car::getManyByCarsId($verhuurder['id']);
 
         loadView('/dashboard/verhuurder/listing/listing-car', ['carList' => $carList]);
     }
@@ -24,11 +42,18 @@ class CarController
     public function createCar()
     {
 
+        if (!$verhuurder = Session::get('verhuurder')) {
+            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            exit;
+        }
+
+        $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
+
         // allowd fields array
         $allowFields = ['optionsOnderneming', 'kleur', 'kenteken', 'model', 'kofferbakruimte', 'bouwjaar', 'dakrails', 'zitplaatsen', 'prijsPerDag', 'trekhaak', 'aandrijving', 'actief'];
 
         $newCarData =  array_intersect_key($_POST, array_flip($allowFields));
-        $newCarData['optionsOnderneming'] =  87654321;
+
         // Sanatize data
         $newCarData = array_map('sanatizeData', $newCarData);
 
@@ -54,11 +79,13 @@ class CarController
             if (empty($newCarData[$field]) || !Valadation::string($newCarData[$field])) {
                 $errors[$field] = ucfirst($field) . ' is verplicht';
             }
+
+           
         }
 
         //render errors if any
         if (!empty($errors)) {
-            loadView('dashboard/verhuurder/create/create-auto', ['errors' => $errors, 'newCaraData' => $newCarData]);
+            loadView('dashboard/verhuurder/create/create-auto', ['errors' => $errors, 'newCaraData' => $newCarData, 'ondermingsList' => $ondermingsList ?? []]);
         } else {
             // Create a new car object
             $newCar = new Car(
@@ -81,7 +108,7 @@ class CarController
             $result = $newCar->addCar();
 
 
-            inspect($result);
+            // inspect($result);
             if ($result !== false) {
                 redirect('/onze-voertuigen');
             } else {
@@ -92,7 +119,7 @@ class CarController
 
     public function deleteCar($params)
     {
-
+        
         if (!isset($params['id'])) {
             redirect('/listing-car');
             exit;
@@ -119,6 +146,10 @@ class CarController
 
     public function showEditCar($params)
     {
+        if (!$verhuurder = Session::get('verhuurder')) {
+            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            exit;
+        }
         if (!isset($params['id'])) {
             header('Location: /onze-voertuigen');
             exit;
@@ -126,12 +157,14 @@ class CarController
         $id = $params['id'];
         $car = Car::getOne($id);
 
+        //load  user session id en de ondernemingen van de verhuurder
+        $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
         if (!$car) {
             header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
             exit;
         }
-        loadView('/dashboard/verhuurder/edit/edit-auto', ['car' => $car]);
+        loadView('/dashboard/verhuurder/edit/edit-auto', ['car' => $car, 'ondermingsList' => $ondermingsList]);
     }
 
     public function updateCar($params)
@@ -154,9 +187,7 @@ class CarController
         $updateValues = [];
 
         $updateValues =  array_intersect_key($_POST, array_flip($allowFields));
-        $updateValues['optionsOnderneming'] =  87654321;
         $updateValues['voertuigId'] = $car->getProperty('voertuigId');
-
         $updateValues = array_map('sanatizeData', $updateValues);
 
         $requiredFields = [

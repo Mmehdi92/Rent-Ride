@@ -126,7 +126,7 @@ class Car extends Vehicle
     }
 
 
-    public static function getManyByUserId($id)
+    public static function getManyByCarsId($id)
     {
         try {
             $db = Database::getInstance();

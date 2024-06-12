@@ -2,10 +2,11 @@
 <?= loadPartial('navbar'); ?>
 <?= loadPartial('/dashboard/verhuurder/editAuto', [
     'car' => $car ??  null,
-    'errors' => $errors ?? null
+    'errors' => $errors ?? null,
+    'ondermingsList' => $ondermingsList ?? [] 
+
 ]); ?>
 
-<?= inspect($car->getProperty('voertuigId')); ?>
-<?= inspect($car->getProperty('ondernemingsId')); ?>
+
 
 <?= loadPartial('footer'); ?>

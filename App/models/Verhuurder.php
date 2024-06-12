@@ -87,4 +87,16 @@ class Verhuurder extends Gebruiker
             echo $e->getMessage();
         }
     }
+
+
+public static function getUserByEmail($email){
+    try {
+        $db = Database::getInstance();
+        $user = $db->query('SELECT * FROM gebruiker where email = :email', ['email' => $email])->fetch();
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+
+    return $user;
+}
 }

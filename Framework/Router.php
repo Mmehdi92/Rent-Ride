@@ -3,6 +3,7 @@
 namespace Framework;
 
 use Controllers\ErrorController;
+use Framework\Middleware\Authorize;
 
 class Router
 {
@@ -16,7 +17,7 @@ class Router
      * @return void
      */
 
-    public function registerRoute($method, $uri, $action)
+    public function registerRoute($method, $uri, $action,)
     {
         //Destrucutring
         list($controller, $controllerMethod) = explode('@', $action);
@@ -25,7 +26,8 @@ class Router
             'method' => $method,
             'uri' => $uri,
             'controller' => $controller,
-            'controllerMethod' => $controllerMethod
+            'controllerMethod' => $controllerMethod,
+
 
         ];
     }
@@ -41,6 +43,7 @@ class Router
     {
         $this->registerRoute('GET', $uri, $controller);
     }
+
 
 
     /**
@@ -102,11 +105,11 @@ class Router
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-    // Check for _method input
-    if ($requestMethod === 'POST' && isset($_POST['_method'])) {
-      // Override the request method with the value of _method
-      $requestMethod = strtoupper($_POST['_method']);
-    }
+        // Check for _method input
+        if ($requestMethod === 'POST' && isset($_POST['_method'])) {
+            // Override the request method with the value of _method
+            $requestMethod = strtoupper($_POST['_method']);
+        }
 
         // inspect($requestMethod);
 

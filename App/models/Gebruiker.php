@@ -30,4 +30,6 @@ abstract class Gebruiker
         $this->geboorteDatum = $geboorteDatum;
         $this->actief = $actief;
     }
+
+    
 }
