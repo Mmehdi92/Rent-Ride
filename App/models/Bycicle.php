@@ -42,6 +42,7 @@ class Bycicle extends Vehicle
         $this->typeFiets = $typeFiets;
         $this->remType = $remType;
     }
+    
     public static function getMany()
     {
         try {

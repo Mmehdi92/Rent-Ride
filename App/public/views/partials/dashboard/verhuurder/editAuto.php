@@ -32,7 +32,7 @@ Verhuurder Dashboard
                                 <label for="optionsOnderneming"><span class="font-semibold">Kies uw onderneming:</span></label>
                                 <select name="optionsOnderneming" id="optionsOnderneming" class="p-2 border">
                                     <?php foreach ($ondermingsList as $onderneming) : ?>
-                                        <option value="<?= $onderneming->KVKNummer; ?>"><?= $onderneming->Ondernemingsnaam; ?></option>
+                                        <option value="<?= $onderneming->getProperty('kvknummer'); ?>"><?=$onderneming->getProperty('ondernemingsnaam'); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

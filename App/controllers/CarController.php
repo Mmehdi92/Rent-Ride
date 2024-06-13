@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-
+use Error;
 use Framework\Session;
 use Framework\Valadation;
 use Models\Car;
@@ -16,7 +16,8 @@ class CarController
     public function showCreateCar()
     {
         if (!$verhuurder = Session::get('verhuurder')) {
-            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            redirect('/');
+            exit;
         }
 
 
@@ -27,15 +28,12 @@ class CarController
 
     public function showCarListing()
     {
-
         if (!$verhuurder = Session::get('verhuurder')) {
-            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            redirect('/login');
+            exit;
         }
 
-
-
         $carList = Car::getManyByCarsId($verhuurder['id']);
-
         loadView('/dashboard/verhuurder/listing/listing-car', ['carList' => $carList]);
     }
 
@@ -43,7 +41,7 @@ class CarController
     {
 
         if (!$verhuurder = Session::get('verhuurder')) {
-            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            redirect('/login');
             exit;
         }
 
@@ -79,8 +77,6 @@ class CarController
             if (empty($newCarData[$field]) || !Valadation::string($newCarData[$field])) {
                 $errors[$field] = ucfirst($field) . ' is verplicht';
             }
-
-           
         }
 
         //render errors if any
@@ -119,9 +115,9 @@ class CarController
 
     public function deleteCar($params)
     {
-        
+
         if (!isset($params['id'])) {
-            redirect('/listing-car');
+            ErrorController::notFound('Car not found');
             exit;
         }
         $id = $params['id'];
@@ -147,13 +143,10 @@ class CarController
     public function showEditCar($params)
     {
         if (!$verhuurder = Session::get('verhuurder')) {
-            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            redirect('/login');
             exit;
         }
-        if (!isset($params['id'])) {
-            header('Location: /onze-voertuigen');
-            exit;
-        }
+        
         $id = $params['id'];
         $car = Car::getOne($id);
 
@@ -161,7 +154,7 @@ class CarController
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
         if (!$car) {
-            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+            ErrorController::notFound('Car not found');
             exit;
         }
         loadView('/dashboard/verhuurder/edit/edit-auto', ['car' => $car, 'ondermingsList' => $ondermingsList]);
@@ -169,8 +162,12 @@ class CarController
 
     public function updateCar($params)
     {
+        if (!$verhuurder = Session::get('verhuurder')) {
+            redirect('/login');
+            exit;
+        }
         if (!isset($params['id'])) {
-            header('Location: /onze-voertuigen');
+            ErrorController::notFound('Car not found');
             exit;
         }
         $id = $params['id'];

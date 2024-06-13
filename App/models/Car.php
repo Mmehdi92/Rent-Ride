@@ -5,7 +5,6 @@ namespace Models;
 use Exception;
 use Models\Vehicle;
 use Framework\Database;
-use PDO;
 use PDOException;
 
 class Car extends Vehicle

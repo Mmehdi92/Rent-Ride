@@ -159,6 +159,7 @@ class VerhuurderController
             $kvk,
             $ondernemingsnaam,
             $telefoon,
+            $huisnummer,
             $postcode,
             $rekeningnummer
         );

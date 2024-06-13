@@ -23,7 +23,7 @@ Verhuurder Dashboard
 
                 <!-- Display Error if there are any -->
                 <?= loadPartial('error', ['errors' => $errors ?? [], 'ondermingsList' => $ondermingsList ?? []]) ?>
-                <?= inspect($ondermingsList) ?>
+             
                 <!-- Form Car  Crud Operations -->
                 <form class="w-2/3 mx-auto " method="POST" action="/onze-voertuigen/create-auto">
                     <div class="grid grid-cols-2 gap-4 p-4 ">
@@ -33,7 +33,7 @@ Verhuurder Dashboard
                                 <label for="optionsOnderneming"><span class="font-semibold">Kies uw onderneming:</span></label>
                                 <select name="optionsOnderneming" id="optionsOnderneming" class="p-2 border">
                                     <?php foreach ($ondermingsList as $onderneming) : ?>
-                                        <option value="<?= $onderneming->KVKNummer; ?>"><?= $onderneming->Ondernemingsnaam; ?></option>
+                                        <option value="<?= $onderneming->getProperty('kvknummer'); ?>"><?=$onderneming->getProperty('ondernemingsnaam'); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

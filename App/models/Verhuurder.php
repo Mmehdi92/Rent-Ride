@@ -76,27 +76,28 @@ class Verhuurder extends Gebruiker
 
             $insertVerhuurder = $db->query(
                 'INSERT INTO verhuurder (VerhuurderId) VALUES (:VerhuurderId)',
-                ['VerhuurderId' => $this->verhuurderId]);
-            
+                ['VerhuurderId' => $this->verhuurderId]
+            );
 
-                if ($insertGebruiker && $insertVerhuurder) {
-                    $db->query('COMMIT');
-                }
 
+            if ($insertGebruiker && $insertVerhuurder) {
+                $db->query('COMMIT');
+            }
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
 
 
-public static function getUserByEmail($email){
-    try {
-        $db = Database::getInstance();
-        $user = $db->query('SELECT * FROM gebruiker where email = :email', ['email' => $email])->fetch();
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
+    public static function getUserByEmail($email)
+    {
+        try {
+            $db = Database::getInstance();
+            $user = $db->query('SELECT * FROM gebruiker where email = :email', ['email' => $email])->fetch();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
 
-    return $user;
-}
+        return $user;
+    }
 }
