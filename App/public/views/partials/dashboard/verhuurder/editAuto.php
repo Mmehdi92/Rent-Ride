@@ -32,7 +32,7 @@ Verhuurder Dashboard
                                 <label for="optionsOnderneming"><span class="font-semibold">Kies uw onderneming:</span></label>
                                 <select name="optionsOnderneming" id="optionsOnderneming" class="p-2 border">
                                     <?php foreach ($ondermingsList as $onderneming) : ?>
-                                        <option value="<?= $onderneming->getProperty('kvknummer'); ?>"><?=$onderneming->getProperty('ondernemingsnaam'); ?></option>
+                                        <option value="<?= $onderneming->getProperty('kvknummer'); ?>"><?= $onderneming->getProperty('ondernemingsnaam'); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -60,8 +60,8 @@ Verhuurder Dashboard
                         <div>
                             <label for="dakrails" class="font-semibold">Dakrails:</label>
                             <select id="dakrails" name="dakrails" class="w-full p-2 border" value="<?= $car->getProperty('dakrails') ?? '' ?>">
-                                <option value="ja">Ja</option>
-                                <option value="nee">Nee</option>
+                                <option value="true" <?= $car->getProperty('dakrails') ? 'selected' : '' ?>>Ja</option>
+                                <option value="false" <?= !$car->getProperty('dakrails') ? 'selected' : '' ?>>Nee</option>
                             </select>
                         </div>
                         <div>
@@ -75,8 +75,8 @@ Verhuurder Dashboard
                         <div>
                             <label for="trekhaak" class="font-semibold">Trekhaak:</label>
                             <select id="trekhaak" name="trekhaak" class="w-full p-2 border" value="<?= $car->getProperty('trekhaak') ?? '' ?>">
-                                <option value="ja">Ja</option>
-                                <option value="nee">Nee</option>
+                                <option value="true" <?= $car->getProperty('trekhaak') ? 'selected' : '' ?>>Ja</option>
+                                <option value="false" <?= !$car->getProperty('trekhaak') ? 'selected' : '' ?>>Nee</option>
                             </select>
                         </div>
                         <div>
@@ -91,8 +91,8 @@ Verhuurder Dashboard
                         <div>
                             <label for="actief" class="font-semibold">Actief:</label>
                             <select id="actief" name="actief" class="w-full p-2 border" value="<?= $car->getProperty('actief') ?? '' ?>">
-                                <option value="ja">Ja</option>
-                                <option value="nee">Nee</option>
+                                <option value="true" <?= $car->getProperty('actief') ? 'selected' : '' ?>>Ja</option>
+                                <option value="false" <?= !$car->getProperty('actief') ? 'selected' : '' ?>>Nee</option>
                             </select>
                         </div>
                     </div>

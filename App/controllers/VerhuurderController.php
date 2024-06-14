@@ -14,10 +14,11 @@ class VerhuurderController
 {
     public function showRegisterForm()
     {
-        if (Session::get('verhuurder')) {
+        if (Session::get('verhuurder') || Session::get('huurder')) {
             redirect('/');
             exit;
         }
+        
 
         loadView(
             '/register/verhuurder.register',
@@ -35,7 +36,6 @@ class VerhuurderController
         $achternaam = $_POST['achternaam'];
         $email = $_POST['email'];
         $geboortedatum = date('Y-m-d', strtotime($_POST['geboortedatum']));
-
         $plaats = $_POST['plaats'];
         $straat = $_POST['straat'];
         $postcode = $_POST['postcode'];
@@ -170,16 +170,17 @@ class VerhuurderController
         $ondereming = $newOnderneming->getAllOndernemingByKVK($kvk);
 
 
-        if ($user || $email || $ondereming) { {
-                $errors[] = 'Gebruiker en/of Onderneming bestaat al';
-                loadView(
-                    '/register/verhuurder.register',
-                    [
-                        'errors' => $errors,
+        if ($user || $email || $ondereming) {
 
-                    ]
-                );
-            }
+            $errors[] = 'Gebruiker en/of Onderneming bestaat al';
+            loadView(
+                '/register/verhuurder.register',
+                [
+                    'errors' => $errors,
+
+                ]
+            );
+            exit;
         }
         if (!$adres) {
             $newAdres->addAdres();
@@ -195,7 +196,7 @@ class VerhuurderController
             'achternaam' => $newVerhuurder->getProperty('achterNaam'),
             'email' => $newVerhuurder->getProperty('email'),
             'geboortedatum' => $newVerhuurder->getProperty('geboorteDatum'),
-            
+
         ]);
 
 

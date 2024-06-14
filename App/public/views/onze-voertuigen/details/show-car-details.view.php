@@ -1,3 +1,7 @@
+<?php
+
+use Framework\Session;
+?>
 <?= loadPartial('head'); ?>
 <?= loadPartial('navbar'); ?>
 
@@ -7,14 +11,14 @@
         <div class="max-w-4xl p-6 mx-auto bg-white border rounded-lg shadow-lg">
             <h1 class="mb-8 text-3xl font-semibold text-center text-gray-800">Car Reservation</h1>
             <div class="flex flex-col items-center md:items-start">
-            <img src="./../../../Image/CarImagePlaceholder.avif" alt="Car Image" class="w-2/3 h-auto mb-4 rounded-lg">
+                <img src="./../../../Image/CarImagePlaceholder.avif" alt="Car Image" class="w-2/3 h-auto mb-4 rounded-lg">
             </div>
             <div class="mt-8 space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
                 <div class="text-gray-700">
                     <h2 class="mb-2 text-2xl font-semibold">Car Details</h2>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <p><strong>Model:</strong> <?=  $auto->getProperty('model') ?></p>
+                            <p><strong>Model:</strong> <?= $auto->getProperty('model') ?></p>
                         </div>
                         <div>
                             <p><strong>Kleur:</strong> <?= $auto->getProperty('kleur') ?></p>
@@ -23,7 +27,7 @@
                             <p><strong>Bouwjaar:</strong> <?= $auto->getProperty('bouwjaar') ?></p>
                         </div>
                         <div>
-                            <p><strong>Zitplaatsen:</strong> <?=  $auto->getProperty('zitplaatsen')?></p>
+                            <p><strong>Zitplaatsen:</strong> <?= $auto->getProperty('zitplaatsen') ?></p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -31,13 +35,13 @@
                             <p><strong>Prijs per dag: </strong><?= formatPrice($auto->getProperty('prijsPerdag')) ?></p>
                         </div>
                         <div>
-                            <p><strong>Kenteken:</strong> <?=  $auto->getProperty('kenteken') ?></p>
+                            <p><strong>Kenteken:</strong> <?= $auto->getProperty('kenteken') ?></p>
                         </div>
                         <div>
-                            <p><strong>Kofferbak :</strong> <?=  $auto->getProperty('kofferbakRuimte') ?> Liters</p>
+                            <p><strong>Kofferbak :</strong> <?= $auto->getProperty('kofferbakRuimte') ?> Liters</p>
                         </div>
                         <div>
-                            <p><strong>Dakrails:</strong> <?=  $auto->getProperty('dakrails') ? 'Ja' : 'Nee' ?></p>
+                            <p><strong>Dakrails:</strong> <?= $auto->getProperty('dakrails') ? 'Ja' : 'Nee' ?></p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -45,11 +49,14 @@
                             <p><strong>Trekhaak:</strong> <?= $auto->getProperty('trekhaak') ? 'Ja' : 'Nee' ?></p>
                         </div>
                         <div>
-                            <p><strong>Aandrijving:</strong> <?=  $auto->getProperty('aandrijving') ?></p>
+                            <p><strong>Aandrijving:</strong> <?= $auto->getProperty('aandrijving') ?></p>
                         </div>
                     </div>
                     <div class="mt-8">
-                        <a href="/" class="px-4 py-2 text-sm font-semibold text-white bg-green-500 border rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">Reserve Now</a>
+                        <?php if (isset($_SESSION['huurder'])) : ?>
+                            <a href="/create-reservering/<?=$auto->getProperty('voertuigId')?>" class="px-4 py-2 text-sm font-semibold text-white bg-green-500 border rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">Reserve Now</a>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>

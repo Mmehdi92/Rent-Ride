@@ -22,10 +22,18 @@ use Framework\Session;
                 <form action="/auth/logout" method="POST" class="flex items-center">
                     <button type="submit" class="w-20 p-1 text-sm duration-300 bg-red-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Log uit</button>
                 </form>
-                <a href="/auth/register/huurder" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Dashboard</a>
+                <a href="/listing-vehicles" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Dashboard</a>
+            <?php elseif (Session::has('huurder')) : ?>
+                <div class="flex items-center text-sm text-white">
+                    Welkom <span class="pl-2 pr-2 text-lg"><?= Session::get('huurder')['voornaam'] ?></span>
+                </div>
+                <form action="/auth/logout" method="POST" class="flex items-center">
+                    <button type="submit" class="w-20 p-1 text-sm duration-300 bg-red-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Log uit</button>
+                </form>
+                <a href="/listing-reservering" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Dashboard</a>
             <?php else : ?>
                 <a href="/auth/login" class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Inloggen</a>
-                <a href="/auth/register/huurder" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Registreren</a>
+                <a href="/auth/register" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400">Registreren</a>
             <?php endif; ?>
         </div>
     </div>

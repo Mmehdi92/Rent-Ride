@@ -145,12 +145,14 @@ class Onderneming
         try {
             $db = Database::getInstance();
             $result = $db->query('UPDATE onderneming SET Ondernemingsnaam = :Ondernemingsnaam, Telefoonnummer = :Telefoonnummer, Huisnummer = :Huisnummer, Postcode = :Postcode WHERE KVKNummer = :KVKNummer', [
-                'Ondernemingsnaam' => $updateValues['ondernemingsnaam'],
-                'Telefoonnummer' => $updateValues['telefoonnummer'],
-                'Huisnummer' => $updateValues['huisnummer'],
-                'Postcode' => $updateValues['postcode'],
-                'KVKNummer' => $updateValues['kvkNummer']
+                'Ondernemingsnaam' => $updateValues->ondernemingsnaam,
+                'Telefoonnummer' => $updateValues->telefoonnummer,
+                'Huisnummer' => $updateValues->huisnummer,
+                'Postcode' => $updateValues->postcode,
+                'KVKNummer' => $updateValues->kvknummer
             ]);
+
+          
             return $result;
         } catch (PDOException $e) {
             echo $e->getMessage();

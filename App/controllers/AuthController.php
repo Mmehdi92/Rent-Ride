@@ -7,6 +7,7 @@ use Framework\Session;
 use Framework\Valadation;
 use Framework\Database;
 use Models\Verhuurder;
+use Models\Huurder;
 
 class AuthController
 {
@@ -27,7 +28,7 @@ class AuthController
 
         redirect('/');
     }
-    
+
     public function authenticateVerhuurder()
     {
 
@@ -60,34 +61,76 @@ class AuthController
                     WHERE gebruiker.email = :email', $params)->fetch();
 
         if (!$user) {
+
+            $huurder = $db->query(
+                'SELECT * FROM gebruiker 
+                INNER JOIN huurder ON gebruiker.Iban = huurder.HuurderId
+                WHERE gebruiker.email = :email',
+                $params
+            )->fetch();
+            if (!$huurder) {
+                $errors['email'] = 'Email of wachtwoord is onjuist';
+                loadView('/login/login', ['errors' => $errors]);
+                exit;
+            }
+            if (!password_verify($password, $huurder->Wachtwoord)) {
+                $errors['email'] = 'Email of wachtwoord is onjuist';
+                loadView('/login/login', ['errors' => $errors]);
+                exit;
+            }
+
+            $huurder = new Huurder(
+                $huurder->Iban,
+                $huurder->Voornaam,
+                $huurder->Achternaam,
+                $huurder->Postcode,
+                $huurder->Huisnummer,
+                $huurder->Email,
+                $huurder->Wachtwoord,
+                $huurder->TelefoonNummer,
+                $huurder->Geboortedatum,
+                $huurder->Actief,
+                $huurder->HuurderId,
+                $huurder->Rijbewijs,
+                $huurder->Vaarbewijs
+            );
+
+
+            Session::set('huurder', [
+                'id' => $huurder->getProperty('Iban'),
+                'voornaam' => $huurder->getProperty('voorNaam'),
+                'achternaam' => $huurder->getProperty('achterNaam'),
+                'email' => $huurder->getProperty('email'),
+                'geboortedatum' => $huurder->getProperty('geboorteDatum'),
+
+            ]);
+
+            redirect('/');
+        }
+
+
+        if (!password_verify($password, $user->Wachtwoord)) {
             $errors['email'] = 'Email of wachtwoord is onjuist';
             loadView('/login/login', ['errors' => $errors]);
             exit;
         }
 
-        
-        if (!password_verify($password, $user->Wachtwoord)) {
-            $errors['email'] = 'Email of wachtwoord is onjuist';
-            loadView('/login/login', ['errors' => $errors]);
-            exit;
-            }
+        $user = new Verhuurder(
+            $user->Iban,
+            $user->Voornaam,
+            $user->Achternaam,
+            $user->Postcode,
+            $user->Huisnummer,
+            $user->Email,
+            $user->Wachtwoord,
+            $user->TelefoonNummer,
+            $user->Geboortedatum,
+            $user->Actief,
+            $user->VerhuurderId
+        );
 
-            $user = new Verhuurder(
-                $user->Iban,
-                $user->Voornaam,
-                $user->Achternaam,
-                $user->Postcode,
-                $user->Huisnummer,
-                $user->Email,
-                $user->Wachtwoord,
-                $user->TelefoonNummer,
-                $user->Geboortedatum,
-                $user->Actief,
-                $user->VerhuurderId
-            );
 
-   
-        
+
         Session::set('verhuurder', [
             'id' => $user->getProperty('Iban'),
             'voornaam' => $user->getProperty('voorNaam'),
@@ -96,8 +139,14 @@ class AuthController
             'geboortedatum' => $user->getProperty('geboorteDatum'),
             'role' => 'verhuurder'
         ]);
-       
+
 
         redirect('/');
+    }
+
+    public function showRegisterKeuze()
+    {
+        //werkt
+        loadView('/register/registratie.keuze');
     }
 }

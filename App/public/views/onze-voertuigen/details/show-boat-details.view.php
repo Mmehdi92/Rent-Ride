@@ -14,7 +14,7 @@
                     <h2 class="mb-2 text-2xl font-semibold">Boat Details</h2>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <p><strong>Model:</strong> <?=  $boot->getProperty('model') ?></p>
+                            <p><strong>Model:</strong> <?= $boot->getProperty('model') ?></p>
                         </div>
                         <div>
                             <p><strong>Kleur:</strong> <?= $boot->getProperty('kleur') ?></p>
@@ -23,7 +23,7 @@
                             <p><strong>Bouwjaar:</strong> <?= $boot->getProperty('bouwjaar') ?></p>
                         </div>
                         <div>
-                            <p><strong>Zitplaatsen:</strong> <?=  $boot->getProperty('zitplaatsen')?></p>
+                            <p><strong>Zitplaatsen:</strong> <?= $boot->getProperty('zitplaatsen') ?></p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -31,13 +31,13 @@
                             <p><strong>Prijs per dag: </strong><?= formatPrice($boot->getProperty('prijsPerdag')) ?></p>
                         </div>
                         <div>
-                            <p><strong>Lengte:</strong> <?=  $boot->getProperty('lengte') ?> meters</p>
+                            <p><strong>Lengte:</strong> <?= $boot->getProperty('lengte') ?> meters</p>
                         </div>
                         <div>
-                            <p><strong>Breedte:</strong> <?=  $boot->getProperty('breedte') ?> meters</p>
+                            <p><strong>Breedte:</strong> <?= $boot->getProperty('breedte') ?> meters</p>
                         </div>
                         <div>
-                            <p><strong>Aandrijving:</strong> <?=  $boot->getProperty('aandrijving') ?></p>
+                            <p><strong>Aandrijving:</strong> <?= $boot->getProperty('aandrijving') ?></p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -46,7 +46,9 @@
                         </div>
                     </div>
                     <div class="mt-8">
-                        <a href="/" class="px-4 py-2 text-sm font-semibold text-white bg-green-500 border rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">Reserve Now</a>
+                    <?php if (isset($_SESSION['huurder'])) : ?>
+                        <a href="/create-reservering/<?= $boot->getProperty('voertuigId') ?>" class="px-4 py-2 text-sm font-semibold text-white bg-green-500 border rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">Reserve Now</a>
+                    <?php endif; ?>
                     </div>
                 </div>
             </div>

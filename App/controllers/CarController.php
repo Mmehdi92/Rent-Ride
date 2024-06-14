@@ -7,12 +7,10 @@ use Framework\Session;
 use Framework\Valadation;
 use Models\Car;
 use Models\Onderneming;
+use Models\Boat;
 
 class CarController
 {
-
-
-
     public function showCreateCar()
     {
         if (!$verhuurder = Session::get('verhuurder')) {
@@ -34,7 +32,7 @@ class CarController
         }
 
         $carList = Car::getManyByCarsId($verhuurder['id']);
-        loadView('/dashboard/verhuurder/listing/listing-car', ['carList' => $carList]);
+        loadView('/dashboard/verhuurder/listing/listing-vehicles', ['carList' => $carList]);
     }
 
     public function createCar()
@@ -48,7 +46,20 @@ class CarController
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
         // allowd fields array
-        $allowFields = ['optionsOnderneming', 'kleur', 'kenteken', 'model', 'kofferbakruimte', 'bouwjaar', 'dakrails', 'zitplaatsen', 'prijsPerDag', 'trekhaak', 'aandrijving', 'actief'];
+        $allowFields = [
+            'optionsOnderneming',
+            'kleur',
+            'kenteken',
+            'model',
+            'kofferbakruimte',
+            'bouwjaar',
+            'dakrails',
+            'zitplaatsen',
+            'prijsPerDag',
+            'trekhaak',
+            'aandrijving',
+            'actief'
+        ];
 
         $newCarData =  array_intersect_key($_POST, array_flip($allowFields));
 
@@ -101,13 +112,14 @@ class CarController
                 $newCarData['aandrijving']
             );
 
+
             $result = $newCar->addCar();
 
 
-            // inspect($result);
             if ($result !== false) {
                 redirect('/onze-voertuigen');
             } else {
+                $_SESSION['succes_message'] = '🚘 Auto  succesvol toegevoegd ✅    ';
                 loadView('dashboard/verhuurder/create/create-auto', ['errors' => 'Er is iets misgegaan', 'newCaraData' => $newCarData]);
             }
         }
@@ -116,14 +128,14 @@ class CarController
     public function deleteCar($params)
     {
 
+
         if (!isset($params['id'])) {
             ErrorController::notFound('Car not found');
             exit;
         }
         $id = $params['id'];
 
-        $car = CAR::getOne($id);
-
+        $car = CAR::getOne($id);;
         if (!$car) {
             ErrorController::notFound('Car not found');
             return;
@@ -134,7 +146,7 @@ class CarController
         if ($result) {
             // Set flash message
             $_SESSION['succes_message'] = '🚘 Auto  succesvol verwijderd ✅    ';
-            redirect('/listing-car');
+            redirect('/listing-vehicles');
         } else {
             ErrorController::notFound('Car not Deleted');
         }
@@ -146,7 +158,7 @@ class CarController
             redirect('/login');
             exit;
         }
-        
+
         $id = $params['id'];
         $car = Car::getOne($id);
 
@@ -162,6 +174,7 @@ class CarController
 
     public function updateCar($params)
     {
+       
         if (!$verhuurder = Session::get('verhuurder')) {
             redirect('/login');
             exit;
@@ -172,9 +185,11 @@ class CarController
         }
         $id = $params['id'];
         $car = Car::getOne($id);
+        $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
-        if (!$car) {
-            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+       
+        if (!$car && !$ondermingsList) {
+            ErrorController::notFound('Car not found');
             exit;
         }
 
@@ -186,7 +201,7 @@ class CarController
         $updateValues =  array_intersect_key($_POST, array_flip($allowFields));
         $updateValues['voertuigId'] = $car->getProperty('voertuigId');
         $updateValues = array_map('sanatizeData', $updateValues);
-
+      
         $requiredFields = [
             'optionsOnderneming',
             'voertuigId',
@@ -212,17 +227,19 @@ class CarController
         }
 
         if (!empty($errors)) {
-            loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car]);
+            loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car , 'ondermingsList' => $ondermingsList]);
             exit;
-        } else {
+        }
+        // inspectAndDie(" 2");
             $result = $car->updateCar($updateValues);
-        }
 
-        if ($result) {
-            $_SESSION['succes_message'] = '🚘 Auto  succesvol geupdate ✅    ';
-            redirect('/listing-car');
-        } else {
-            ErrorController::notFound('Car not Updated');
-        }
+          
+            if ($result) {
+                $_SESSION['succes_message'] = '🚘 Auto  succesvol geupdate ✅    ';
+                redirect('/listing-vehicles');
+            } else {
+                ErrorController::notFound('Car not Updated');
+            };
+        
     }
 }

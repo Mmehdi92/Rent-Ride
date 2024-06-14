@@ -2,9 +2,9 @@
 <div class="flex flex-col p-2 ">
     <p class="p-1 mb-2 text-sm text-center duration-300 bg-gray-100 border rounded-md ">Voertuig Toevoegen</p>
     <div class="flex flex-row space-x-16">
-        <a href="/onze-voertuigen/create-auto"> <img src="../../../SVG Icons/CarIcon.svg" alt="Car Icon" class="w-10 h-10" /></a>
-        <a href="/onze-voertuigen/create-boot"><img src="../../../SVG Icons/BoatIcon.svg" alt="Boat Icon" class="w-10 h-10" /></a>
-        <a href="/onze-voertuigen/create-fiets"> <img src="../../../SVG Icons/BycicleIcon.svg" alt="Bycicle Icon" class="w-10 h-10" /></a>
+        <a href="/create-auto"> <img src="../../../SVG Icons/CarIcon.svg" alt="Car Icon" class="w-10 h-10" /></a>
+        <a href="/create-boot"><img src="../../../SVG Icons/BoatIcon.svg" alt="Boat Icon" class="w-10 h-10" /></a>
+        <a href="/create-fiets"> <img src="../../../SVG Icons/BycicleIcon.svg" alt="Bycicle Icon" class="w-10 h-10" /></a>
     </div>
 </div>
 

@@ -5,7 +5,7 @@ namespace Controllers;
 use Models\Car;
 use Models\Boat;
 use Models\Bycicle;
-use Framework\Valadation;
+
 
 class OnzeVoertuigenController
 {
@@ -13,8 +13,8 @@ class OnzeVoertuigenController
 
     public function index()
     {
-        $listingAuto = Car::getMany();
-        $listingBoot = Boat::getMany();
+        $listingAuto = Car::getManyActief();
+        $listingBoot = Boat::getManyActief();
         $listingFiets = Bycicle::getMany();
 
 

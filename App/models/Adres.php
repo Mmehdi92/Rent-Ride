@@ -54,6 +54,7 @@ class Adres
         try {
             $db = Database::getInstance();
             $user = $db->query('SELECT * FROM adres where postcode = :postcode and huisnummer = :huisnummer', ['postcode' => $postcode, 'huisnummer' => $huisnummer])->fetchAll();
+            return $user;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

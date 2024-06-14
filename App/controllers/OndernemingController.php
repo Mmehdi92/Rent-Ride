@@ -102,7 +102,7 @@ class OndernemingController
     {
 
         if (!isset($params['id'])) {
-           ErrorController::notFound('Onderneming niet gevonden');
+            ErrorController::notFound('Onderneming niet gevonden');
             exit;
         }
 
@@ -125,6 +125,10 @@ class OndernemingController
 
     public function updateOnderneming($params)
     {
+        if (!$verhuurder = Session::get('verhuurder')) {
+            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+            exit;
+        }
         if (!isset($params['id'])) {
             ErrorController::notFound('Onderneming niet gevonden');
             exit;
@@ -174,13 +178,30 @@ class OndernemingController
                 'Nederland'
             );
 
-            $newAdres->addAdres();
+            $existingAdres = $newAdres->getAllAdresByPostcode($newOndernemingData['postcode'], $newOndernemingData['huisnummer']);
+            if (!$existingAdres) {
+                $newAdres->addAdres();
+            }
         }
 
-        $result = $onderneming->updateOnderneming($newOndernemingData);
+        $verhuurderid = Session::get('verhuurder')['id'];
+
+
+        $updatedOnderneming = new Onderneming(
+            $kvk,
+            $newOndernemingData['ondernemingsnaam'],
+            $newOndernemingData['telefoonnummer'],
+            $newOndernemingData['huisnummer'],
+            $newOndernemingData['postcode'],
+            $verhuurderid
+        );
+
+        $result = $onderneming->updateOnderneming($updatedOnderneming);
+
         if ($result) {
+
             $_SESSION['succes_message'] = 'Onderneming succesvol geupdate ✅ ';
-            redirect('/listing-car');
+            redirect('/listing-onderneming');
         } else {
             ErrorController::notFound('Car not Updated');
         }

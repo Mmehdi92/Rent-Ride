@@ -23,9 +23,9 @@ Verhuurder Dashboard
 
                 <!-- Display Error if there are any -->
                 <?= loadPartial('error', ['errors' => $errors ?? [], 'ondermingsList' => $ondermingsList ?? []]) ?>
-             
+
                 <!-- Form Car  Crud Operations -->
-                <form class="w-2/3 mx-auto " method="POST" action="/onze-voertuigen/create-auto">
+                <form class="w-2/3 mx-auto " method="POST" action="/create-auto">
                     <div class="grid grid-cols-2 gap-4 p-4 ">
                         <div class="flex flex-row col-span-2">
                             <img src="../../../SVG Icons/CarIcon.svg" alt="Car Svg icon" class="w-20 h-20 shadow-xl" />
@@ -33,11 +33,12 @@ Verhuurder Dashboard
                                 <label for="optionsOnderneming"><span class="font-semibold">Kies uw onderneming:</span></label>
                                 <select name="optionsOnderneming" id="optionsOnderneming" class="p-2 border">
                                     <?php foreach ($ondermingsList as $onderneming) : ?>
-                                        <option value="<?= $onderneming->getProperty('kvknummer'); ?>"><?=$onderneming->getProperty('ondernemingsnaam'); ?></option>
+                                        <option value="<?= $onderneming->getProperty('kvknummer'); ?>"><?= $onderneming->getProperty('ondernemingsnaam'); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
+
                         <div>
                             <label for="kleur" class="font-semibold">Kleur:</label>
                             <input type="text" id="kleur" name="kleur" class="w-full p-2 border" value="<?= $newCaraData['kleur'] ?? '' ?>" />
@@ -60,10 +61,11 @@ Verhuurder Dashboard
                         </div>
                         <div>
                             <label for="dakrails" class="font-semibold">Dakrails:</label>
-                            <select id="dakrails" name="dakrails" class="w-full p-2 border" value="<?= $newCaraData['dakrails'] ?? '' ?>">
-                                <option value="ja">Ja</option>
-                                <option value="nee">Nee</option>
+                            <select id="dakrails" name="dakrails" class="w-full p-2 border">
+                                <option value="true" <?= (isset($newCaraData['dakrails']) && $newCaraData['dakrails'] === 'true') ? 'selected' : '' ?>>Ja</option>
+                                <option value="false" <?= (isset($newCaraData['dakrails']) && $newCaraData['dakrails'] === 'false') ? 'selected' : '' ?>>Nee</option>
                             </select>
+
                         </div>
                         <div>
                             <label for="zitplaatsen" class="font-semibold">Zitplaatsen:</label>
@@ -75,10 +77,11 @@ Verhuurder Dashboard
                         </div>
                         <div>
                             <label for="trekhaak" class="font-semibold">Trekhaak:</label>
-                            <select id="trekhaak" name="trekhaak" class="w-full p-2 border" value="<?= $newCaraData['trekhaak'] ?? '' ?>">
-                                <option value="ja">Ja</option>
-                                <option value="nee">Nee</option>
+                            <select id="trekhaak" name="trekhaak" class="w-full p-2 border">
+                                <option value="ja" <?= (isset($newCaraData['trekhaak']) && $newCaraData['trekhaak'] === 'ja') ? 'selected' : '' ?>>Ja</option>
+                                <option value="nee" <?= (isset($newCaraData['trekhaak']) && $newCaraData['trekhaak'] === 'nee') ? 'selected' : '' ?>>Nee</option>
                             </select>
+
                         </div>
                         <div>
                             <label for="aandrijving" class="font-semibold">Aandrijving:</label>
@@ -91,9 +94,9 @@ Verhuurder Dashboard
                         </div>
                         <div>
                             <label for="actief" class="font-semibold">Actief:</label>
-                            <select id="actief" name="actief" class="w-full p-2 border" value="<?= $newCaraData['actief'] ?? '' ?>">
-                                <option value="ja">Ja</option>
-                                <option value="nee">Nee</option>
+                            <select id="actief" name="actief" class="w-full p-2 border">
+                                <option value="true" <?= (isset($newCaraData['actief']) && $newCaraData['actief'] === 'true') ? 'selected' : '' ?>>Ja</option>
+                                <option value="false" <?= (isset($newCaraData['actief']) && $newCaraData['actief'] === 'false') ? 'selected' : '' ?>>Nee</option>
                             </select>
                         </div>
                     </div>

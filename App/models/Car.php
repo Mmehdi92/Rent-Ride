@@ -51,6 +51,44 @@ class Car extends Vehicle
         $this->aandrijving = $aandrijving;
     }
 
+    public static function getManyActief()
+    {
+        try {
+            $db = Database::getInstance();
+            $listingAuto = $db->query(
+                'SELECT * FROM auto 
+             INNER JOIN voertuig ON voertuig.VoertuigId = auto.AutoId 
+             WHERE voertuig.Actief = 1
+             LIMIT 5;'
+            )->fetchAll();
+            $carsArray = [];
+
+            foreach ($listingAuto as $car) {
+                $carsArray[] = new Car(
+                    $car->VoertuigId,
+                    $car->OndernemingId,
+                    $car->Kleur,
+                    $car->Model,
+                    $car->Bouwjaar,
+                    $car->Zitplaatsen,
+                    $car->PrijsPerDag,
+                    $car->Actief,
+                    $car->AutoId,
+                    $car->Kenteken,
+                    $car->KofferbakRuimte,
+                    $car->Dakrails,
+                    $car->Trekhaak,
+                    $car->Aandrijving
+                );
+            }
+
+            return $carsArray;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
+        }
+    }
+
 
     public static function getMany()
     {
@@ -175,24 +213,27 @@ class Car extends Vehicle
 
             // start transaction
             $db->query('START TRANSACTION');
+            $actiefValue = ($this->actief === 'true') ? 1 : 0;
 
             // insert the vehicle
             $voertuigInsert = $db->query(
-                'INSERT INTO VOERTUIG (OndernemingId, Kleur, Model, Bouwjaar, Zitplaatsen, PrijsPerDag)
-                                VALUES (:OndernemingId ,:Kleur, :Model, :Bouwjaar, :Zitplaatsen , :PrijsPerDag )',
+                'INSERT INTO VOERTUIG (OndernemingId, Kleur, Model, Bouwjaar, Zitplaatsen, PrijsPerDag, Actief)
+                                VALUES (:OndernemingId ,:Kleur, :Model, :Bouwjaar, :Zitplaatsen , :PrijsPerDag, :Actief )',
                 [
                     'OndernemingId' => $this->ondernemingId,
                     'Kleur' => $this->kleur,
                     'Model' => $this->model,
                     'Bouwjaar' => $this->bouwjaar,
                     'Zitplaatsen' => $this->zitplaatsen,
-                    'PrijsPerDag' => $this->prijsPerdag
+                    'PrijsPerDag' => $this->prijsPerdag,
+                    'Actief' => $actiefValue
                 ]
             );
 
             // get the last inserted id
             $autoId = $db->lastInsertId();
-
+            $trekhaakValue = ($this->trekhaak === 'true') ? 1 : 0;
+            $dakrailsValue = ($this->dakrails === 'true') ? 1 : 0;
             // insert the car
             $autoInsert =  $db->query(
                 'INSERT INTO AUTO (AutoId, Kenteken, KofferbakRuimte, Dakrails, Trekhaak, Aandrijving)
@@ -201,8 +242,8 @@ class Car extends Vehicle
                     'AutoId' => $autoId,
                     'Kenteken' => $this->kenteken,
                     'KofferbakRuimte' => $this->kofferbakRuimte,
-                    'Dakrails' => $this->dakrails,
-                    'Trekhaak' => $this->trekhaak,
+                    'Dakrails' => $dakrailsValue,
+                    'Trekhaak' => $trekhaakValue,
                     'Aandrijving' => $this->aandrijving
                 ]
             );
@@ -225,7 +266,7 @@ class Car extends Vehicle
     public function deleteOne($id)
     {
         $db = Database::getInstance();
-        $result = $db->query('DELETE FROM auto WHERE AutoId = :id', ['id' => $id]);
+        $result = $db->query('DELETE FROM voertuig WHERE voertuigId = :id', ['id' => $id]);
         return $result;
     }
 
@@ -236,9 +277,10 @@ class Car extends Vehicle
             $db = Database::getInstance();
 
             $db->query('START TRANSACTION');
+            $actiefValue = ($updateValues['actief'] === 'true') ? 1 : 0;
 
             $voertuigUpdate = $db->query(
-                'UPDATE voertuig SET Kleur = :Kleur, Model = :Model, Bouwjaar = :Bouwjaar, Zitplaatsen = :Zitplaatsen, PrijsPerDag = :PrijsPerDag, OndernemingId = :OndernemingId WHERE VoertuigId = :VoertuigId',
+                'UPDATE voertuig SET Kleur = :Kleur, Model = :Model, Bouwjaar = :Bouwjaar, Zitplaatsen = :Zitplaatsen, PrijsPerDag = :PrijsPerDag,OndernemingId = :OndernemingId, Actief = :Actief WHERE VoertuigId = :VoertuigId',
                 [
                     'Kleur' => $updateValues['kleur'],
                     'Model' => $updateValues['model'],
@@ -247,9 +289,12 @@ class Car extends Vehicle
                     'VoertuigId' => $updateValues['voertuigId'],
                     'PrijsPerDag' => $updateValues['prijsPerDag'],
                     'OndernemingId' => $updateValues['optionsOnderneming'],
+                    'Actief' => $actiefValue
 
                 ]
             );
+            $trekhaakValue = ($updateValues['trekhaak'] === 'true') ? 1 : 0;
+            $dakrailsValue = ($updateValues['dakrails'] === 'true') ? 1 : 0;
 
 
             $autoUpdate = $db->query(

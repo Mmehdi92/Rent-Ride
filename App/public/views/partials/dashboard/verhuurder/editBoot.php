@@ -3,7 +3,6 @@
 
         <!-- Side Menu Bar voor Huurder -->
         <?= loadPartial('dashboard/verhuurder/side-menu-bar'); ?>
-
         <!-- Main/Selected Content voor Huurder -->
         <div class="flex flex-col w-full space-y-2">
             <h1 class="text-2xl font-semibold tracking-widest underline underline-offset-1">Mijn Voertuigen</h1>
@@ -17,7 +16,9 @@
                 <?= loadPartial('error', ['errors' => $errors ?? [], 'ondermingsList' => $ondermingsList ?? []]) ?>
 
                 <!-- Form Boat Crud Operations -->
-                <form class="w-2/3 mx-auto" action="/create-boot" method="POST">
+                <form class="w-2/3 mx-auto" action="/edit-boot/<?= $boat->getProperty('voertuigId') ?>" method="POST">
+                    <input type="hidden" name="_method" value="PUT">
+
                     <div class="grid grid-cols-2 gap-4 p-4">
                         <div class="flex flex-row col-span-2">
                             <img src="../../../SVG Icons/BoatIcon.svg" alt="Boat Svg icon" class="w-20 h-20 shadow-xl" />
@@ -32,48 +33,48 @@
                         </div>
                         <div>
                             <label for="kleur" class="font-semibold">Kleur:</label>
-                            <input type="text" id="kleur" name="kleur" class="w-full p-2 border" value="<?= $newBootData['kleur'] ?? '' ?>" />
+                            <input type="text" id="kleur" name="kleur" class="w-full p-2 border" value="<?= $boat->getProperty('kleur') ?>" />
                         </div>
                         <div>
                             <label for="model" class="font-semibold">Model:</label>
-                            <input type="text" id="model" name="model" class="w-full p-2 border" value="<?= $newBootData['model'] ?? '' ?>" />
+                            <input type="text" id="model" name="model" class="w-full p-2 border" value="<?= $boat->getProperty('model') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="bouwjaar" class="font-semibold">Bouwjaar:</label>
-                            <input type="text" id="bouwjaar" name="bouwjaar" class="w-full p-2 border" value="<?= $newBootData['bouwjaar'] ?? '' ?>" />
+                            <input type="text" id="bouwjaar" name="bouwjaar" class="w-full p-2 border" value="<?= $boat->getProperty('bouwjaar') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="zitplaatsen" class="font-semibold">Zitplaatsen:</label>
-                            <input type="text" id="zitplaatsen" name="zitplaatsen" class="w-full p-2 border" value="<?= $newBootData['zitplaatsen'] ?? '' ?>" />
+                            <input type="text" id="zitplaatsen" name="zitplaatsen" class="w-full p-2 border" value="<?= $boat->getProperty('zitplaatsen') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="prijsPerDag" class="font-semibold">Prijs per dag:</label>
-                            <input type="text" id="prijsPerDag" name="prijsPerDag" class="w-full p-2 border" value="<?= $newBootData['prijsPerDag'] ?? '' ?>" />
+                            <input type="text" id="prijsPerDag" name="prijsPerDag" class="w-full p-2 border" value="<?= $boat->getProperty('prijsPerdag') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="actief" class="font-semibold">Actief:</label>
                             <select id="actief" name="actief" class="w-full p-2 border">
-                                <option value="true" <?= (isset($newBootData['actief']) && $newBootData['actief'] === 'true') ? 'selected' : '' ?>>Ja</option>
-                                <option value="false" <?= (isset($newBootData['actief']) && $newBootData['actief'] === 'false') ? 'selected' : '' ?>>Nee</option>
+                                <option value="true">Ja</option>
+                                <option value="false">Nee</option>
                             </select>
                         </div>
                         <div>
                             <label for="lengte" class="font-semibold">Lengte:</label>
-                            <input type="text" id="lengte" name="lengte" class="w-full p-2 border" value="<?= $newBootData['lengte'] ?? '' ?>" />
+                            <input type="text" id="lengte" name="lengte" class="w-full p-2 border" value="<?= $boat->getProperty('lengte') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="breedte" class="font-semibold">Breedte:</label>
-                            <input type="text" id="breedte" name="breedte" class="w-full p-2 border" value="<?= $newBootData['breedte'] ?? '' ?>" />
+                            <input type="text" id="breedte" name="breedte" class="w-full p-2 border" value="<?= $boat->getProperty('breedte') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="aandrijving" class="font-semibold">Type Aandrijving:</label>
-                            <input type="text" id="aandrijving" name="aandrijving" class="w-full p-2 border" value="<?= $newBootData['aandrijving'] ?? '' ?>" />
+                            <input type="text" id="aandrijving" name="aandrijving" class="w-full p-2 border" value="<?= $boat->getProperty('aandrijving') ?? '' ?>" />
                         </div>
                         <div>
                             <label for="vaarbewijs" class="font-semibold">Vaarbewijs:</label>
                             <select id="vaarbewijs" name="vaarbewijs" class="w-full p-2 border">
-                                <option value="true" <?= (isset($newBootData['vaarbewijs']) && $newBootData['vaarbewijs'] === 'true') ? 'selected' : '' ?>>Ja</option>
-                                <option value="false" <?= (isset($newBootData['vaarbewijs']) && $newBootData['vaarbewijs'] === 'false') ? 'selected' : '' ?>>Nee</option>
+                                <option value="true" <?= $boat->getProperty('vaarBewijs') ? 'selected' : '' ?>>Ja</option>
+                                <option value="false" <?= !$boat->getProperty('vaarBewijs') ? 'selected' : '' ?>>Nee</option>
                             </select>
                         </div>
                     </div>

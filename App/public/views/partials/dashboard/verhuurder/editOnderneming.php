@@ -20,7 +20,6 @@ Verhuurder Dashboard
 
                 <!-- Display Error if there are any -->
                 <?= loadPartial('error', ['errors' => $errors ?? []]) ?>
-                <?= inspect($onderneming) ?>
                 <!-- Form Car  Crud Operations -->
                 <form class="w-2/3 mx-auto" method="POST" action="/edit-onderneming/<?=$onderneming->getProperty('kvknummer')?>">
                     <input type="hidden" name="_method" value="PUT">
