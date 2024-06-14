@@ -1,0 +1,28 @@
+<?php
+declare(strict_types=1);
+return [
+    "welcome" => "Mirë se vini te Rent and Ride!",
+    "discover" => "Zbuloni një botë aventurash me Rent and Ride! Merrni varka, biçikleta dhe makinat për çdo rast. <br><br>Eksploroni, zbuloni rrugë të reja dhe krijojeni momente të paharrueshme me zgjedhjen tonë të ndryshme të mjeteve. <br><br><span class='italic'>Gati të fillosh udhëtimin e jetës? Filloni këtu!</span>",
+    "featured_vehicles_title" => "Zbuloni mjetet tona të shquara",
+    "featured_vehicles_description" => "Bëni eksperiencën e lirisë së rrugës së hapur me zgjedhjen tonë të mjetëve. Nëse kërkoni një makinë, biçikletë ose anije, ne kemi mjetin perfekt për aventurën tuaj. Me mjetet tona të cilësisë së lartë dhe shërbimin e shkëlqyer, jeni gati për një përvojë të paharrueshme.",
+    "view_vehicles" => "Shiko mjetet tona",
+    "why_choose_rent_and_ride" => "Pse të zgjidhni Rent and Ride?",
+    "large_selection" => "Seleksion i madh",
+    "large_selection_description" => "Ne ofrojmë një zgjedhje të gjerë mjetësh, përfshirë makinat, biçikletat dhe anijet për çdo rast.",
+    "affordable_prices" => "Çmime të arsyeshme",
+    "affordable_prices_description" => "Çmimet tona janë konkurruese, siguruar që ju të merrni vlerë për paratë tuaja.",
+    "excellent_service" => "Shërbim i shkëlqyer",
+    "excellent_service_description" => "Ekipi ynë është i angazhuar për të ofruar shërbimin dhe mbështetjen më të mirë të klientit.",
+    "why_rent" => "Pse të merrni me qira?",
+    "why_rent_description" => "Ka shumë arsye për të marrë një mjet me RentAndRide. Nëse jeni duke shkuar në pushime, duke bërë një udhëtim me makinë, ose thjesht duke kërkuar një ditë jashtë, marrja me qira ofron shumë përfitime. Gëzoni fleksibilitetin, komfortin dhe lehtësinë në eksplorimin e botës me mjetet tona të cilësisë së lartë. Çfarë po prisni? Filloni planifikimin e aventurës tuaj sot!",
+    "discover_more" => "Zbuloni më shumë",
+    "why_rent_out" => "Pse të merrni me qira?",
+    "why_rent_out_description" => "Zbuloni avantazhet e marrjes me qira të mjetit tuaj me RentAndRide. Nëse keni një makinë, biçikletë ose anije, platforma jonë ofron një mënyrë të lehtë dhe të sigurt për të marrë mjetin tuaj me qira te aventurierët e tjerë. Fitoni të ardhura të shtuara, ndani pasionin tuaj për udhëtimin dhe ndihmoni të tjerët për të përjetuar aventura të reja. Filloni të fitoni para me mjetin tuaj sot!",
+    "become_a_host_or_guest" => "Bëhu një pritës ose mysafir",
+    "platform_opportunities" => "Zbuloni mundësitë për të bashkangjitur platformën tonë. Nëse doni të merrni mjetin tuaj me qira te aventurierët e tjerë ose po kërkoni mjetin perfekt për udhëtimin tuaj të ardhshëm, RentAndRide ofron zgjidhjen.",
+    "host" => "Pritës",
+    "sign_up_as_host" => "Regjistrohu si pritës",
+    "guest" => "Mysafir",
+    "sign_up_as_guest" => "Regjistrohu si mysafir",
+];
+?>

@@ -12,6 +12,16 @@ function basePath($path = '')
     return __DIR__ . '/' . $path;
 }
 
+function loadLangFiles($lang)
+{
+    $langFilePath = basePath('App/locale/'.$lang.'.php');
+    if(file_exists($langFilePath)){
+        return require $langFilePath;}
+    else{
+        echo "Language file not found";
+    }
+    
+}
 
 /**
  * Load a View
@@ -92,27 +102,16 @@ function formateDate($value){
     return date('d-m-Y', strtotime($value));
 }
 
-function formatDateTime($datetime) {
-    // Parse the datetime string into a DateTime object
-    $date = new DateTime($datetime);
+function loadLanguageFile($lang)
+{
+    $defaultLang = 'en'; // Default language fallback if requested language file doesn't exist
 
-    // Get day of the week (abbreviated)
-    $dayOfWeek = $date->format('D');
+    // Path to language files directory
+    $langFilePath = basePath( '/App/locale/');
 
-    // Get day of the month
-    $dayOfMonth = $date->format('d');
+    // Check if requested language file exists, otherwise fallback to default language
+    $langFile = file_exists($langFilePath . $lang . '.php') ? $lang : $defaultLang;
 
-    // Get month (abbreviated)
-    $month = $date->format('M');
-
-    // Get year
-    $year = $date->format('Y');
-
-    // Get time
-    $time = $date->format('H:i:s');
-
-    // Construct the formatted string
-    $formattedDateTime = "$dayOfWeek $dayOfMonth $month Year $year $time";
-
-    return $formattedDateTime;
+    // Load and return the language file array
+    return require $langFilePath . $langFile . '.php';
 }

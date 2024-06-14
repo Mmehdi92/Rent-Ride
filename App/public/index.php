@@ -1,11 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 require '../../vendor/autoload.php';
+
 use Framework\Router;
 use Framework\Session;
 
-Session::start();
 require '../../helper.php';
 
+$lang = $_GET['langID'] ?? 'en';
+
+Session::start();
+Session::set('langId', $lang);
 
 
 $router = new Router();

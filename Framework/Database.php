@@ -1,9 +1,12 @@
 <?php
+
 namespace Framework;
+
 use PDOException;
 use Exception;
 use PDO;
-require_once basePath('config/db.php'); 
+
+require_once basePath('config/db.php');
 class Database
 {
     private $conn;
@@ -17,7 +20,7 @@ class Database
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ    
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         ];
 
         try {
@@ -68,7 +71,8 @@ class Database
      * Get the last inserted id
      * @return int
      */
-    public function lastInsertId(){
+    public function lastInsertId()
+    {
         return $this->conn->lastInsertId();
     }
 }
