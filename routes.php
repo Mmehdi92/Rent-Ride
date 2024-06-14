@@ -24,8 +24,11 @@ $router->get('/auth/register/verhuurder', 'VerhuurderController@showRegisterForm
 $router->get('/auth/register/huurder', 'HuurderController@showRegisterForm');
 $router->get('/auth/register', 'AuthController@showRegisterKeuze');
 
-$router->get('/auth/login', 'AuthController@showLoginForm');
+$router->put('/annuleer-reservering/{id}', 'ReserveringController@annuleerReservering');
+$router->put('/betaal-reservering/{id}', 'ReserveringController@betaalReservering');
 
+
+$router->get('/auth/login', 'AuthController@showLoginForm');
 $router->put('/edit-auto/{id}', 'CarController@updateCar');
 $router->put('/edit-boot/{id}', 'BoatController@updateBoat');
 $router->put('/edit-onderneming/{id}', 'OndernemingController@updateOnderneming');
@@ -45,6 +48,7 @@ $router->post('/auth/login/verhuurder', 'AuthController@authenticateVerhuurder')
 $router->delete('/listing-car/{id}', 'CarController@deleteCar');
 $router->delete('/listing-boat/{id}', 'BoatController@deleteBoat');
 $router->delete('/listing-onderneming/{id}', 'OndernemingController@deleteOnderneming');
+$router->delete('/delete-reservering/{id}', 'ReserveringController@deleteReservering');
 
 
 

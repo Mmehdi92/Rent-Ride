@@ -17,7 +17,10 @@ class ReserveringController
             redirect('/login');
             exit;
         }
-        loadView('/dashboard/huurder/listing/listing-reservering');
+        $huurderId = Session::get('huurder')['id'];
+        $reserveringList = Reservering::getManyReserveringByHuurderId($huurderId);
+
+        loadView('/dashboard/huurder/listing/listing-reservering', ['reserveringList' => $reserveringList]);
     }
 
     public function showCreateReservering($params)
@@ -65,7 +68,7 @@ class ReserveringController
             ErrorController::unAuthorized('U bent niet gemachtigd om deze actie uit te voeren.');
             exit;
         }
-      
+
 
 
         $allowdFields = [
@@ -90,7 +93,7 @@ class ReserveringController
                 $errors[$field] = ucfirst($field) . ' is verplicht';
             }
         }
-        
+
 
         $voertuig = Car::getOne($newReserveringData['voertuigId']);
         if (!$voertuig) {
@@ -98,11 +101,11 @@ class ReserveringController
         }
 
         if (!empty($errors)) {
-        
+
             loadView('/dashboard/huurder/create/create-reservering', [
                 'errors' => $errors,
                 'newReserveringData' => $newReserveringData,
-               'voertuig' => $voertuig
+                'voertuig' => $voertuig
 
 
             ]);;
@@ -123,4 +126,49 @@ class ReserveringController
         $_SESSION['succes_message'] = '🥳 Reservering  succesvol toegevoegd ✅    ';
         redirect('/listing-reservering');
     }
+
+    public function betaalReservering($params)
+    {
+        if (!$huurder = Session::get('huurder') || !$verhuurder = Session::get('verhuurder')) {
+            ErrorController::unAuthorized('U bent niet gemachtigd om deze actie uit te voeren.');
+            exit;
+        }
+        $reserveringId = $params['id'];
+
+        $reservering = Reservering::getOneById($reserveringId);
+    }
+
+
+    public function annuleerReservering($params)
+    {
+        if (!isset($params['id'])) {
+            ErrorController::notFound('reservering not found');
+            exit;
+        }
+        if (!$huurder = Session::get('huurder') || !$verhuurder = Session::get('verhuurder')) {
+            ErrorController::unAuthorized('U bent niet gemachtigd om deze actie uit te voeren.');
+            exit;
+        }
+        $reserveringId = $params['id'];
+
+        $reservering = Reservering::getOneById($reserveringId);
+        inspect($reservering);
+    }
+
+    public function deleteReservering($params)
+    {
+
+        if (!$huurder = Session::get('huurder') || !$verhuurder = Session::get('verhuurder')) {
+            ErrorController::unAuthorized('U bent niet gemachtigd om deze actie uit te voeren.');
+            exit;
+        }
+        $reserveringId = $params['id'];
+
+        $reservering = Reservering::getOneById($reserveringId);
+        $result = $reservering->deleteReservering($reserveringId);
+        redirect('/listing-reservering');
+    }
+
+    
+   
 }

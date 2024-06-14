@@ -91,3 +91,28 @@ function redirect($url)
 function formateDate($value){
     return date('d-m-Y', strtotime($value));
 }
+
+function formatDateTime($datetime) {
+    // Parse the datetime string into a DateTime object
+    $date = new DateTime($datetime);
+
+    // Get day of the week (abbreviated)
+    $dayOfWeek = $date->format('D');
+
+    // Get day of the month
+    $dayOfMonth = $date->format('d');
+
+    // Get month (abbreviated)
+    $month = $date->format('M');
+
+    // Get year
+    $year = $date->format('Y');
+
+    // Get time
+    $time = $date->format('H:i:s');
+
+    // Construct the formatted string
+    $formattedDateTime = "$dayOfWeek $dayOfMonth $month Year $year $time";
+
+    return $formattedDateTime;
+}
