@@ -10,48 +10,23 @@
         </div>
     </div>
 
-    <!-- Blocken Opties -->
-    <!-- <div class="flex w-full p-4 space-x-8 "> -->
-
-        <!-- Location block -->
-        <!-- <div class="flex items-center w-full p-1 bg-blue-200 border shadow-lg rounded-xl">
-            <img src="/SVG Icons/LocationPin.svg" alt="locatie" class="w-10 h-10 ml-auto " />
-            <div class="flex flex-col mx-auto w-fit">
-                <label for="location" class="text-lg font-semibold text-center ">Locatie</label>
-                <input type="text" id="location" name="location" placeholder="Stad" class="p-2 text-center border rounded-md input:bg-gray-100 " />
+    <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl px-6 mx-auto">
+        <div class="mb-8 text-center">
+            <h2 class="text-3xl font-semibold text-gray-800"><?=$data[0]['find_your_perfect_vehicle_title']   ?> </h2>
+            <p class="mt-2 text-gray-600"><?=$data[0]['find_your_perfect_vehicle_description']   ?></p>
+        </div>
+        <form action="/onze-voertuigen/search" method="GET" class="overflow-hidden bg-white rounded-lg shadow-lg">
+            <div class="flex items-center py-2 border-b border-gray-200">
+                <input type="text" name="searchTerm1" placeholder="<?= $data[0]['search_by_color_or_model']?>" class="flex-1 px-4 py-3 border-none focus:outline-none" required>
+                <input type="number" name="searchTerm2" placeholder="<?= $data[0]['search_by_year_of_construction_or_seating']?>" class="flex-1 px-4 py-3 border-none focus:outline-none" required>
+                <button type="submit" class="px-6 py-3 font-semibold text-white transition duration-300 bg-blue-500 rounded-lg hover:bg-blue-600">Zoeken</button>
             </div>
-        </div> -->
-
-        <!-- Date block -->
-
-        <!-- <div class="flex items-center w-full p-1 bg-blue-200 border shadow-lg rounded-xl">
-            <img src="/SVG Icons/CalendarIcon.svg" alt="locatie" class="w-10 h-10 ml-auto " />
-            <div class="flex flex-col mx-auto w-fit">
-                <label for="location" class="text-lg font-semibold text-center ">Datum</label>
-                <input type="date" id="location" name="location" placeholder="Stad" class="p-2 text-center bg-gray-100 border rounded-md" />
-            </div>
-        </div> -->
-
-        <!-- Vehicle type block -->
-        <!-- <div class="items-center w-full p-1 bg-blue-200 border shadow-lg rounded-xl">
-            <p class="mb-2 text-lg font-semibold text-center ">Voertuigen</p>
-            <div class="flex w-full mx-4 justify-evenly">
-                <img src="/SVG Icons/CarIcon.svg" alt="locatie" class="w-8 h-8 duration-300 hover:scale-150" />
-                <img src="/SVG Icons/BoatIcon.svg" alt="locatie" class="w-8 h-8 duration-300 hover:scale-150" />
-                <img src="/SVG Icons/BycicleIcon.svg" alt="locatie" class="w-8 h-8 duration-300 hover:scale-150" />
-
-            </div>
-        </div> -->
-
-
-
-        <!-- Search btn block -->
-
-        <!-- <button class="px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-700">Zoek
-            <img src="/SVG Icons/SearchIcon.svg" alt="locatie" class="w-8 h-8 duration-300 hover:scale-150" />
-        </button>
-    </div> -->
+        </form>
+    </div>
 </section>
+
+
 
 
 <!-- Featured Section Voertuigen -->

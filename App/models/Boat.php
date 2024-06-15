@@ -314,42 +314,43 @@ class Boat extends Vehicle
     {
         try {
             $db = Database::getInstance();
-
-
+    
             $boat =  $db->query('SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
-                       boot.BootId, boot.Lengte, boot.Breedte, boot.TypeAandrijving, boot.Vaarbewijs
-                        FROM voertuig
-                      JOIN boot ON voertuig.VoertuigId = boot.BootId
-                      WHERE (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1) AND (Bouwjaar LIKE :searchTerm2 OR Zitplaatsen LIKE :searchTerm1)', [
+                                boot.BootId, boot.Lengte, boot.Breedte, boot.TypeAandrijving, boot.Vaarbewijs
+                                FROM voertuig
+                                JOIN boot ON voertuig.VoertuigId = boot.BootId
+                                WHERE (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1)
+                                AND (Bouwjaar LIKE :searchTerm2 OR Zitplaatsen LIKE :searchTerm1)', [
                 'searchTerm1' => '%' . $searchTerm1 . '%',
                 'searchTerm2' => '%' . $searchTerm2 . '%'
             ])->fetchAll();
-
+    
             $boatList = [];
-
-            foreach ($boatList as $boat) {
-                $carList[] = new Boat(
-                    $boat->VoertuigId,
-                    $boat->OndernemingId,
-                    $boat->Kleur,
-                    $boat->Model,
-                    $boat->Bouwjaar,
-                    $boat->Zitplaatsen,
-                    $boat->PrijsPerDag,
-                    $boat->Actief,
-                    $boat->BootId,
-                    $boat->Lengte,
-                    $boat->Breedte,
-                    $boat->TypeAandrijving,
-                    $boat->Vaarbewijs
-
+    
+            foreach ($boat as $item) {
+                $boatList[] = new Boat(
+                    $item->VoertuigId,
+                    $item->OndernemingId,
+                    $item->Kleur,
+                    $item->Model,
+                    $item->Bouwjaar,
+                    $item->Zitplaatsen,
+                    $item->PrijsPerDag,
+                    $item->Actief,
+                    $item->BootId,
+                    $item->Lengte,
+                    $item->Breedte,
+                    $item->TypeAandrijving,
+                    $item->Vaarbewijs
                 );
             }
-
+    
             return $boatList;
         } catch (PDOException $e) {
             // Log the error
             error_log($e->getMessage());
+            return []; // Return empty array or handle error as needed
         }
     }
+    
 }

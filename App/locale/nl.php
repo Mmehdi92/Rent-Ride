@@ -24,5 +24,9 @@ return [
     "sign_up_as_host" => "Aanmelden als Verhuurder",
     "guest" => "Huurder",
     "sign_up_as_guest" => "Aanmelden als Huurder",
+    "find_your_perfect_vehicle_title" => "Vind jouw perfecte voertuig",
+    "find_your_perfect_vehicle_description" => "Zoek op kleur, model, bouwjaar, zitplaatsen en meer...",
+    'search_by_color_or_model' => 'Zoek op kleur of model',
+    'search_by_year_of_construction_or_seating' => 'Zoek op bouwjaar of zitplaatsen',
 ];
 ?>

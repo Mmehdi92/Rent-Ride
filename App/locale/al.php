@@ -24,5 +24,9 @@ return [
     "sign_up_as_host" => "Regjistrohu si pritës",
     "guest" => "Mysafir",
     "sign_up_as_guest" => "Regjistrohu si mysafir",
+    "find_your_perfect_vehicle_title" => "Gjeni mjetin tuaj të përsosur",
+    "find_your_perfect_vehicle_description" => "Kërkoni sipas ngjyrës, modelit, vitit të prodhimit, vendeve të ulëta dhe më tepër...",
+    'search_by_color_or_model' => 'Kërkoni sipas ngjyrës ose modelit',
+    'search_by_year_of_construction_or_seating' => 'Kërkoni sipas viti i ndërtimit ose vendeve të ulëta',
 ];
 ?>

@@ -103,7 +103,7 @@ class OnzeVoertuigenController
             if (count($carsList) == 0 &&  count($boatList) == 0) {
                 $searchNoResult->addZoekterm($failedSearched);
             }
-
+inspectAndDie($boatList);
             loadView('/onze-voertuigen/listings', [
                 'listingAuto' => $carsList,
                 'listingBoot' => $boatList,

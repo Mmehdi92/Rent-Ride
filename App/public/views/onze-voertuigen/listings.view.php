@@ -41,6 +41,9 @@
                 <p class="text-gray-600"><strong>Model:</strong> <?= $boot->getProperty('model') ?></p>
                 <p class="text-gray-600"><strong>Lengte:</strong> <?= $boot->getProperty('lengte') ?> meters</p>
                 <p class="text-gray-600"><strong>Breedte:</strong> <?= $boot->getProperty('breedte') ?> meters</p>
+                <p class="text-gray-600"><strong>Kleur:</strong> <?= $boot->getProperty('kleur') ?></p>
+                <p class="text-gray-600"><strong>Zitplaatsen:</strong> <?= $boot->getProperty('zitplaatsen') ?></p>
+
                 <p class="mt-2 font-bold text-gray-900"><?= formatPrice($boot->getProperty('prijsPerdag')) ?> per dag</p>
                 <div class="flex justify-end mt-4">
                     <a href="/onze-voertuigen/details/show-boat/<?= $boot->getProperty('voertuigId') ?>" class="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">Huur nu</a>

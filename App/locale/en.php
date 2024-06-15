@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 return [
     "welcome" => "Welcome to Rent and Ride!",
     "discover" => "Discover a world of adventure with Rent and Ride! Rent boats, bicycles, and cars for every occasion. <br><br>Explore, discover new routes, and create unforgettable moments with our diverse selection of vehicles. <br><br><span class='italic'>Ready to start the journey of a lifetime? Start here!</span>",
@@ -24,5 +25,9 @@ return [
     "sign_up_as_host" => "Sign Up as Host",
     "guest" => "Guest",
     "sign_up_as_guest" => "Sign Up as Guest",
+    "find_your_perfect_vehicle_title" => "Find your perfect vehicle",
+    "find_your_perfect_vehicle_description" => "Search by color, model, year of construction, seating and more...",
+    'search_by_color_or_model' => 'Search by color or model',
+    'search_by_year_of_construction_or_seating' => 'Search by year of construction or seating',
 ];
 ?>
