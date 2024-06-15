@@ -29,5 +29,7 @@ return [
     "find_your_perfect_vehicle_description" => "Search by color, model, year of construction, seating and more...",
     'search_by_color_or_model' => 'Search by color or model',
     'search_by_year_of_construction_or_seating' => 'Search by year of construction or seating',
+
+    // einde home page
 ];
 ?>

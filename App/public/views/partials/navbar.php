@@ -15,7 +15,7 @@ use Framework\Session;
         <option value="en" data-icon="/flags/en.png">English</option>
         <option value="al" data-icon="/flags/en.png">Shqip </option>
     </select>
-    <button class="px-4 py-2 ml-2 text-white bg-gray-700 rounded-md" type="submit">Submit</button>
+    <button class="px-4 py-2 ml-2 text-white bg-gray-700 rounded-md" type="submit">GO</button>
 </form>
 
         <nav class="flex items-center justify-center w-full space-x-4 text-sm text-gray-200">

@@ -51,6 +51,15 @@ class AuthController
             exit;
         }
 
+    // split the email and check if the domain is rentandride.nl
+        $partials = explode('@', $email);
+        // inspectAndDie($partials);
+        if($partials[1] === 'rentandride.nl'){
+          inspectAndDie('gelukt');
+
+        //   logic voor de admin 
+        }
+
         $params = [
             'email' => $email,
 

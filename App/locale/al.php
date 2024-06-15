@@ -28,5 +28,8 @@ return [
     "find_your_perfect_vehicle_description" => "Kërkoni sipas ngjyrës, modelit, vitit të prodhimit, vendeve të ulëta dhe më tepër...",
     'search_by_color_or_model' => 'Kërkoni sipas ngjyrës ose modelit',
     'search_by_year_of_construction_or_seating' => 'Kërkoni sipas viti i ndërtimit ose vendeve të ulëta',
+
+
+    // einde home page
 ];
 ?>
