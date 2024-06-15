@@ -8,7 +8,7 @@ $adminName = Session::get('admin')['voornaam'];
     <div class="flex flex-row space-x-16">
         <a href="/listing-searchterms"> <img src="../../../SVG Icons/Message Icon.svg" alt="Message Icon" class="w-10 h-10" /></a>
         <a href="/listing-searchterms"><img src="../../../SVG Icons/CSVICON.svg" alt="CSV Icon" class="w-10 h-10" /></a>
-        <a href="/listing-searchterms"> <img src="../../../SVG Icons/PhotoUpload.svg" alt="PHOTO Icon" class="w-10 h-10" /></a>
+        <a href="/admin/upload"> <img src="../../../SVG Icons/PhotoUpload.svg" alt="PHOTO Icon" class="w-10 h-10" /></a>
     </div>
 </div>
 

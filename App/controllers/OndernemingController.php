@@ -13,8 +13,9 @@ class OndernemingController
 {
     public function showCreateOnderneming()
     {
-        if (!$verhuurder = Session::get('verhuurder')) {
-            loadView('login/login', ['errors' => 'U bent niet ingelogd als verhuurder']);
+        
+        if (!$verhuurder = Session::get('verhuurder') || !$admin = Session::get('admin') || !$huurder = Session::get('huurder')){
+            loadView('login/login',);
         }
         loadView('dashboard/verhuurder/create/create-onderneming');
     }

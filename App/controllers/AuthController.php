@@ -12,13 +12,15 @@ class AuthController
 {
     public function showLogInForm()
     {
-        if (Session::get('verhuurder')) {
-            redirect('/');
+        
+        if (Session::get('verhuurder') || Session::get('huurder') || Session::get('admin')) {
+            redirect('/'); 
             exit;
         }
-        loadView('/login/login');
+    
+        loadView('/login/login'); 
     }
-
+    
     public function logout()
     {
         Session::clearALL();

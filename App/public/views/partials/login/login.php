@@ -6,7 +6,6 @@
          <h2 class="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900">Login</h2>
      </div>
      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-     <?= loadPartial('error', [ 'errors' => $errors ?? []]) ?>
         
          <form class="space-y-6" action="/auth/login/verhuurder" method="POST">
              <div>

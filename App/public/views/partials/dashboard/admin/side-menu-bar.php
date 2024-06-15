@@ -3,7 +3,7 @@
                 <div class="flex flex-col space-y-2">
                     <p>Welkom Mehdi</p>
                     <a class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="/listing-onderneming">Zoektermen</a>
-                    <a class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="listing-vehicles">Fotos</a>
+                    <a class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="/admin/upload">Fotos</a>
                     <!-- <button class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400"><a href="/views/dashboard/huurder/dashboardHuurderFacturen.view.php">Mijn Facturen</a></button> -->
                 </div>
                 <div class="flex flex-col space-y-2">
