@@ -12,8 +12,9 @@ require '../../helper.php';
 $lang = $_GET['langID'] ?? 'en';
 
 Session::start();
-Session::set('langId', $lang);
-
+if(isset($_GET['langID'])){
+    Session::set('langId', $lang);
+}
 
 $router = new Router();
 $routes = require basePath('routes.php');

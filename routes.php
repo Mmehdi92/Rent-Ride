@@ -1,7 +1,14 @@
 <?php
 
 
+
+
+
+
+
+
 $router->get('/', 'HomeController@index');
+
 $router->get('/onze-voertuigen', 'OnzeVoertuigenController@index');
 $router->get('/onze-voertuigen/details/show-car/{id}', 'OnzeVoertuigenController@showCarDetails');
 $router->get('/onze-voertuigen/details/show-boat/{id}', 'OnzeVoertuigenController@showBoatDetails');

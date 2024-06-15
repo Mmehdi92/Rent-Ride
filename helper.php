@@ -1,5 +1,5 @@
 <?php
-
+ use Framework\Session;
 
 
 /** Get the base path 
@@ -18,6 +18,7 @@ function loadLangFiles($lang)
     if(file_exists($langFilePath)){
         return require $langFilePath;}
     else{
+       
         echo "Language file not found";
     }
     
@@ -102,16 +103,3 @@ function formateDate($value){
     return date('d-m-Y', strtotime($value));
 }
 
-function loadLanguageFile($lang)
-{
-    $defaultLang = 'en'; // Default language fallback if requested language file doesn't exist
-
-    // Path to language files directory
-    $langFilePath = basePath( '/App/locale/');
-
-    // Check if requested language file exists, otherwise fallback to default language
-    $langFile = file_exists($langFilePath . $lang . '.php') ? $lang : $defaultLang;
-
-    // Load and return the language file array
-    return require $langFilePath . $langFile . '.php';
-}

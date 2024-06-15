@@ -9,7 +9,7 @@ use Models\Bycicle;
 use Framework\Database;
 use Models\Zoektermen;
 
-use function PHPUnit\Framework\isEmpty;
+
 
 class OnzeVoertuigenController
 {
@@ -41,7 +41,7 @@ class OnzeVoertuigenController
 
 
         if (!$car) {
-            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+           ErrorController::notFound('Auto niet gevonden');
             exit;
         }
         loadView('onze-voertuigen/details/show-car-details', ['auto' => $car]);
@@ -56,7 +56,7 @@ class OnzeVoertuigenController
         $id = $params['id'];
         $boat = Boat::getOne($id);
         if (!$boat) {
-            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+            ErrorController::notFound('Boot niet gevonden');
             exit;
         }
         loadView('onze-voertuigen/details/show-boat-details', ['boot' => $boat]);
@@ -64,18 +64,18 @@ class OnzeVoertuigenController
 
     public function showBycicleDetails($params)
     {
-        // inspectAndDie($params);
+;
         if (!isset($params['id'])) {
-            header('Location: /onze-voertuigen');
+            redirect('/onze-voertuigen');
             exit;
         }
         $id = $params['id'];
-        // inspectAndDie($id);
+
         $bycicle = Bycicle::getOne($id);
-        // inspectAndDie($bycicle);
+        
 
         if (!$bycicle) {
-            header('Location: /onze-voertuigen'); // kan ook een 404-pagina zijn of iets anders voor nu is dit goed genoeg
+            ErrorController::notFound('Fiets niet gevonden');
             exit;
         }
 
@@ -85,29 +85,28 @@ class OnzeVoertuigenController
 
     public function search()
     {
-      
+
         $searchTerm1 = isset($_GET['searchTerm1']) ? trim($_GET['searchTerm1']) : '';
         $searchTerm2 = isset($_GET['searchTerm2']) ? trim($_GET['searchTerm2']) : '';
 
-            //intialize the Zoekterm Object object
-            $failedSearched =  $searchTerm1 . ' - ' . $searchTerm2;
-            $searchNoResult = new Zoektermen(
-                $failedSearched
-            );
+        //intialize the Zoekterm Object object
+        $failedSearched =  $searchTerm1 . ' - ' . $searchTerm2;
+        $searchNoResult = new Zoektermen(
+            $failedSearched
+        );
 
 
-            $carsList = Car::searchModel($searchTerm1, $searchTerm2);
-            $boatList = Boat::searchModel($searchTerm1, $searchTerm2);
+        $carsList = Car::searchModel($searchTerm1, $searchTerm2);
+        $boatList = Boat::searchModel($searchTerm1, $searchTerm2);
 
-            //failed search - Add to Zoektermen table
-            if (count($carsList) == 0 &&  count($boatList) == 0) {
-                $searchNoResult->addZoekterm($failedSearched);
-            }
+        //failed search - Add to Zoektermen table
+        if (count($carsList) == 0 &&  count($boatList) == 0) {
+            $searchNoResult->addZoekterm($failedSearched);
+        }
 
-            loadView('/onze-voertuigen/listings', [
-                'listingAuto' => $carsList,
-                'listingBoot' => $boatList,
-            ]);
-        
+        loadView('/onze-voertuigen/listings', [
+            'listingAuto' => $carsList,
+            'listingBoot' => $boatList,
+        ]);
     }
 }

@@ -28,6 +28,18 @@ return [
     "find_your_perfect_vehicle_description" => "Zoek op kleur, model, bouwjaar, zitplaatsen en meer...",
     'search_by_color_or_model' => 'Zoek op kleur of model',
     'search_by_year_of_construction_or_seating' => 'Zoek op bouwjaar of zitplaatsen',
+    'search' => 'Zoeken',
+    'nederlands' => 'Nederlands',
+    'english' => 'English',
+    'albanian' => 'Shqip',
+    'home' => 'Home',
+    'our_vehicles' => 'Onze Voertuigen',
+    'contact' => 'Contact',
+    'login' => 'Inloggen',
+    'register' => 'Registreren',
+    'welkom' => 'Welkom',
+    'dashboard' => 'Dashboard',
+    'logout' => 'Uitloggen',
 
 
     // einde home page

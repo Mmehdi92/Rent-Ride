@@ -146,7 +146,8 @@ class AuthController
             'achternaam' => $user->getProperty('achterNaam'),
             'email' => $user->getProperty('email'),
             'geboortedatum' => $user->getProperty('geboorteDatum'),
-            'role' => 'verhuurder'
+            'role' => 'verhuurder',
+            'langId' => Session::get('langId')
         ]);
 
 

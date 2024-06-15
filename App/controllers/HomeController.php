@@ -11,9 +11,8 @@ class HomeController
     {
       
 
-        $lang = Session::get('langId') ?? 'en';
-        $data = require  basePath('/App/locale/'.$lang.'.php');
+   
 
-        loadView('home', [ $data]);
+        loadView('home');
     }
 }

@@ -2,7 +2,6 @@
 <?= loadPartial('navbar'); ?>
 
 
-
 <section class="flex min-h-screen">
     <div class="container p-6 mx-auto rounded-lg shadow-lg">
 
