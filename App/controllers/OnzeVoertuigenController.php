@@ -7,7 +7,7 @@ use Models\Boat;
 use Models\Bycicle;
 
 use Framework\Database;
-use Models\Zoektermen;
+use Models\Zoekterm;
 
 
 
@@ -86,13 +86,15 @@ class OnzeVoertuigenController
     public function search()
     {
 
-        $searchTerm1 = isset($_GET['searchTerm1']) ? trim($_GET['searchTerm1']) : '';
-        $searchTerm2 = isset($_GET['searchTerm2']) ? trim($_GET['searchTerm2']) : '';
+        $searchTerm1 = trim(isset($_GET['searchTerm1'])) ? trim($_GET['searchTerm1']) : '';
+        $searchTerm2 = trim(isset($_GET['searchTerm2'])) ? trim($_GET['searchTerm2']) : '';
 
         //intialize the Zoekterm Object object
-        $failedSearched =  $searchTerm1 . ' - ' . $searchTerm2;
-        $searchNoResult = new Zoektermen(
-            $failedSearched
+        $failedSearched = trim($searchTerm1) .' - ' . trim($searchTerm2);
+        $searchNoResult = new Zoekterm(
+            0,
+            $failedSearched,
+            date('Y-m-d H:i:s')
         );
 
 

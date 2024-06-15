@@ -53,7 +53,7 @@ $data = require basePath('/App/locale/'.$lang.'.php');
                     <button type="submit" class="w-20 p-1 text-sm duration-300 bg-red-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400"><?=$data['logout']?></button>
                 </form>
                 <!-- Admin dashboard link -->
-                <a href="/admin/dashboard" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400"><?=$data['dashboard']?></a>
+                <a href="/listing-searchterms" class="p-1 text-sm duration-300 bg-yellow-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400"><?=$data['dashboard']?></a>
             <?php else : ?>
                 <!-- Default for non-logged-in users -->
                 <a href="/auth/login" class="p-1 text-sm duration-300 bg-green-400 border rounded-md hover:outline hover:bg-white hover:font-semibold hover:text-black-400"><?=$data['login']?></a>

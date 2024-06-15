@@ -7,7 +7,6 @@ use Models\Vehicle;
 use Framework\Database;
 use PDOException;
 
-use function PHPUnit\Framework\isEmpty;
 
 class Car extends Vehicle
 {
@@ -45,6 +44,7 @@ class Car extends Vehicle
             $prijsPerdag,
             $actief
         );
+        
         $this->autoId = $autoId;
         $this->kenteken = $kenteken;
         $this->kofferbakRuimte = $kofferbakRuimte;

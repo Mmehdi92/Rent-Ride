@@ -5,7 +5,7 @@
 
 
 
-
+$router->get('/listing-searchterms', 'AdminController@showSearchTermList');
 
 $router->get('/', 'HomeController@index');
 
@@ -54,10 +54,10 @@ $router->post('/auth/logout', 'AuthController@logout');
 
 $router->post('/auth/login/verhuurder', 'AuthController@authenticateVerhuurder');
 
+$router->delete('/listing-searchterm/{id}', 'AdminController@deleteSearchTerm');
 $router->delete('/listing-car/{id}', 'CarController@deleteCar');
 $router->delete('/listing-boat/{id}', 'BoatController@deleteBoat');
 $router->delete('/listing-onderneming/{id}', 'OndernemingController@deleteOnderneming');
 $router->delete('/delete-reservering/{id}', 'ReserveringController@deleteReservering');
-
 
 
