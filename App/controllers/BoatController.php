@@ -31,7 +31,7 @@ class BoatController
 
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
-       
+
 
         // allowd fields array voor boten
         $allowFields = [
@@ -227,23 +227,21 @@ class BoatController
         }
 
         if (!empty($errors)) {
-            loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => $errors, 'boat' => $boat , 'ondermingsList' => $ondermingsList]);
+            loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => $errors, 'boat' => $boat, 'ondermingsList' => $ondermingsList]);
             exit;
         }
 
-  
+
         $updateValues['bootId'] = $boat->getProperty('bootId');
-     
+
         $result =  $boat->updateBoat($updateValues);
 
         if ($result) {
             $_SESSION['succes_message'] = '🚤 Boot  succesvol geupdate ✅    ';
             redirect('/listing-vehicles');
-        } else {
-            ErrorController::notFound('Boat not Updated');
         }
-
-
-        
+        ErrorController::notFound('Boat not Updated');
     }
+
+    
 }

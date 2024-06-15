@@ -7,6 +7,8 @@ use Models\Vehicle;
 use Framework\Database;
 use PDOException;
 
+use function PHPUnit\Framework\isEmpty;
+
 class Car extends Vehicle
 {
 
@@ -318,6 +320,51 @@ class Car extends Vehicle
             $db->query('ROLLBACK');
             error_log($e->getMessage());
             return false;
+        }
+    }
+
+
+    public static function searchModel($searchTerm1, $searchTerm2)
+    {
+        try {
+            $db = Database::getInstance();
+
+   
+            $cars =  $db->query('SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
+                        auto.AutoId, auto.Kenteken, auto.KofferbakRuimte, auto.Dakrails, auto.Trekhaak, auto.Aandrijving
+                      FROM voertuig
+                      JOIN auto ON voertuig.VoertuigId = auto.AutoId
+                      WHERE (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1) AND (Bouwjaar LIKE :searchTerm2 OR Zitplaatsen LIKE :searchTerm1)', [
+                'searchTerm1' => '%' . $searchTerm1 . '%',
+                'searchTerm2' => '%' . $searchTerm2 . '%'
+            ])->fetchAll();
+
+
+            $carList = [];
+
+            foreach ($cars as $car) {
+                $carList[] = new Car(
+                    $car->VoertuigId,
+                    $car->OndernemingId,
+                    $car->Kleur,
+                    $car->Model,
+                    $car->Bouwjaar,
+                    $car->Zitplaatsen,
+                    $car->PrijsPerDag,
+                    $car->Actief,
+                    $car->AutoId,
+                    $car->Kenteken,
+                    $car->KofferbakRuimte,
+                    $car->Dakrails,
+                    $car->Trekhaak,
+                    $car->Aandrijving
+                );
+            }
+
+            return $carList;
+        } catch (PDOException $e) {
+
+            error_log($e->getMessage());
         }
     }
 

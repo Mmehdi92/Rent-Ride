@@ -91,44 +91,45 @@ class Boat extends Vehicle
         }
     }
     public static function getManyActief()
-{
-    try {
-        $db = Database::getInstance();
+    {
+        try {
+            $db = Database::getInstance();
 
-        // Query to fetch active boats along with their corresponding voertuig data
-        $listingBoot = $db->query('
+            // Query to fetch active boats along with their corresponding voertuig data
+            $listingBoot = $db->query(
+                '
             SELECT * FROM boot 
             INNER JOIN voertuig ON voertuig.VoertuigId = boot.BootId 
             WHERE voertuig.Actief = 1 
             LIMIT 5;'
-        )->fetchAll();
+            )->fetchAll();
 
-        $boatsArray = [];
+            $boatsArray = [];
 
-        foreach ($listingBoot as $boat) {
-            $boatsArray[] = new Boat(
-                $boat->VoertuigId,
-                $boat->OndernemingId,
-                $boat->Kleur,
-                $boat->Model,
-                $boat->Bouwjaar,
-                $boat->Zitplaatsen,
-                $boat->PrijsPerDag,
-                $boat->Actief,
-                $boat->BootId,
-                $boat->Lengte,
-                $boat->Breedte,
-                $boat->TypeAandrijving,
-                $boat->Vaarbewijs
-            );
+            foreach ($listingBoot as $boat) {
+                $boatsArray[] = new Boat(
+                    $boat->VoertuigId,
+                    $boat->OndernemingId,
+                    $boat->Kleur,
+                    $boat->Model,
+                    $boat->Bouwjaar,
+                    $boat->Zitplaatsen,
+                    $boat->PrijsPerDag,
+                    $boat->Actief,
+                    $boat->BootId,
+                    $boat->Lengte,
+                    $boat->Breedte,
+                    $boat->TypeAandrijving,
+                    $boat->Vaarbewijs
+                );
+            }
+
+            return $boatsArray;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            throw $e;
         }
-
-        return $boatsArray;
-    } catch (Exception $e) {
-        error_log($e->getMessage());
-        throw $e;
     }
-}
 
 
     public static function getOne($id)
@@ -263,9 +264,9 @@ class Boat extends Vehicle
     {
         try {
             $db = Database::getInstance();
-    
+
             $db->query('START TRANSACTION');
-        $actiefValue = ($updateValues['actief'] === 'true') ? 1 : 0;
+            $actiefValue = ($updateValues['actief'] === 'true') ? 1 : 0;
             // Update the voertuig table
             $voertuigUpdate = $db->query(
                 'UPDATE voertuig SET Kleur = :Kleur, Model = :Model, Bouwjaar = :Bouwjaar, Zitplaatsen = :Zitplaatsen, PrijsPerDag = :PrijsPerDag, OndernemingId = :OndernemingId, Actief = :Actief WHERE VoertuigId = :VoertuigId',
@@ -293,14 +294,14 @@ class Boat extends Vehicle
                     'BootId' => $updateValues['voertuigId']
                 ]
             );
-    
+
             if ($voertuigUpdate && $bootUpdate) {
                 $db->query('COMMIT');
             } else {
                 $db->query('ROLLBACK');
                 return false;
             }
-    
+
             return $bootUpdate;
         } catch (PDOException $e) {
             $db->query('ROLLBACK');
@@ -308,6 +309,47 @@ class Boat extends Vehicle
             return false;
         }
     }
-    
 
+    public static function searchModel($searchTerm1, $searchTerm2)
+    {
+        try {
+            $db = Database::getInstance();
+
+
+            $boat =  $db->query('SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
+                       boot.BootId, boot.Lengte, boot.Breedte, boot.TypeAandrijving, boot.Vaarbewijs
+                        FROM voertuig
+                      JOIN boot ON voertuig.VoertuigId = boot.BootId
+                      WHERE (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1) AND (Bouwjaar LIKE :searchTerm2 OR Zitplaatsen LIKE :searchTerm1)', [
+                'searchTerm1' => '%' . $searchTerm1 . '%',
+                'searchTerm2' => '%' . $searchTerm2 . '%'
+            ])->fetchAll();
+
+            $boatList = [];
+
+            foreach ($boatList as $boat) {
+                $carList[] = new Boat(
+                    $boat->VoertuigId,
+                    $boat->OndernemingId,
+                    $boat->Kleur,
+                    $boat->Model,
+                    $boat->Bouwjaar,
+                    $boat->Zitplaatsen,
+                    $boat->PrijsPerDag,
+                    $boat->Actief,
+                    $boat->BootId,
+                    $boat->Lengte,
+                    $boat->Breedte,
+                    $boat->TypeAandrijving,
+                    $boat->Vaarbewijs
+
+                );
+            }
+
+            return $boatList;
+        } catch (PDOException $e) {
+            // Log the error
+            error_log($e->getMessage());
+        }
+    }
 }
