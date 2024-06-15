@@ -22,9 +22,8 @@
 
                 <!-- Form for Uploading Pictures -->
                 <div class="flex flex-col space-y-4">
-
                     <!-- Form Start -->
-                    <form action="/upload-picture" method="POST" enctype="multipart/form-data" class="mb-4 bg-white rounded shadow-md p-14"  >
+                    <form action="/upload-picture" method="POST" enctype="multipart/form-data" class="mb-4 bg-white rounded shadow-md p-14">
                         <div class="mb-4">
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="picture">
                                 Select Picture
@@ -38,6 +37,33 @@
                         </div>
                     </form>
                     <!-- Form End -->
+
+                    <!-- Grid System for Displaying Uploaded Pictures -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <?php
+                        // Directory where images are stored
+                        $uploadDir = 'C:/laragon/RentAndRideWebApp/App/public/uploads/';
+
+                        // Get all files from the directory
+                        $files = scandir($uploadDir);
+
+                        // Filter out non-image files (assuming images have extensions like jpg, jpeg, png, gif)
+                        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                        $imageFiles = array_filter($files, function ($file) use ($imageExtensions) {
+                            $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                            return in_array($extension, $imageExtensions);
+                        });
+                        
+                        // inspectAndDie($imageFiles);
+                        // Output HTML for displaying images
+                        foreach ($imageFiles as $file) {
+                            $filePath = $uploadDir . $file;
+                            ?>
+                            <div class="relative">
+                                <img src="../../../../uploads/<?=$file?>" alt="<?= $file ?>" class="w-16 h-auto rounded-lg">
+                            </div>
+                        <?php } ?>
+                    </div>
 
                 </div>
 
