@@ -3,9 +3,8 @@
 namespace Controllers;
 
 use Framework\Session;
-
+use Models\Admin;
 use Framework\Valadation;
-use Framework\Database;
 use Models\Verhuurder;
 use Models\Huurder;
 
@@ -51,43 +50,66 @@ class AuthController
             exit;
         }
 
-    // split the email and check if the domain is rentandride.nl
+        // split the email and check if the domain is rentandride.nl
         $partials = explode('@', $email);
-        // inspectAndDie($partials);
-        if($partials[1] === 'rentandride.nl'){
-          inspectAndDie('gelukt');
 
-        //   logic voor de admin 
+        if ($partials[1] === 'rentandride.nl') {
+
+            $admin = Admin::getAdminByEmail($email);
+
+
+            if (!$admin) {
+                $errors['email'] = 'Email of wachtwoord is onjuist';
+                loadView('/login/login', ['errors' => $errors]);
+                exit;
+            }
+
+            if (!($password === $admin->Wachtwoord)) {
+                $errors['email'] = 'Email of wachtwoord is onjuist';
+                loadView('/login/login', ['errors' => $errors]);
+                exit;
+            }
+
+            $admin = new Admin(
+                $admin->Voornaam,
+                $admin->Achternaam,
+                $admin->Postcode,
+                $admin->Huisnummer,
+                $admin->Email,
+                $admin->Wachtwoord,
+                $admin->TelefoonNummer,
+                $admin->Geboortedatum
+            );
+
+
+            Session::set('admin', [
+                'voornaam' => $admin->getProperty('voorNaam'),
+                'achternaam' => $admin->getProperty('achterNaam'),
+                'email' => $admin->getProperty('email'),
+                'geboortedatum' => $admin->getProperty('geboorteDatum'),
+
+            ]);
+
+            redirect('/');
         }
 
-        $params = [
-            'email' => $email,
 
-        ];
-        $db = Database::getInstance();
-        $user = $db->query('SELECT * FROM gebruiker 
-                    INNER JOIN verhuurder ON gebruiker.Iban = verhuurder.VerhuurderId
-                    WHERE gebruiker.email = :email', $params)->fetch();
+        $user = Verhuurder::getUserByEmail($email);
 
         if (!$user) {
 
-            $huurder = $db->query(
-                'SELECT * FROM gebruiker 
-                INNER JOIN huurder ON gebruiker.Iban = huurder.HuurderId
-                WHERE gebruiker.email = :email',
-                $params
-            )->fetch();
+            $huurder = Huurder::getUserByEmail($email);
             if (!$huurder) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-            if (!password_verify($password, $huurder->Wachtwoord)) {
+            if (!password_verify($password, $huurder->wachtwoord)) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-
+            inspectAndDie($huurder);
             $huurder = new Huurder(
                 $huurder->Iban,
                 $huurder->Voornaam,
@@ -101,7 +123,7 @@ class AuthController
                 $huurder->Actief,
                 $huurder->HuurderId,
                 $huurder->Rijbewijs,
-                $huurder->Vaarbewijs
+                $huurder->HuurderId,
             );
 
 

@@ -72,8 +72,7 @@ class Bycicle extends Vehicle
             return $fietsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
-            return [];
+        
         }
     }
 
@@ -107,7 +106,7 @@ class Bycicle extends Vehicle
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
+        
         }
     }
 

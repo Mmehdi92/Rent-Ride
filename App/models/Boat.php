@@ -86,8 +86,6 @@ class Boat extends Vehicle
             return $boatsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
-            return [];
         }
     }
     public static function getManyActief()
@@ -127,7 +125,6 @@ class Boat extends Vehicle
             return $boatsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
         }
     }
 
@@ -162,7 +159,6 @@ class Boat extends Vehicle
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
         }
     }
 
@@ -209,7 +205,6 @@ class Boat extends Vehicle
         } catch (PDOException $e) {
             $db->query('ROLLBACK');
             error_log($e->getMessage());
-            return false;
         }
     }
 
@@ -248,7 +243,6 @@ class Boat extends Vehicle
             return $boatList;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
         }
     }
 
@@ -314,7 +308,7 @@ class Boat extends Vehicle
     {
         try {
             $db = Database::getInstance();
-    
+
             $boat =  $db->query('SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
                                 boot.BootId, boot.Lengte, boot.Breedte, boot.TypeAandrijving, boot.Vaarbewijs
                                 FROM voertuig
@@ -324,9 +318,9 @@ class Boat extends Vehicle
                 'searchTerm1' => '%' . $searchTerm1 . '%',
                 'searchTerm2' => '%' . $searchTerm2 . '%'
             ])->fetchAll();
-    
+
             $boatList = [];
-    
+
             foreach ($boat as $item) {
                 $boatList[] = new Boat(
                     $item->VoertuigId,
@@ -344,7 +338,7 @@ class Boat extends Vehicle
                     $item->Vaarbewijs
                 );
             }
-    
+
             return $boatList;
         } catch (PDOException $e) {
             // Log the error
@@ -352,5 +346,4 @@ class Boat extends Vehicle
             return []; // Return empty array or handle error as needed
         }
     }
-    
 }

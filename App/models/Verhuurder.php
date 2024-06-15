@@ -93,7 +93,10 @@ class Verhuurder extends Gebruiker
     {
         try {
             $db = Database::getInstance();
-            $user = $db->query('SELECT * FROM gebruiker where email = :email', ['email' => $email])->fetch();
+            $user = $db->query('SELECT gebruiker.*, verhuurder.VerhuurderId
+                FROM gebruiker
+                LEFT JOIN verhuurder ON gebruiker.Iban = verhuurder.VerhuurderId
+                WHERE gebruiker.Email = :email', ['email' => $email])->fetch();
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

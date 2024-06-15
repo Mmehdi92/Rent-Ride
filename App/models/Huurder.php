@@ -103,7 +103,23 @@ class Huurder extends Gebruiker
             echo $e->getMessage();
         }
     }
+    public static function getUserByEmail($email)
+    {
+        try{
+            $db = Database::getInstance();
+            $user = $db->query('
+            SELECT gebruiker.*, huurder.huurderId, huurder.rijbewijs, huurder.vaarbewijs
+            FROM gebruiker
+            JOIN huurder ON gebruiker.Iban = huurder.huurderId
+            WHERE gebruiker.email = :email
+            ', ['email' => $email])->fetch();
+            return  $user;
+        }catch(PDOException $e){
+            error_log($e->getMessage());
+        }
+    }
 
+    
     public function getProperty($property)
     {
         return $this->$property;

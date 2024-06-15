@@ -53,7 +53,7 @@ class Car extends Vehicle
         $this->aandrijving = $aandrijving;
     }
 
-    public static function getManyActief()
+    public static function getManyActief() 
     {
         try {
             $db = Database::getInstance();
@@ -87,7 +87,7 @@ class Car extends Vehicle
             return $carsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
+         
         }
     }
 
@@ -122,8 +122,7 @@ class Car extends Vehicle
             return $carsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
-            return [];
+        
         }
     }
 
@@ -160,7 +159,7 @@ class Car extends Vehicle
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
+            
         }
     }
 
@@ -201,7 +200,7 @@ class Car extends Vehicle
             return $carList;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            throw $e;
+            
         }
     }
 
