@@ -54,7 +54,6 @@
                             return in_array($extension, $imageExtensions);
                         });
 
-                        // inspectAndDie($imageFiles);
                         // Output HTML for displaying images
                         foreach ($imageFiles as $file) {
                             $filePath = $uploadDir . $file;

@@ -46,7 +46,7 @@ class Reservering
         }
     }
 
-    public static function getManyReserveringByHuurderId(string $huurderId)
+    public static function getManyReserveringByHuurderId($huurderId)
     {
         $db = Database::getInstance();
         $listingReservering = $db->query('SELECT * FROM reservering WHERE HuurderId = :huurderId', ['huurderId' => $huurderId])->fetchAll();
@@ -88,7 +88,8 @@ class Reservering
             error_log($e->getMessage());
         }
     }
-    public function  betaalReservering($id){
+    public function  payReservering($id)
+    {
         try {
             $db = Database::getInstance();
             $result = $db->query('UPDATE reservering SET ReserveringStatus = "Betaald" WHERE ReserveringId = :reserveringId', ['reserveringId' => $id]);

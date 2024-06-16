@@ -30,6 +30,7 @@ $router->get('/admin/upload', 'AdminController@showUpLoadPhoto'); // hier bezig
 
 $router->put('/annuleer-reservering/{id}', 'ReserveringController@annuleerReservering');
 $router->put('/betaal-reservering/{id}', 'ReserveringController@betaalReservering');
+
 $router->put('/edit-auto/{id}', 'CarController@updateCar');
 $router->put('/edit-boot/{id}', 'BoatController@updateBoat');
 $router->put('/edit-onderneming/{id}', 'OndernemingController@updateOnderneming');

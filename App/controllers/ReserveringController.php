@@ -121,7 +121,6 @@ class ReserveringController
             $newReserveringData['voertuigId']
         );
 
-        // inspectAndDie($newReservering);
         $newReservering->addReservering();
         $_SESSION['succes_message'] = '🥳 Reservering  succesvol toegevoegd ✅    ';
         redirect('/listing-reservering');

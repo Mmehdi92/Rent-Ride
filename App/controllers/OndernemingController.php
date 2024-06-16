@@ -207,7 +207,6 @@ class OndernemingController
             ErrorController::notFound('Car not Updated');
         }
 
-        inspectAndDie($onderneming);
     }
 
     public function showEditOnderneming($params)

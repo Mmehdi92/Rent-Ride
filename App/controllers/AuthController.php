@@ -12,15 +12,15 @@ class AuthController
 {
     public function showLogInForm()
     {
-        
+
         if (Session::get('verhuurder') || Session::get('huurder') || Session::get('admin')) {
-            redirect('/'); 
+            redirect('/');
             exit;
         }
-    
-        loadView('/login/login'); 
+
+        loadView('/login/login');
     }
-    
+
     public function logout()
     {
         Session::clearALL();
@@ -36,60 +36,47 @@ class AuthController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $errors = [];
-
-        if (!Valadation::email($email)) {
-            $errors['email'] = 'Geen geldige email';
-        }
-
-        if (!Valadation::string($password, 4, 50)) {
-            $errors['password'] = 'Wachtwoord moet minimaal 4 karakters zijn';
-        }
-
-        if (!empty($errors)) {
-
-            loadView('/login/login', ['errors' => $errors]);
-            exit;
-        }
 
         // split the email and check if the domain is rentandride.nl
         $partials = explode('@', $email);
         if ($partials[1] === 'rentandride.nl') {
-            
+            // if there is a match, check if the email and password are correct
             $admin = Admin::getAdminByEmail($email);
-            
-            
+
+
             if (!$admin) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-            
+
             if (!($password === $admin->getProperty('wachtwoord'))) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-            
-         
-            
+            // if the email and password are correct, set the session and redirect to the homepage
             Session::set('admin', [
                 'voornaam' => $admin->getProperty('voorNaam'),
                 'achternaam' => $admin->getProperty('achterNaam'),
                 'email' => $admin->getProperty('email'),
                 'geboortedatum' => $admin->getProperty('geboorteDatum'),
-                
+
             ]);
-            
-            // inspectAndDie($admin);
+
+
             redirect('/');
         }
 
-
+        // if the email domain is not rentandride.nl check if it is a verhuurder
         $user = Verhuurder::getUserByEmail($email);
 
+
+        // check if the user is found 
         if (!$user) {
 
+
+            // if the user is not found, check if the user is a huurder
             $huurder = Huurder::getUserByEmail($email);
             if (!$huurder) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
@@ -101,7 +88,8 @@ class AuthController
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-            inspectAndDie($huurder);
+
+
             $huurder = new Huurder(
                 $huurder->Iban,
                 $huurder->Voornaam,
@@ -118,7 +106,7 @@ class AuthController
                 $huurder->HuurderId,
             );
 
-
+            //set the session and redirect to the homepage
             Session::set('huurder', [
                 'id' => $huurder->getProperty('Iban'),
                 'voornaam' => $huurder->getProperty('voorNaam'),
@@ -153,7 +141,7 @@ class AuthController
         );
 
 
-
+        //set the session and redirect to the homepage
         Session::set('verhuurder', [
             'id' => $user->getProperty('Iban'),
             'voornaam' => $user->getProperty('voorNaam'),

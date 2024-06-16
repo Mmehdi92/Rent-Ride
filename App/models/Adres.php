@@ -50,17 +50,23 @@ class Adres
 
     public function getAllAdresByPostcode($postcode, $huisnummer)
     {
-
+        //returns  adressen Array 
         try {
             $db = Database::getInstance();
             $adressen = $db->query('SELECT * FROM adres where postcode = :postcode and huisnummer = :huisnummer', ['postcode' => $postcode, 'huisnummer' => $huisnummer])->fetchAll();
-            inspectAndDie($adressen);
-            return $adressen;
+            foreach ($adressen as $adres) {
+                $adressenArray[] = new Adres(
+                    $adres->Postcode,
+                    $adres->Huisnummer,
+                    $adres->Straatnaam,
+                    $adres->Plaats,
+                    $adres->Land
+                );
+            }
+
+            return $adressenArray;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-
     }
-
-    
 }

@@ -13,7 +13,7 @@ class VoertuigenController
             redirect('/login');
             exit;
         }
-        $boatList = Boat::getManyByBoatsId($verhuurder['id']);
+        $boatList = Boat::getManyByVerhuurderId($verhuurder['id']);
         $carList = Car::getManyByCarsId($verhuurder['id']);
         loadView('/dashboard/verhuurder/listing/listing-vehicle', ['carList' => $carList, 'boatList' => $boatList]);
     }

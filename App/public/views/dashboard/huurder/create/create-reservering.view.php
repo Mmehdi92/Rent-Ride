@@ -8,7 +8,6 @@
  'listingAuto' => $listingAuto ?? [],
  'listingBoot' => $listingBoot ?? []
 ]); ?>
-<?inspectAndDie($voertuig);?>
 <?= loadPartial('footer'); ?>   
 
 <!-- 

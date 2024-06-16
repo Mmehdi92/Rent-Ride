@@ -10,9 +10,9 @@ use Framework\Valadation;
 class BoatController
 {
 
-
     public function showCreateBoat()
     {
+        // allow on  if the user is a verhuurder
         if (!$verhuurder = Session::get('verhuurder')) {
             redirect('/');
             exit;
@@ -24,14 +24,12 @@ class BoatController
 
     public function createBoat()
     {
+        // allow on  if the user is a verhuurder
         if (!$verhuurder = Session::get('verhuurder')) {
             redirect('/');
             exit;
         }
-
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
-
-
 
         // allowd fields array voor boten
         $allowFields = [
@@ -82,9 +80,8 @@ class BoatController
             }
         }
 
-
+        // if there are errors load the view with the errors
         if (!empty($errors)) {
-            // inspectAndDie($newBoatData);
             loadView('/dashboard/verhuurder/create/create-boot', ['errors' => $errors, 'newBoatData' => $newBoatData, 'ondermingsList' => $ondermingsList]);
             exit;
         }
@@ -107,7 +104,8 @@ class BoatController
         );
 
         $result = $boat->addBoat();
-
+        Session::set('succes_message', 'Boot succesvol toegevoegd ✅');
+        // if the boat is added redirect to the listing page
         if ($result !== false) {
             redirect('  /listing-vehicles');
         } else {
@@ -118,19 +116,19 @@ class BoatController
 
     public function deleteBoat($params)
     {
+
+        // allow on  if the user is a verhuurder
         if (!isset($params['id'])) {
             redirect('/onze-voertuigen');
             exit;
         }
 
         $boat = Boat::getOne($params['id']);
-
+        // if thereis no boat redirect to the listing page
         if ($boat) {
-            $result = $boat->deleteBoat();
-
-            if ($result) {
-                redirect('/listing-vehicles');
-            } 
+            $boat->deleteBoat();
+            redirect('/listing-vehicles');
+            exit;
         } else {
             loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => ['Er is iets misgegaan']]);
         }
@@ -138,7 +136,7 @@ class BoatController
 
     public function  showEditBoat($params)
     {
-
+        // allow on  if the user is a verhuurder
         if (!$verhuurder = Session::get('verhuurder')) {
             redirect('/');
             exit;
@@ -148,37 +146,34 @@ class BoatController
         $boat = Boat::getOne($id);
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
-
-
-
-        if ($boat) {
-
+        // if there is no boat or ondermingsList redirect to the listing page
+        if ($boat && $ondermingsList) {
             loadView('/dashboard/verhuurder/edit/edit-boot', ['boat' => $boat, 'ondermingsList' => $ondermingsList]);
         } else {
             redirect('/onze-voertuigen');
         }
     }
 
+
     public function updateBoat($params)
     {
+        // allow on  if the user is a verhuurder
         if (!$verhuurder = Session::get('verhuurder')) {
-            redirect('/login');
+            ErrorController::unAuthorized('Unauthorized');
             exit;
         }
         if (!isset($params['id'])) {
             ErrorController::notFound('Boat not found');
             exit;
         }
+
         $id = $params['id'];
         $boat = Boat::getOne($id);
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
-        
         if (!$boat && !$ondermingsList) {
             ErrorController::notFound('Boat not found');
             exit;
         }
-        
-      
 
         // allowd fields array voor boten
         $allowFields = [
@@ -194,13 +189,16 @@ class BoatController
             'aandrijving',
             'vaarbewijs'
         ];
-    
+        // change array form numeric to  associative array
         $updateValues =  array_intersect_key($_POST, array_flip($allowFields));
 
+        //add boat id to the array
         $updateValues['voertuigId'] = $boat->getProperty('voertuigId');
 
+        // trim white spaces
         $updateValues = array_map('sanatizeData', $updateValues);
- 
+
+        // Required fields
         $requiredFields = [
             'optionsOnderneming',
             'voertuigId',
@@ -216,31 +214,35 @@ class BoatController
             'vaarbewijs'
         ];
 
+        //instantiat errors array
         $errors = [];
 
+
+        //loop through required fields and check if they are empty if not add them to the errors array
         foreach ($requiredFields as $field) {
             if (empty($updateValues[$field]) || !Valadation::string($updateValues[$field])) {
                 $errors[$field] = ucfirst($field) . ' is verplicht';
             }
         }
 
+        //if there are errors load the view with the errors
         if (!empty($errors)) {
             loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => $errors, 'boat' => $boat, 'ondermingsList' => $ondermingsList]);
             exit;
         }
 
-
+        //get the boat id and add it to the array
         $updateValues['bootId'] = $boat->getProperty('bootId');
-        
-   
-        $result =  $boat->updateBoat($updateValues);
 
-        if ($result) {
-            $_SESSION['succes_message'] = '🚤 Boot  succesvol geupdate ✅    ';
+        //update the boat
+        $boat->updateBoat($updateValues);
+
+        //set a success message
+        Session::set('succes_message', 'Boat succesvol geupdate ✅');
+        if ($boat) {
             redirect('/listing-vehicles');
+        } else {
+            loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => ['Er is iets misgegaan']]);
         }
-        ErrorController::notFound('Boat not Updated');
     }
-
-    
 }

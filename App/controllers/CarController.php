@@ -232,7 +232,6 @@ class CarController
             loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car , 'ondermingsList' => $ondermingsList]);
             exit;
         }
-        // inspectAndDie(" 2");
             $result = $car->updateCar($updateValues);
 
           

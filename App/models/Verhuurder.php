@@ -95,6 +95,7 @@ class Verhuurder extends Gebruiker
                 FROM gebruiker
                 LEFT JOIN verhuurder ON gebruiker.Iban = verhuurder.VerhuurderId
                 WHERE gebruiker.Email = :email', ['email' => $email])->fetch();
+                
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

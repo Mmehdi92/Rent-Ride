@@ -28,6 +28,47 @@ class Admin
         $this->geboorteDatum = $geboortedatum;
     }
 
+    public function getVoorNaam()
+    {
+        return $this->voorNaam;
+    }
+
+    public function getAchterNaam()
+    {
+        return $this->achterNaam;
+    }
+
+    public function getPostCode()
+    {
+        return $this->postCode;
+    }
+
+    public function getHuisNummer()
+    {
+        return $this->huisNummer;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getWachtwoord()
+    {
+        return $this->wachtwoord;
+    }
+
+    public function getTelefoonNummer()
+    {
+        return $this->telefoonNummer;
+    }
+
+    public function getGeboorteDatum()
+    {
+        return $this->geboorteDatum;
+    }
+
+    
 
     public static function getAdminByEmail($email)
     {
@@ -57,4 +98,6 @@ class Admin
     {
         return $this->$property;
     }
+
+    
 }

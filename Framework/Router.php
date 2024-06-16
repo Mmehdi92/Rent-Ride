@@ -120,7 +120,6 @@ class Router
 
             // split the route uri into parts
             $routeParts = explode('/', trim($route['uri'], '/'));
-            // inspectAndDie($routeParts);
 
 
             $match = true;
