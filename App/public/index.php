@@ -11,7 +11,7 @@ require '../../helper.php';
 $lang = $_GET['langID'] ?? 'en';
 
 Session::start();
-if(isset($_GET['langID'])){
+if (isset($_GET['langID'])) {
     Session::set('langId', $lang);
 }
 

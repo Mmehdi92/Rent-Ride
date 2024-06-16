@@ -53,14 +53,14 @@
                             $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             return in_array($extension, $imageExtensions);
                         });
-                        
+
                         // inspectAndDie($imageFiles);
                         // Output HTML for displaying images
                         foreach ($imageFiles as $file) {
                             $filePath = $uploadDir . $file;
-                            ?>
+                        ?>
                             <div class="relative">
-                                <img src="../../../../uploads/<?=$file?>" alt="<?= $file ?>" class="w-16 h-auto rounded-lg">
+                                <img src="../../../../uploads/<?= $file ?>" alt="<?= $file ?>" class="h-auto rounded-lg ">
                             </div>
                         <?php } ?>
                     </div>

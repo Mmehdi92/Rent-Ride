@@ -3,6 +3,8 @@ namespace Models;
 use Exception;
 use Models\Vehicle;
 use Framework\Database;
+
+// Deze CLass valt buiten de scope en word niet meer gebruikt
 class Bycicle extends Vehicle
 {
     private int $fietsId;

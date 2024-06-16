@@ -53,13 +53,13 @@ class Adres
 
         try {
             $db = Database::getInstance();
-            $user = $db->query('SELECT * FROM adres where postcode = :postcode and huisnummer = :huisnummer', ['postcode' => $postcode, 'huisnummer' => $huisnummer])->fetchAll();
-            return $user;
+            $adressen = $db->query('SELECT * FROM adres where postcode = :postcode and huisnummer = :huisnummer', ['postcode' => $postcode, 'huisnummer' => $huisnummer])->fetchAll();
+            inspectAndDie($adressen);
+            return $adressen;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
 
-        return $user;
     }
 
     

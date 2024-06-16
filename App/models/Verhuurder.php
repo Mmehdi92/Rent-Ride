@@ -43,9 +43,7 @@ class Verhuurder extends Gebruiker
             $user = $db->query('SELECT * FROM gebruiker where email = :email', ['email' => $email])->fetchAll();
         } catch (PDOException $e) {
             echo $e->getMessage();
-        }
-
-        return $user;
+        };
     }
 
 

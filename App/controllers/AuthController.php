@@ -65,23 +65,13 @@ class AuthController
                 exit;
             }
             
-            if (!($password === $admin->Wachtwoord)) {
+            if (!($password === $admin->getProperty('wachtwoord'))) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
             
-            $admin = new Admin(
-                $admin->Voornaam,
-                $admin->Achternaam,
-                $admin->Postcode,
-                $admin->Huisnummer,
-                $admin->Email,
-                $admin->Wachtwoord,
-                $admin->TelefoonNummer,
-                $admin->Geboortedatum
-            );
-            
+         
             
             Session::set('admin', [
                 'voornaam' => $admin->getProperty('voorNaam'),

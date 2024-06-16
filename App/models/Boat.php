@@ -138,6 +138,7 @@ class Boat extends Vehicle
                                 ON voertuig.VoertuigId = boot.BootId 
                                 WHERE voertuig.VoertuigId = :id', ['id' => $id])->fetch();
 
+
             if ($boat) {
                 return new Boat(
                     $boat->VoertuigId,
@@ -154,8 +155,6 @@ class Boat extends Vehicle
                     $boat->TypeAandrijving,
                     $boat->Vaarbewijs
                 );
-            } else {
-                return null;
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -201,14 +200,13 @@ class Boat extends Vehicle
             if ($voertuigInsert && $boatInsert) {
                 $db->query('COMMIT');
             }
-            return $boatInsert;
         } catch (PDOException $e) {
             $db->query('ROLLBACK');
             error_log($e->getMessage());
         }
     }
 
-    public static function getManyByBoatsId($id)
+    public static function getManyByBoatsId($verhuurderId)
     {
         try {
             $db = Database::getInstance();
@@ -219,7 +217,7 @@ class Boat extends Vehicle
                                     JOIN onderneming ON verhuurder.VerhuurderId = onderneming.VerhuurderId
                                     JOIN voertuig ON onderneming.KVKNummer = voertuig.OndernemingId
                                     JOIN boot ON voertuig.VoertuigId = boot.BootId
-                                    WHERE gebruiker.Iban = :id', ['id' => $id])->fetchAll();
+                                    WHERE gebruiker.Iban = :id', ['id' => $verhuurderId])->fetchAll();
 
             $boatList = [];
             foreach ($boats as $boat) {
@@ -250,7 +248,7 @@ class Boat extends Vehicle
     {
         $db = Database::getInstance();
         $result = $db->query('DELETE FROM voertuig WHERE voertuigId = :id', ['id' => $this->voertuigId]);
-        return $result;
+        return $result !== false;
     }
 
 
@@ -261,8 +259,9 @@ class Boat extends Vehicle
 
             $db->query('START TRANSACTION');
             $actiefValue = ($updateValues['actief'] === 'true') ? 1 : 0;
+            
             // Update the voertuig table
-            $voertuigUpdate = $db->query(
+            $db->query(
                 'UPDATE voertuig SET Kleur = :Kleur, Model = :Model, Bouwjaar = :Bouwjaar, Zitplaatsen = :Zitplaatsen, PrijsPerDag = :PrijsPerDag, OndernemingId = :OndernemingId, Actief = :Actief WHERE VoertuigId = :VoertuigId',
                 [
                     'Kleur' => $updateValues['kleur'],
@@ -278,7 +277,7 @@ class Boat extends Vehicle
             // cast the value to an integer
             $vaarBewijsValue = ($updateValues['vaarbewijs'] === 'true') ? 1 : 0;
 
-            $bootUpdate = $db->query(
+            $db->query(
                 'UPDATE boot SET Lengte = :Lengte, Breedte = :Breedte, TypeAandrijving = :Aandrijving, VaarBewijs = :VaarBewijs WHERE BootId = :BootId',
                 [
                     'Lengte' => $updateValues['lengte'],
@@ -289,18 +288,13 @@ class Boat extends Vehicle
                 ]
             );
 
-            if ($voertuigUpdate && $bootUpdate) {
-                $db->query('COMMIT');
-            } else {
-                $db->query('ROLLBACK');
-                return false;
-            }
 
-            return $bootUpdate;
+            $db->query('COMMIT');
+            return ['status'=>'success', 'message'=>'Boat updated successfully'];
         } catch (PDOException $e) {
             $db->query('ROLLBACK');
             error_log($e->getMessage());
-            return false;
+            return ['status'=>'error', 'message'=>'Something went wrong'];
         }
     }
 

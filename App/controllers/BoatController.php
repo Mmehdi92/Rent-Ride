@@ -128,13 +128,11 @@ class BoatController
         if ($boat) {
             $result = $boat->deleteBoat();
 
-            if ($result !== false) {
-                redirect('/onze-voertuigen');
-            } else {
-                loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => ['Er is iets misgegaan']]);
-            }
+            if ($result) {
+                redirect('/listing-vehicles');
+            } 
         } else {
-            redirect('/listing-vehicles');
+            loadView('/dashboard/verhuurder/edit/edit-boot', ['errors' => ['Er is iets misgegaan']]);
         }
     }
 
@@ -168,19 +166,19 @@ class BoatController
             exit;
         }
         if (!isset($params['id'])) {
-            ErrorController::notFound('Car not found');
+            ErrorController::notFound('Boat not found');
             exit;
         }
         $id = $params['id'];
-
         $boat = Boat::getOne($id);
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
-
+        
         if (!$boat && !$ondermingsList) {
             ErrorController::notFound('Boat not found');
             exit;
         }
-
+        
+      
 
         // allowd fields array voor boten
         $allowFields = [
@@ -196,13 +194,13 @@ class BoatController
             'aandrijving',
             'vaarbewijs'
         ];
-
+    
         $updateValues =  array_intersect_key($_POST, array_flip($allowFields));
 
         $updateValues['voertuigId'] = $boat->getProperty('voertuigId');
 
         $updateValues = array_map('sanatizeData', $updateValues);
-
+ 
         $requiredFields = [
             'optionsOnderneming',
             'voertuigId',
@@ -233,7 +231,8 @@ class BoatController
 
 
         $updateValues['bootId'] = $boat->getProperty('bootId');
-
+        
+   
         $result =  $boat->updateBoat($updateValues);
 
         if ($result) {

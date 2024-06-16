@@ -34,6 +34,19 @@ class Admin
         try {
             $db = Database::getInstance();
             $admin = $db->query('SELECT * FROM beheerder where email = :email', ['email' => $email])->fetch();
+                     
+            $admin = new Admin(
+                $admin->Voornaam,
+                $admin->Achternaam,
+                $admin->Postcode,
+                $admin->Huisnummer,
+                $admin->Email,
+                $admin->Wachtwoord,
+                $admin->TelefoonNummer,
+                $admin->Geboortedatum
+            );
+            
+        
             return $admin;
         } catch (PDOException $e) {
             echo $e->getMessage();
