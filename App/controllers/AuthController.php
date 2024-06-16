@@ -54,24 +54,23 @@ class AuthController
 
         // split the email and check if the domain is rentandride.nl
         $partials = explode('@', $email);
-
         if ($partials[1] === 'rentandride.nl') {
-
+            
             $admin = Admin::getAdminByEmail($email);
-
-
+            
+            
             if (!$admin) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-
+            
             if (!($password === $admin->Wachtwoord)) {
                 $errors['email'] = 'Email of wachtwoord is onjuist';
                 loadView('/login/login', ['errors' => $errors]);
                 exit;
             }
-
+            
             $admin = new Admin(
                 $admin->Voornaam,
                 $admin->Achternaam,
@@ -82,16 +81,17 @@ class AuthController
                 $admin->TelefoonNummer,
                 $admin->Geboortedatum
             );
-
-
+            
+            
             Session::set('admin', [
                 'voornaam' => $admin->getProperty('voorNaam'),
                 'achternaam' => $admin->getProperty('achterNaam'),
                 'email' => $admin->getProperty('email'),
                 'geboortedatum' => $admin->getProperty('geboorteDatum'),
-
+                
             ]);
-
+            
+            // inspectAndDie($admin);
             redirect('/');
         }
 

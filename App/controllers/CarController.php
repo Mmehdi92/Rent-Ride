@@ -90,6 +90,8 @@ class CarController
             }
         }
 
+
+
         //render errors if any
         if (!empty($errors)) {
             loadView('dashboard/verhuurder/create/create-auto', ['errors' => $errors, 'newCaraData' => $newCarData, 'ondermingsList' => $ondermingsList ?? []]);
@@ -117,7 +119,7 @@ class CarController
 
 
             if ($result !== false) {
-                redirect('/onze-voertuigen');
+                redirect('/listing-vehicles');
             } else {
                 $_SESSION['succes_message'] = '🚘 Auto  succesvol toegevoegd ✅    ';
                 loadView('dashboard/verhuurder/create/create-auto', ['errors' => 'Er is iets misgegaan', 'newCaraData' => $newCarData]);

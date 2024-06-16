@@ -8,7 +8,6 @@ use Framework\Router;
 use Framework\Session;
 
 require '../../helper.php';
-
 $lang = $_GET['langID'] ?? 'en';
 
 Session::start();
