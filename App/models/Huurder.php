@@ -23,7 +23,7 @@ class Huurder extends Gebruiker
         string $geboorteDatum,
         bool $actief,
         string $huurderId,
-        string $rijbewijs ,
+        string $rijbewijs,
         string $vaarbewijs
     ) {
         parent::__construct($Iban, $voorNaam, $achterNaam, $postCode, $huisNummer, $email, $wachtwoord, $telefoonNummer, $geboorteDatum, $actief);
@@ -61,7 +61,7 @@ class Huurder extends Gebruiker
             $db = Database::getInstance();
             $db->query('START TRANSACTION');
 
-           
+
             $insertGebruiker = $db->query(
                 'INSERT INTO gebruiker 
                 (Iban, voorNaam, achterNaam, postCode, huisNummer, email, wachtwoord, telefoonNummer, geboorteDatum, actief) 
@@ -81,7 +81,7 @@ class Huurder extends Gebruiker
                 ]
             );
 
-         
+
 
             $vaarbewijsValue = ($this->vaarbewijs === 'true') ? 1 : 0;
             $insertHuurder = $db->query(
@@ -93,7 +93,7 @@ class Huurder extends Gebruiker
                 ]
             );
 
-            
+
 
 
 
@@ -105,7 +105,7 @@ class Huurder extends Gebruiker
     }
     public static function getUserByEmail($email)
     {
-        try{
+        try {
             $db = Database::getInstance();
             $user = $db->query('
             SELECT gebruiker.*, huurder.huurderId, huurder.rijbewijs, huurder.vaarbewijs
@@ -114,12 +114,12 @@ class Huurder extends Gebruiker
             WHERE gebruiker.email = :email
             ', ['email' => $email])->fetch();
             return  $user;
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             error_log($e->getMessage());
         }
     }
 
-    
+
     public function getProperty($property)
     {
         return $this->$property;

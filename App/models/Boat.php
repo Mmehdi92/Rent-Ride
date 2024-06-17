@@ -175,7 +175,7 @@ class Boat extends Vehicle
             $db = Database::getInstance();
             $db->query('START TRANSACTION');
             // Cast the value to an integer
-            $actiefValue = ($this->actief === 'true') ? 1 : 0;
+            $actiefValue = ($this->actief === true) ? 1 : 0;
             // Insert the data into the voertuig table
             $db->query(
                 'INSERT INTO VOERTUIG (OndernemingId, Kleur, Model, Bouwjaar, Zitplaatsen, PrijsPerDag, Actief)
@@ -192,7 +192,7 @@ class Boat extends Vehicle
             );
 
             // Cast the value to an integer
-            $vaarBewijsValue = ($this->vaarBewijs === 'true') ? 1 : 0;
+            $vaarBewijsValue = ($this->vaarBewijs === true) ? 1 : 0;
 
             // Get the last inserted id
             $boatId = $db->lastInsertId();
@@ -326,15 +326,32 @@ class Boat extends Vehicle
             $db = Database::getInstance();
             // Query to fetch boats based on the search term
             $boat =  $db->query(
-                'SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
-                                boot.BootId, boot.Lengte, boot.Breedte, boot.TypeAandrijving, boot.Vaarbewijs
-                                FROM voertuig
-                                JOIN boot ON voertuig.VoertuigId = boot.BootId
-                                WHERE (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1)
-                                AND (Bouwjaar LIKE :searchTerm2 OR Zitplaatsen LIKE :searchTerm1)',
+                'SELECT 
+                    voertuig.VoertuigId, 
+                    voertuig.OndernemingId, 
+                    voertuig.Kleur, 
+                    voertuig.Model, 
+                    voertuig.Bouwjaar, 
+                    voertuig.Zitplaatsen, 
+                    voertuig.PrijsPerDag, 
+                    voertuig.Actief,
+                    boot.BootId, 
+                    boot.Lengte, 
+                    boot.Breedte, 
+                    boot.TypeAandrijving, 
+                    boot.Vaarbewijs
+                FROM 
+                    voertuig
+                JOIN 
+                    boot 
+                ON 
+                    voertuig.VoertuigId = boot.BootId
+                WHERE 
+                    (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1)
+                    AND (:searchTerm2 = "" OR Bouwjaar = :searchTerm2 OR Zitplaatsen = :searchTerm2)',
                 [
                     'searchTerm1' => '%' . $searchTerm1 . '%',
-                    'searchTerm2' => '%' . $searchTerm2 . '%'
+                    'searchTerm2' => $searchTerm2
                 ]
             )->fetchAll();
 

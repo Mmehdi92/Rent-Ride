@@ -128,13 +128,24 @@ class ReserveringController
 
     public function betaalReservering($params)
     {
-        if (!$huurder = Session::get('huurder') || !$verhuurder = Session::get('verhuurder')) {
+
+        if (!$huurder = Session::get('huurder')) {
             ErrorController::unAuthorized('U bent niet gemachtigd om deze actie uit te voeren.');
             exit;
         }
         $reserveringId = $params['id'];
 
         $reservering = Reservering::getOneById($reserveringId);
+
+        if (!$reservering) {
+            ErrorController::notFound('Reservering niet gevonden.');
+            exit;
+        }
+
+        $reservering->payReservering($reserveringId);
+        $_SESSION['succes_message'] = '🥳 Reservering  succesvol betaald ✅ ';
+
+        redirect('/listing-reservering');
     }
 
 
@@ -151,8 +162,19 @@ class ReserveringController
         $reserveringId = $params['id'];
 
         $reservering = Reservering::getOneById($reserveringId);
-        inspect($reservering);
+
+        if (!$reservering) {
+            ErrorController::notFound('Reservering niet gevonden.');
+            exit;
+        }
+
+        $reservering->cancelReservering($reserveringId);
+
+        $_SESSION['succes_message'] = '🥳 Reservering  succesvol geannuleerd ✅ ';
+        redirect('/listing-reservering');
+        
     }
+
 
     public function deleteReservering($params)
     {
@@ -164,10 +186,7 @@ class ReserveringController
         $reserveringId = $params['id'];
 
         $reservering = Reservering::getOneById($reserveringId);
-        $result = $reservering->deleteReservering($reserveringId);
+         $reservering->deleteReservering($reserveringId);
         redirect('/listing-reservering');
     }
-
-    
-   
 }

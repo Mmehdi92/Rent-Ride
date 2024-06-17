@@ -42,16 +42,20 @@
                             <div class="flex flex-row ml-auto space-x-6 ">
 
                                 <!-- Betaal Form -->
-                                <form method="POST" action="/betaal-reservering/<?= $reservering->getProperty('reserveringId') ?>">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-800">Betaal</button>
-                                </form>
+                                <?php if ($reservering->getProperty('status') !== 'Cancelled' && $reservering->getProperty('status') !== 'Completed') : ?>
+                                    <form method="POST" action="/betaal-reservering/<?= $reservering->getProperty('reserveringId') ?>">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" class="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-800">Betaal</button>
+                                    </form>
+                                <?php endif; ?>
 
                                 <!-- Annuleer Form -->
-                                <form method="POST" action="/annuleer-reservering/<?= $reservering->getProperty('reserveringId') ?>">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="px-4 py-2 text-white bg-yellow-600 rounded hover:bg-yellow-800">Annuleer</button>
-                                </form>
+                                <?php if ($reservering->getProperty('status') !== 'Cancelled') : ?>
+                                    <form method="POST" action="/annuleer-reservering/<?= $reservering->getProperty('reserveringId') ?>">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" class="px-4 py-2 text-white bg-yellow-600 rounded hover:bg-yellow-800">Annuleer</button>
+                                    </form>
+                                <?php endif; ?>
 
                                 <!-- Delete Form -->
                                 <form method="POST" action="/delete-reservering/<?= $reservering->getProperty('reserveringId') ?>">

@@ -24,8 +24,8 @@ $router->get('/auth/register/huurder', 'HuurderController@showRegisterForm');
 $router->get('/auth/register', 'AuthController@showRegisterKeuze');
 $router->get('/auth/login', 'AuthController@showLoginForm');
 $router->get('/admin/csv', 'AdminController@showCsvUpload');
-$router->get('/admin/upload', 'AdminController@showUpLoadPhoto'); // hier bezig
-
+$router->get('/admin/upload', 'AdminController@showUpLoadPhoto'); 
+$router->get('/contact', 'ContactController@showContactPage'); // hier bezig
 
 
 $router->put('/annuleer-reservering/{id}', 'ReserveringController@annuleerReservering');

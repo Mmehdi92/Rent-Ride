@@ -44,7 +44,7 @@ class Car extends Vehicle
             $prijsPerdag,
             $actief
         );
-        
+
         $this->autoId = $autoId;
         $this->kenteken = $kenteken;
         $this->kofferbakRuimte = $kofferbakRuimte;
@@ -53,7 +53,7 @@ class Car extends Vehicle
         $this->aandrijving = $aandrijving;
     }
 
-    public static function getManyActief() 
+    public static function getManyActief()
     {
         try {
             $db = Database::getInstance();
@@ -87,7 +87,6 @@ class Car extends Vehicle
             return $carsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-         
         }
     }
 
@@ -122,7 +121,6 @@ class Car extends Vehicle
             return $carsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
-        
         }
     }
 
@@ -159,7 +157,6 @@ class Car extends Vehicle
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
-            
         }
     }
 
@@ -200,7 +197,6 @@ class Car extends Vehicle
             return $carList;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            
         }
     }
 
@@ -214,7 +210,7 @@ class Car extends Vehicle
 
             // start transaction
             $db->query('START TRANSACTION');
-            $actiefValue = ($this->actief === 'true') ? 1 : 0;
+            $actiefValue = ($this->actief === true) ? 1 : 0;
 
             // insert the vehicle
             $voertuigInsert = $db->query(
@@ -236,6 +232,7 @@ class Car extends Vehicle
             $trekhaakValue = ($this->trekhaak === 'true') ? 1 : 0;
             $dakrailsValue = ($this->dakrails === 'true') ? 1 : 0;
             // insert the car
+
             $autoInsert =  $db->query(
                 'INSERT INTO AUTO (AutoId, Kenteken, KofferbakRuimte, Dakrails, Trekhaak, Aandrijving)
                                 VALUES (:AutoId, :Kenteken, :KofferbakRuimte, :Dakrails, :Trekhaak, :Aandrijving)',
@@ -251,6 +248,7 @@ class Car extends Vehicle
 
             // commit the transaction
             if ($voertuigInsert && $autoInsert) {
+
                 $db->query('COMMIT');
             }
 
@@ -328,15 +326,38 @@ class Car extends Vehicle
         try {
             $db = Database::getInstance();
 
-   
-            $cars =  $db->query('SELECT voertuig.VoertuigId, voertuig.OndernemingId, voertuig.Kleur, voertuig.Model, voertuig.Bouwjaar, voertuig.Zitplaatsen, voertuig.PrijsPerDag, voertuig.Actief,
-                        auto.AutoId, auto.Kenteken, auto.KofferbakRuimte, auto.Dakrails, auto.Trekhaak, auto.Aandrijving
-                      FROM voertuig
-                      JOIN auto ON voertuig.VoertuigId = auto.AutoId
-                      WHERE (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1) AND (Bouwjaar LIKE :searchTerm2 OR Zitplaatsen LIKE :searchTerm1)', [
-                'searchTerm1' => '%' . $searchTerm1 . '%',
-                'searchTerm2' => '%' . $searchTerm2 . '%'
-            ])->fetchAll();
+
+            $cars = $db->query(
+                'SELECT 
+                    voertuig.VoertuigId, 
+                    voertuig.OndernemingId, 
+                    voertuig.Kleur, 
+                    voertuig.Model, 
+                    voertuig.Bouwjaar, 
+                    voertuig.Zitplaatsen, 
+                    voertuig.PrijsPerDag, 
+                    voertuig.Actief,
+                    auto.AutoId, 
+                    auto.Kenteken, 
+                    auto.KofferbakRuimte, 
+                    auto.Dakrails, 
+                    auto.Trekhaak, 
+                    auto.Aandrijving
+                FROM 
+                    voertuig
+                JOIN 
+                    auto 
+                ON 
+                    voertuig.VoertuigId = auto.AutoId
+                WHERE 
+                    (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1)
+                    AND (:searchTerm2 = "" OR Bouwjaar = :searchTerm2 OR Zitplaatsen = :searchTerm2)',
+                [
+                    'searchTerm1' => '%' . $searchTerm1 . '%',
+                    'searchTerm2' => $searchTerm2
+                ]
+            )->fetchAll();
+
 
 
             $carList = [];

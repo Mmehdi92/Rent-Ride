@@ -82,18 +82,27 @@ class Reservering
     {
         try {
             $db = Database::getInstance();
-            $result = $db->query('DELETE FROM reservering WHERE ReserveringId = :reserveringId', ['reserveringId' => $id]);
-            return $result;
+            $db->query('DELETE FROM reservering WHERE ReserveringId = :reserveringId', ['reserveringId' => $id]);
         } catch (PDOException $e) {
             error_log($e->getMessage());
         }
     }
+
     public function  payReservering($id)
     {
         try {
             $db = Database::getInstance();
-            $result = $db->query('UPDATE reservering SET ReserveringStatus = "Betaald" WHERE ReserveringId = :reserveringId', ['reserveringId' => $id]);
-            return $result;
+            $db->query('UPDATE reservering SET ReserveringStatus = "Completed" WHERE ReserveringId = :reserveringId', ['reserveringId' => $id]);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+    public function  cancelReservering($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $db->query('UPDATE reservering SET ReserveringStatus = "Cancelled" WHERE ReserveringId = :reserveringId', ['reserveringId' => $id]);
         } catch (PDOException $e) {
             error_log($e->getMessage());
         }
