@@ -4,8 +4,9 @@ namespace Models;
 
 use Framework\Database;
 use PDOException;
+use Interfaces\ZoektermInterface;
 
-class Zoekterm
+class Zoekterm implements ZoektermInterface
 {
     private int $id;
     private string $zoekterm;

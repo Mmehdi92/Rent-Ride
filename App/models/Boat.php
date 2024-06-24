@@ -3,11 +3,14 @@
 namespace Models;
 
 use Exception;
+use PDOException; 
 use Models\Vehicle;
 use Framework\Database;
-use PDOException;
+use Interfaces\BoatInterface;
+use Interfaces\SearchModelInterface;
+use Interfaces\VehicleInterface;
 
-final class Boat extends Vehicle
+final class Boat extends Vehicle implements BoatInterface, SearchModelInterface, VehicleInterface
 {
 
     private int $bootId;

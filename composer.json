@@ -14,7 +14,8 @@
             "App\\": "App/",
             "Framework\\": "Framework/",
             "Models\\": "App/models/",
-            "Controllers\\": "App/controllers/"
+            "Controllers\\": "App/controllers/",
+            "Interfaces\\": "App/interface/"
         },
         "require": {
             "vlucas/phpdotenv": "^5.6"

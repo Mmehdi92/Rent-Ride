@@ -2,11 +2,11 @@
 
 namespace Models;
 
-use Error;
 use Framework\Database;
 use PDOException;
+use Interfaces\ReserveringInterface;
 
-class Reservering
+class Reservering implements ReserveringInterface
 {
     private int $reserveringId;
     private string $startdatumtijd;

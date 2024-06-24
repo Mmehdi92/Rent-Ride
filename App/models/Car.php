@@ -6,9 +6,12 @@ use Exception;
 use Models\Vehicle;
 use Framework\Database;
 use PDOException;
+use Interfaces\CarInterface;
+use Interfaces\SearchModelInterface;
+use Interfaces\VehicleInterface;
 
 
-class Car extends Vehicle
+final class Car extends Vehicle implements CarInterface, SearchModelInterface, VehicleInterface
 {
 
     private int $autoId;

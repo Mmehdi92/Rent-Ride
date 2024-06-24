@@ -34,4 +34,6 @@ abstract class Vehicle
         $this->prijsPerdag = $prijsPerdag;
         $this->actief = $actief;
     }
+
+ 
 }

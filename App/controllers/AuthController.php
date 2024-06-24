@@ -30,7 +30,7 @@ class AuthController
         redirect('/');
     }
 
-    public function authenticateVerhuurder()
+    public function authUser()
     {
 
         $email = $_POST['email'];

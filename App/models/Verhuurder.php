@@ -4,9 +4,9 @@ namespace Models;
 
 use Framework\Database;
 use PDOException;
-
-
-final class Verhuurder extends Gebruiker
+use Interfaces\VerhuurderInterface;
+use Interfaces\GebruikerInterface;
+final class Verhuurder extends Gebruiker implements VerhuurderInterface, GebruikerInterface
 {
     private string $verhuurderId;
 

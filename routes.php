@@ -43,7 +43,7 @@ $router->post('/create-reservering', 'ReserveringController@createReservering');
 $router->post('/auth/register/verhuurder', 'VerhuurderController@registerVerhuurder');
 $router->post('/auth/register/huurder', 'HuurderController@registerHuurder'); 
 $router->post('/auth/logout', 'AuthController@logout');
-$router->post('/auth/login/verhuurder', 'AuthController@authenticateVerhuurder');
+$router->post('/auth/login', 'AuthController@authUser');
 $router->post('/upload-picture', 'AdminController@uploadPhoto');
 $router->post('/upload-csv', 'CSVController@uploadCsv');
 

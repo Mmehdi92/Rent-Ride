@@ -4,8 +4,9 @@ namespace Models;
 
 use Framework\Database;
 use PDOException;
+use Interfaces\OndernemingInterface;
 
-class Onderneming
+class Onderneming implements OndernemingInterface
 {
 
     private int $kvknummer;
