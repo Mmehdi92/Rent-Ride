@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 return [
+    /// Home page translate
     "welcome" => "Mirë se vini te Rent and Ride!",
     "discover" => "Zbuloni një botë aventurash me Rent and Ride! Merrni varka, biçikleta dhe makinat për çdo rast. <br><br>Eksploroni, zbuloni rrugë të reja dhe krijojeni momente të paharrueshme me zgjedhjen tonë të ndryshme të mjeteve. <br><br><span class='italic'>Gati të fillosh udhëtimin e jetës? Filloni këtu!</span>",
     "featured_vehicles_title" => "Zbuloni mjetet tona të shquara",
@@ -42,7 +43,46 @@ return [
     'logout' => 'Dilni',
     
     
+//register coice page
+'register_as_renter' => 'Regjistrohu si qiramarrësi',
+'register_as_owner' => 'Regjistrohu si pronar',
+    
+    
+    /// side menu translate
 
-    // einde home page
+    // top menu translate
+    
+    // register huurder form translate
+    'first_name' => 'Emri i parë',
+    'last_name' => 'Mbiemri',
+    'email' => 'Email',
+    'password' => 'Fjalëkalimi',
+    'confirm_password' => 'Konfirmo fjalëkalimin',
+    'phone_number' => 'Numri i telefonit',
+    'date_of_birth' => 'Ditëlindja',
+    'place' => 'Qyteti',
+    'street' => 'Emri i rrugës',
+    'postal_code' => 'Kodi postar',
+    'house_number' => 'Numri i shtëpisë',
+    'driver_license' => 'Patentë shoferi',
+    'boating_license' => 'Patentë për anije',
+    'account_number' => 'Numri i llogarisë',
+    'BTN_register' => 'Regjistrohu',
+    'yes'   => 'Po',
+    'no'    => 'Jo',
+    'kvk_number' => 'numri i biznesit',
+    'company_name' => 'Emri i biznesit',
+   'BTNmy_company' => 'Kompania ime',
+'BTNmy_vehicles' => 'Automjetet e mia',
+'BTNadd_company' => 'Shto kompani',
+'BTNmy_profile' => 'Profili im',
+'add_Vehicle' => 'Shto automjet'
+
+
+    //translate cars form 
+
+    //translate boats form
+
+    //details page translate
 ];
 ?>

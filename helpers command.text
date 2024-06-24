@@ -1,0 +1,7 @@
+composer dump-autoload
+php -S localhost:3000 -t App/public
+
+
+# soms werkt het niet  tab auto compleet dan  Vs opnieuw starten 
+vendor/bin/phpunit /dir -> test /* 
+vendor/bin/phpunit /dir -> test /(singleFile.php) 

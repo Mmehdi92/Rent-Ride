@@ -19,7 +19,7 @@
                 <!-- Success Message -->
 
                 <?= loadPartial('message'); ?>
-                <?= loadPartial('error' , ['errors' => $errors]); ?>
+                <?= loadPartial('error' , ['errors' => $errors ]); ?>
                 
 
                 <div class="flex flex-col space-y-4">

@@ -7,7 +7,7 @@ use Framework\Middleware\Authorize;
 
 class Router
 {
-    protected $routes = [];
+    private $routes = [];
 
     /**
      * Register Route
@@ -22,15 +22,15 @@ class Router
         //Destrucutring
         list($controller, $controllerMethod) = explode('@', $action);
 
+
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
             'controller' => $controller,
             'controllerMethod' => $controllerMethod,
-
-
         ];
     }
+
 
     /**
      * Get Route
@@ -87,12 +87,6 @@ class Router
     }
 
 
-    /**
-     * @param $int $htppCode
-     * @return void
-     */
-
-
 
     /**
      * Route  the request
@@ -111,17 +105,16 @@ class Router
             $requestMethod = strtoupper($_POST['_method']);
         }
 
-        // inspect($requestMethod);
+        ;
 
         foreach ($this->routes as $route) {
-
             // split the uri into parts
             $uriParts = explode('/', trim($uri, '/'));
-
+            
             // split the route uri into parts
             $routeParts = explode('/', trim($route['uri'], '/'));
-
-
+   
+        
             $match = true;
 
             // check if the number of parts is the same
@@ -139,6 +132,7 @@ class Router
                     // Check for the param and add to $params array
                     if (preg_match('/\{(.+?)\}/', $routeParts[$i], $matches)) {
                         $params[$matches[1]] = $uriParts[$i];
+                       
                     }
                 }
                 if ($match) {

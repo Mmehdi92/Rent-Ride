@@ -1,7 +1,7 @@
 <?php
  
 use PHPUnit\Framework\TestCase;
-require_once 'c\laragon\RentAndRideWebApp\helper.php';
+require_once './helper.php';
 
  
 class InspectTest extends TestCase

@@ -13,10 +13,10 @@
     </div>
 </section>
 
-<section class="grid grid-cols-1 gap-4 p-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+<section class="grid min-h-screen grid-cols-1 gap-4 p-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     <!-- Zoekresultaten voor auto -->
     <?php foreach ($listingAuto as $auto) : ?>
-        <div class="overflow-hidden bg-white rounded-lg shadow-md">
+        <div class="overflow-hidden bg-white rounded-lg shadow-md h-fit">
             <img class="object-cover object-center w-full h-40" src="../../Image/CarImagePlaceholder.avif" alt="Auto afbeelding">
             <div class="p-4">
                 <h3 class="text-lg font-semibold text-gray-800"><?= $auto->getProperty('model') ?></h3>
@@ -34,7 +34,7 @@
 
     <!-- Zoekresultaten voor boot -->
     <?php foreach ($listingBoot as $boot) : ?>
-        <div class="overflow-hidden bg-white rounded-lg shadow-md">
+        <div class="overflow-hidden bg-white rounded-lg shadow-md h-fit">
             <img class="object-cover object-center w-full h-40" src=".././../Image/BoatWaterPlaceholder.jpg" alt="Boot afbeelding">
             <div class="p-4">
                 <h3 class="text-lg font-semibold text-gray-800"><?= $boot->getProperty('model') ?></h3>

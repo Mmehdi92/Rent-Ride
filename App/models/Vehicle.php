@@ -1,7 +1,9 @@
-<?php 
+<?php
+
 namespace Models;
 
-abstract class Vehicle{
+abstract class Vehicle
+{
 
     protected int $voertuigId;
     protected int $ondernemingId;
@@ -13,10 +15,16 @@ abstract class Vehicle{
     protected bool $actief;
 
 
-    function __construct(int $voertuigId, int $ondernemingId,
-                            string $kleur, string $model, int $bouwjaar, 
-                             int $zitplaatsen, float $prijsPerdag, bool $actief)
-    {
+    function __construct(
+        int $voertuigId,
+        int $ondernemingId,
+        string $kleur,
+        string $model,
+        int $bouwjaar,
+        int $zitplaatsen,
+        float $prijsPerdag,
+        bool $actief
+    ) {
         $this->voertuigId = $voertuigId;
         $this->ondernemingId = $ondernemingId;
         $this->kleur = $kleur;
@@ -25,17 +33,5 @@ abstract class Vehicle{
         $this->zitplaatsen = $zitplaatsen;
         $this->prijsPerdag = $prijsPerdag;
         $this->actief = $actief;
-
     }
-    
-
 }
-
-
-
-?>
-
-
-
-
-

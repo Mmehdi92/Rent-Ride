@@ -34,13 +34,16 @@ class Database
      * Get the instance of the Database
      * @return Database
      */
+
+     
     public static function getInstance()
     {
         if (self::$instance === null) {
             $config = require basePath('config/db.php');
             self::$instance = new Database($config);
+         
         }
-
+     
         return self::$instance;
     }
 
@@ -51,6 +54,7 @@ class Database
      * @return PDOStatement
      * @throws Exception
      */
+
     public function query($query, $params = [])
     {
         try {
@@ -58,6 +62,7 @@ class Database
 
             foreach ($params as $param => $value) {
                 $stmt->bindValue(':' . $param, $value);
+                
             }
 
             $stmt->execute();
@@ -71,6 +76,7 @@ class Database
      * Get the last inserted id
      * @return int
      */
+    
     public function lastInsertId()
     {
         return $this->conn->lastInsertId();

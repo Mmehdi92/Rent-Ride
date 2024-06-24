@@ -3,7 +3,6 @@ namespace Controllers;
 use Framework\Session;
 use Models\Car;
 use Models\Boat;
-use Models\Bycicle;
 
 class VoertuigenController
 {

@@ -5,7 +5,7 @@ namespace Models;
 use Framework\Database;
 use PDOException;
 
-class Huurder extends Gebruiker
+final class Huurder extends Gebruiker
 {
     private string $huurderId;
     private string $rijbewijs;

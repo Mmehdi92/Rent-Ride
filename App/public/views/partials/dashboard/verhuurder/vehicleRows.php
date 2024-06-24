@@ -1,3 +1,9 @@
+
+<?php 
+use Framework\Session;
+$lang = Session::get('langId') ?? 'nl';
+$setLang = require basePath('/App/locale/'.$lang.'.php');
+?>
 <!-- Huurder Dashboard -->
 <section class="min-h-screen">
     <!-- Container voor 2-delig Dashboard navigatie en content -->
@@ -8,7 +14,7 @@
 
         <!-- Main/Selected Content voor Huurder -->
         <div class="flex flex-col w-full space-y-2">
-            <h1 class="text-2xl font-semibold tracking-widest underline underline-offset-1">Mijn Voertuigen</h1>
+            <h1 class="text-2xl font-semibold tracking-widest underline underline-offset-1"><?=$setLang['BTNmy_vehicles']?></h1>
 
             <!-- Container Add Sections -->
             <div class="flex flex-row mx-auto space-x-24 ">

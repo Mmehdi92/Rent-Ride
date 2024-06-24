@@ -12,7 +12,8 @@ use Models\Reservering;
 class ReserveringController
 {
     public function showMijnReserveringen()
-    {
+    { 
+   
         if (!$huurder = Session::get('huurder') || !$verhuurder = Session::get('verhuurder')) {
             redirect('/login');
             exit;

@@ -1,7 +1,7 @@
 <?php
 
 $router->get('/', 'HomeController@index');
-
+$router->get('/about', 'AboutController@showAboutPage');
 $router->get('/onze-voertuigen', 'OnzeVoertuigenController@index');
 $router->get('/onze-voertuigen/details/show-car/{id}', 'OnzeVoertuigenController@showCarDetails');
 $router->get('/onze-voertuigen/details/show-boat/{id}', 'OnzeVoertuigenController@showBoatDetails');
@@ -36,7 +36,6 @@ $router->put('/edit-boot/{id}', 'BoatController@updateBoat');
 $router->put('/edit-onderneming/{id}', 'OndernemingController@updateOnderneming');
 
 
-
 $router->post('/create-auto', 'CarController@createCar');
 $router->post('/create-boot', 'BoatController@createBoat');
 $router->post('/onze-voertuigen/create-onderneming', 'OndernemingController@createOnderneming');
@@ -46,6 +45,7 @@ $router->post('/auth/register/huurder', 'HuurderController@registerHuurder');
 $router->post('/auth/logout', 'AuthController@logout');
 $router->post('/auth/login/verhuurder', 'AuthController@authenticateVerhuurder');
 $router->post('/upload-picture', 'AdminController@uploadPhoto');
+$router->post('/upload-csv', 'CSVController@uploadCsv');
 
 
 $router->delete('/listing-searchterm/{id}', 'AdminController@deleteSearchTerm');

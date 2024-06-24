@@ -14,6 +14,6 @@ $adminName = Session::get('admin')['voornaam'];
 
 <!-- Selecten Add Ondernming -->
 <div class="flex flex-col items-center p-2 ">
-    <a class="p-1 mb-2 text-sm text-center duration-300 bg-green-400 border rounded-md h-fit hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="/onderneming/create">Foto  <br> Uploaden</a>
+    <a class="p-1 mb-2 text-sm text-center duration-300 bg-green-400 border rounded-md h-fit hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="/admin/upload">Foto  <br> Uploaden</a>
 </div>
 </div>

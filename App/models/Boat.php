@@ -7,7 +7,7 @@ use Models\Vehicle;
 use Framework\Database;
 use PDOException;
 
-class Boat extends Vehicle
+final class Boat extends Vehicle
 {
 
     private int $bootId;
@@ -99,8 +99,7 @@ class Boat extends Vehicle
 
             // Query to fetch active boats along with their corresponding voertuig data
             $listingBoot = $db->query(
-                '
-            SELECT * FROM boot 
+            'SELECT * FROM boot 
             INNER JOIN voertuig ON voertuig.VoertuigId = boot.BootId 
             WHERE voertuig.Actief = 1 
             LIMIT 5;'
@@ -168,7 +167,7 @@ class Boat extends Vehicle
     }
 
     // Add a new boat to the database
-    public  function addBoat()
+    public  function  addBoat()
     {
         try {
             // Get an instance of the database
@@ -192,7 +191,7 @@ class Boat extends Vehicle
             );
 
             // Cast the value to an integer
-            $vaarBewijsValue = ($this->vaarBewijs === true) ? 1 : 0;
+            $vaarBewijsValue = ($this->vaarBewijs === "true") ? 1 : 0;
 
             // Get the last inserted id
             $boatId = $db->lastInsertId();

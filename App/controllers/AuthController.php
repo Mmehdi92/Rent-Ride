@@ -38,9 +38,15 @@ class AuthController
 
 
         // split the email and check if the domain is rentandride.nl
+        //Check if there an email is entered
+        if (!Valadation::email($email)) {
+            $errors['email'] = 'Email is niet geldig';
+            loadView('/login/login', ['errors' => $errors]);
+            exit;
+        }
         $partials = explode('@', $email);
         if ($partials[1] === 'rentandride.nl') {
-            // if there is a match, check if the email and password are correct
+            // if there is a match and if password matches
             $admin = Admin::getAdminByEmail($email);
 
 
@@ -65,7 +71,7 @@ class AuthController
             ]);
 
 
-            redirect('/');
+            redirect('/listing-searchterms');
         }
 
         // if the email domain is not rentandride.nl check if it is a verhuurder
@@ -103,7 +109,7 @@ class AuthController
                 $huurder->Actief,
                 $huurder->HuurderId,
                 $huurder->Rijbewijs,
-                $huurder->HuurderId,
+                $huurder->Iban,
             );
 
             //set the session and redirect to the homepage
@@ -137,7 +143,7 @@ class AuthController
             $user->TelefoonNummer,
             $user->Geboortedatum,
             $user->Actief,
-            $user->VerhuurderId
+            $user->Iban
         );
 
 

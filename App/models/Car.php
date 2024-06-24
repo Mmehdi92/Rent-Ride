@@ -83,7 +83,6 @@ class Car extends Vehicle
                     $car->Aandrijving
                 );
             }
-
             return $carsArray;
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -210,7 +209,7 @@ class Car extends Vehicle
 
             // start transaction
             $db->query('START TRANSACTION');
-            $actiefValue = ($this->actief === true) ? 1 : 0;
+            $actiefValue = ($this->actief === "true") ? 1 : 0;
 
             // insert the vehicle
             $voertuigInsert = $db->query(
@@ -292,6 +291,8 @@ class Car extends Vehicle
 
                 ]
             );
+
+
             $trekhaakValue = ($updateValues['trekhaak'] === 'true') ? 1 : 0;
             $dakrailsValue = ($updateValues['dakrails'] === 'true') ? 1 : 0;
 
@@ -300,19 +301,18 @@ class Car extends Vehicle
                 'UPDATE auto SET Kenteken = :Kenteken, KofferbakRuimte = :KofferbakRuimte, Dakrails = :Dakrails, Trekhaak = :Trekhaak, Aandrijving = :Aandrijving WHERE AutoId = :AutoId',
                 [
                     'Kenteken' => $updateValues['kenteken'],
-                    'KofferbakRuimte' => $updateValues['kofferbakRuimte'],
-                    'Dakrails' => $updateValues['dakrails'],
-                    'Trekhaak' => $updateValues['trekhaak'],
+                    'KofferbakRuimte' => $updateValues['kofferbakruimte'],
+                    'Dakrails' => $dakrailsValue,
+                    'Trekhaak' => $trekhaakValue,
                     'Aandrijving' => $updateValues['aandrijving'],
-                    'AutoId' => $updateValues['autoId']
+                    'AutoId' => $updateValues['voertuigId']
                 ]
             );
 
             if ($voertuigUpdate && $autoUpdate) {
                 $db->query('COMMIT');
             }
-
-            return $autoUpdate;
+            return true;
         } catch (PDOException $e) {
             $db->query('ROLLBACK');
             error_log($e->getMessage());
@@ -350,6 +350,7 @@ class Car extends Vehicle
                 ON 
                     voertuig.VoertuigId = auto.AutoId
                 WHERE 
+             
                     (Model LIKE :searchTerm1 OR Kleur LIKE :searchTerm1)
                     AND (:searchTerm2 = "" OR Bouwjaar = :searchTerm2 OR Zitplaatsen = :searchTerm2)',
                 [

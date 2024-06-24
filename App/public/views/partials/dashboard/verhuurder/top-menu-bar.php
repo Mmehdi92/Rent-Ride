@@ -1,6 +1,13 @@
+<?php 
+use Framework\Session;
+$lang = Session::get('langId') ?? 'nl';
+$setLang = require basePath('/App/locale/'.$lang.'.php');
+?>
+
+
 <!-- Section Add Vehicle -->
 <div class="flex flex-col p-2 ">
-    <p class="p-1 mb-2 text-sm text-center duration-300 bg-gray-100 border rounded-md ">Voertuig Toevoegen</p>
+    <p class="p-1 mb-2 text-sm text-center duration-300 bg-gray-100 border rounded-md "><?=$setLang['add_Vehicle']?></p>
     <div class="flex flex-row space-x-16">
         <a href="/create-auto"> <img src="../../../SVG Icons/CarIcon.svg" alt="Car Icon" class="w-10 h-10" /></a>
         <a href="/create-boot"><img src="../../../SVG Icons/BoatIcon.svg" alt="Boat Icon" class="w-10 h-10" /></a>
@@ -10,7 +17,7 @@
 
 <!-- Selecten Add Ondernming -->
 <div class="flex flex-col items-center p-2 ">
-    <a class="p-1 mb-2 text-sm text-center duration-300 bg-green-400 border rounded-md h-fit hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="/onderneming/create">Onderneming <br> Toevoegen</a>
+    <a class="p-1 mb-2 text-sm text-center duration-300 bg-green-400 border rounded-md h-fit hover:outline hover:bg-white hover:font-semibold hover:text-black-400" href="/onderneming/create"><?= $setLang['BTNadd_company']?></a>
 
 </div>
 </div>

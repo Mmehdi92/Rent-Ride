@@ -6,7 +6,7 @@ use Framework\Database;
 use PDOException;
 
 
-class Verhuurder extends Gebruiker
+final class Verhuurder extends Gebruiker
 {
     private string $verhuurderId;
 

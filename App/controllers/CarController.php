@@ -115,6 +115,7 @@ class CarController
             );
 
 
+
             $result = $newCar->addCar();
 
 
@@ -176,7 +177,7 @@ class CarController
 
     public function updateCar($params)
     {
-       
+
         if (!$verhuurder = Session::get('verhuurder')) {
             redirect('/login');
             exit;
@@ -189,7 +190,7 @@ class CarController
         $car = Car::getOne($id);
         $ondermingsList = Onderneming::getAllOndernemingByVerhuurdersId($verhuurder['id']);
 
-       
+
         if (!$car && !$ondermingsList) {
             ErrorController::notFound('Car not found');
             exit;
@@ -197,13 +198,12 @@ class CarController
 
         // allowd fields array
         $allowFields = ['optionsOnderneming', 'kleur', 'kenteken', 'model', 'kofferbakruimte', 'bouwjaar', 'dakrails', 'zitplaatsen', 'prijsPerDag', 'trekhaak', 'aandrijving', 'actief'];
-
+        
         $updateValues = [];
-
         $updateValues =  array_intersect_key($_POST, array_flip($allowFields));
         $updateValues['voertuigId'] = $car->getProperty('voertuigId');
         $updateValues = array_map('sanatizeData', $updateValues);
-      
+        
         $requiredFields = [
             'optionsOnderneming',
             'voertuigId',
@@ -219,28 +219,30 @@ class CarController
             'aandrijving',
             'actief'
         ];
-
+        
         $errors = [];
-
+        
         foreach ($requiredFields as $field) {
             if (empty($updateValues[$field]) || !Valadation::string($updateValues[$field])) {
+                inspectAndDie($field    );
                 $errors[$field] = ucfirst($field) . ' is verplicht';
             }
         }
 
         if (!empty($errors)) {
-            loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car , 'ondermingsList' => $ondermingsList]);
+            loadView('dashboard/verhuurder/edit/edit-auto', ['errors' => $errors, 'car' => $car, 'ondermingsList' => $ondermingsList]);
             exit;
         }
-            $result = $car->updateCar($updateValues);
 
-          
-            if ($result) {
-                $_SESSION['succes_message'] = '🚘 Auto  succesvol geupdate ✅    ';
-                redirect('/listing-vehicles');
-            } else {
-                ErrorController::notFound('Car not Updated');
-            };
-        
+        $result = $car->updateCar($updateValues);
+
+
+        if ($result) {
+            // Set flash message
+            $_SESSION['succes_message'] = '🚘 Auto  succesvol geupdate ✅    ';
+            redirect('/listing-vehicles');
+        } else {
+            ErrorController::notFound('Car not Updated');
+        };
     }
 }

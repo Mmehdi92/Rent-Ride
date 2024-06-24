@@ -25,6 +25,7 @@ $data = require basePath('/App/locale/'.$lang.'.php');
             <a href="/" class="hover:cursor-pointer hover:underline hover:font-semibold hover:text-normal"><?=$data['home']?></a>
             <a href="/onze-voertuigen" class="hover:cursor-pointer hover:underline hover:font-semibold hover:text-normal"><?=$data['our_vehicles']?></a>
             <a href="/contact" class="hover:cursor-pointer hover:underline hover:font-semibold hover:text-normal"><?=$data['contact']?></a>
+            <a href="/about" class="hover:cursor-pointer hover:underline hover:font-semibold hover:text-normal">About</a>
         </nav>
         <div class="flex items-center ml-auto space-x-4">
             <?php if (Session::has('verhuurder')) : ?>

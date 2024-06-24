@@ -14,7 +14,7 @@ class AdminController
         $errors = [];
 
         if (!$searchTermList) {
-            loadView('dashboard/admin/listing/listing-searchTerms', ['errors' => ['Geen zoektermen gevonden']]);
+            loadView('dashboard/admin/listing/listing-searchTerms', ['errors' => ['Er zijn nog geen zoektermen']]);
         }
 
         loadview('dashboard/admin/listing/listing-searchTerms', [
@@ -28,7 +28,7 @@ class AdminController
 
 
         if (!isset($params['id'])) {
-            ErrorController::notFound('Car not found');
+            ErrorController::notFound('Er is iets mis gegaan, probeer het opnieuw');
             exit;
         }
 

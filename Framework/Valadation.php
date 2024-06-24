@@ -18,13 +18,14 @@ class Valadation
         return false;
     }
 
-
+    //Check of het een geldige e-mail is
     public  static function email($value)
     {
         $value =  trim($value);
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
+    //Check of  2 values  gelijk zijn aan elkaar
     public static function match($valueOne, $valueTwo)
     {
         $valueOne = trim($valueOne);
@@ -32,7 +33,4 @@ class Valadation
 
         return $valueOne === $valueTwo;
     }
-
-
-    
 }

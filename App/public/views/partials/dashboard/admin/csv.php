@@ -25,10 +25,10 @@
                     <!-- Form Start -->
                     <form action="/upload-csv" method="POST" enctype="multipart/form-data" class="mb-4 bg-white rounded shadow-md p-14">
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="csvFile">
+                            <label class="block mb-2 text-sm font-bold text-gray-700" for="csvfile">
                                 Select CSV File
                             </label>
-                            <input type="file" name="csvFile" id="csvFile" accept=".csv" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                            <input type="file" name="csvfile" id="csvfile" accept=".csv" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="flex items-center justify-between">
                             <button class="m-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline" type="submit">
@@ -36,42 +36,11 @@
                             </button>
                         </div>
                     </form>
+
                     <!-- Form End -->
 
                     <!-- Display CSV Data -->
-                    <div class="p-4 bg-white rounded shadow-md">
-                        <?php
-                        // Check if CSV file was uploaded and process it
-                        if (isset($_FILES['csvFile']) && $_FILES['csvFile']['error'] === UPLOAD_ERR_OK) {
-                            // Directory where CSV files are stored
-                            $uploadDir = 'C:/laragon/RentAndRideWebApp/App/public/uploads/';
-                            $csvFilePath = $uploadDir . $_FILES['csvFile']['name'];
 
-                            // Move uploaded file to destination directory
-                            if (move_uploaded_file($_FILES['csvFile']['tmp_name'], $csvFilePath)) {
-                                // Read CSV file data
-                                $csvData = array_map('str_getcsv', file($csvFilePath));
-
-                                // Display CSV data in table format
-                                echo '<table class="min-w-full leading-normal">';
-                                foreach ($csvData as $row) {
-                                    echo '<tr>';
-                                    foreach ($row as $cell) {
-                                        echo '<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">';
-                                        echo htmlspecialchars($cell);
-                                        echo '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                                echo '</table>';
-
-                                // Optionally, process or save CSV data to database
-                            } else {
-                                echo '<p class="text-red-500">Failed to upload CSV file.</p>';
-                            }
-                        }
-                        ?>
-                    </div>
 
                 </div>
 

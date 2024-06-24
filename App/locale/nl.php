@@ -1,6 +1,9 @@
 <?php
+
 declare(strict_types=1);
 return [
+
+    // Home page translate
     "welcome" => "Welkom bij Rent and Ride!",
     "discover" => "Ontdek een wereld van avontuur met Rent and Ride! Huur boten, fietsen en auto's voor elke gelegenheid. <br><br>Ga op ontdekkingstocht, verken nieuwe routes en beleef onvergetelijke momenten met onze diverse selectie aan voertuigen. <br><br><span class='italic'>Klaar om de reis van je leven te beginnen? Start hier!</span>",
     "featured_vehicles_title" => "Ontdek onze featured Voertuigen",
@@ -42,6 +45,53 @@ return [
     'logout' => 'Uitloggen',
 
 
-    // einde home page
+//register coice page
+'register_as_renter' => 'Registreer als huurder',
+'register_as_owner' => 'Registreer als verhuurder',
+
+    /// side menu translate
+
+    // top menu translate
+
+    // register huurder/verhuurder form translate
+    'first_name' => 'Voornaam',
+    'last_name' => 'Achternaam',
+    'email' => 'E-mail',
+    'password' => 'Wachtwoord',
+    'confirm_password' => 'Bevestig wachtwoord',
+    'phone_number' => 'Telefoonnummer',
+    'date_of_birth' => 'Geboortedatum',
+    'place' => 'Stad',
+    'street' => 'Straatnaam',
+    'house_number' => 'Huisnummer',
+    'postal_code' => 'Postcode',
+    'driver_license' => 'Rijbewijs',
+    'boating_license' => 'Vaarbewijs',
+    'BTN_register' => 'Registreren',
+    'account_number' => 'IBAN',
+    'yes'   => 'Ja',
+    'no'    => 'Nee',
+    'kvk_number' => 'KVK nummer',
+    'company_name' => 'Ondernemingsnaam',
+    'BTNmy_company' => 'Mijn Onderneming',
+    'BTNmy_vehicles' => 'Mijn Voertuigen',
+    'BTNadd_company' => 'Onderneming Toevoegen',
+    'BTNmy_profile' => 'Mijn profiel',
+    'add_Vehicle' => 'Voertuig Toevoegen',
+
+
+    //translate cars form 
+
+    //translate boats form
+
+    //details page translate
+
+
+
+
+
+
+
+
+
 ];
-?>
