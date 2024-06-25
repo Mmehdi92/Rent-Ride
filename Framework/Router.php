@@ -105,7 +105,7 @@ class Router
             $requestMethod = strtoupper($_POST['_method']);
         }
 
-        ;
+        
 
         foreach ($this->routes as $route) {
             // split the uri into parts
@@ -132,17 +132,15 @@ class Router
                     // Check for the param and add to $params array
                     if (preg_match('/\{(.+?)\}/', $routeParts[$i], $matches)) {
                         $params[$matches[1]] = $uriParts[$i];
-                       
+                        
                     }
                 }
                 if ($match) {
                     $controller = 'Controllers\\' . $route['controller'];
                     $controllerMethod = $route['controllerMethod'];
-
-                    // Instanstaite Controller and call method
-
-                    $controllerInstance = new $controller();
-                    $controllerInstance->$controllerMethod($params);
+                    
+                    $controllerInstance = new $controller(); 
+                    $controllerInstance->$controllerMethod($params); 
                     return;
                 }
             }

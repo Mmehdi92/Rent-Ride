@@ -6,25 +6,23 @@ use PDOException;
 use Exception;
 use PDO;
 
-require_once basePath('config/db.php');
 class Database
 {
     private $conn;
     private static $instance = null;
+    private static $config = null;
 
-    /**
-     * Private constructor for the Database class
-     */
-    private function __construct($config)
+
+    private function __construct()
     {
-        $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};";
+        $dsn = "mysql:host=" . self::$config['host'] . ";port=" . self::$config['port'] . ";dbname=" . self::$config['dbname'];
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         ];
 
         try {
-            $this->conn = new PDO($dsn, $config['username'], $config['password'], $options);
+            $this->conn = new PDO($dsn, self::$config['username'], self::$config['password'], $options);
         } catch (PDOException $e) {
             throw new Exception("Database connection failed: " . $e->getMessage());
         }
@@ -34,16 +32,13 @@ class Database
      * Get the instance of the Database
      * @return Database
      */
-
-     
     public static function getInstance()
     {
         if (self::$instance === null) {
-            $config = require basePath('config/db.php');
-            self::$instance = new Database($config);
-         
+            self::$config = require_once basePath('Framework/config/db.php');
+            self::$instance = new Database();
         }
-     
+
         return self::$instance;
     }
 
@@ -54,7 +49,6 @@ class Database
      * @return PDOStatement
      * @throws Exception
      */
-
     public function query($query, $params = [])
     {
         try {
@@ -62,7 +56,6 @@ class Database
 
             foreach ($params as $param => $value) {
                 $stmt->bindValue(':' . $param, $value);
-                
             }
 
             $stmt->execute();
@@ -76,7 +69,6 @@ class Database
      * Get the last inserted id
      * @return int
      */
-    
     public function lastInsertId()
     {
         return $this->conn->lastInsertId();
